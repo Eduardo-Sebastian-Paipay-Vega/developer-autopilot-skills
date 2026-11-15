@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "baseUrl": "http://localhost:3000",
+  "referenceRoute": "/",
+  "publicRoutes": ["/"],
+  "allowedSourcePaths": [],
+  "protectedSourcePaths": [
+    "backend/",
+    "server/",
+    "api/",
+    "database/",
+    "migrations/",
+    "src/app/admin/",
+    "src/app/dashboard/",
+    "src/app/(dashboard)/",
+    "src/app/(app)/",
+    "src/features/dashboard/",
+    "src/features/admin/",
+    "src/features/auth/"
+  ],
+  "excludedRoutes": ["/admin", "/dashboard", "/api", "/app", "/login", "/registro"],
+  "viewports": [
+    { "name": "desktop", "width": 1440, "height": 900 },
+    { "name": "tablet", "width": 768, "height": 1024 },
+    { "name": "mobile", "width": 390, "height": 844 }
+  ]
+}

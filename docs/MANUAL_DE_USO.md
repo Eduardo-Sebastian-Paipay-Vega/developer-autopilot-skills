@@ -118,7 +118,14 @@ Este kit garantiza que nadie degrade el diseño de tus páginas públicas y que 
 
 ---
 
-## 6. Módulo 4: Documentación y Entregables en Word
+## 6. Módulo 4: Documentación Viva, Arquitectura y Entregables
+
+### `/crear-plan-maestro`
+* **Para qué sirve:** Genera la **información primaria y fuente canónica de verdad** del proyecto (`docs/planeacion/plan-maestro.md`). Define Requisitos Funcionales (`RF-01` a `RF-n`), Casos de Uso (`CU-01` a `CU-n`), jerarquía modular, rutas/pantallas objetivo y límites Out-of-Scope (blindaje anti-alucinación para IA).
+  * **Si aún no hay código:** Estructura el dominio funcional y reporta explícitamente qué información falta aclarar antes de programar.
+  * **Si ya hay código:** Audita la integración E2E entre base de datos, backend REST y pantallas frontend, detectando residuos y componentes fantasma.
+* **Ejemplo de prompt:**
+  > *"/crear-plan-maestro a partir de la visión del sistema y requerimientos del cliente."*
 
 ### `/actualizar-contexto`
 * **Para qué sirve:** Se ejecuta al terminar una sesión de desarrollo. Analiza con `git diff` qué cambió realmente en la arquitectura (nuevos endpoints, carpetas o contratos) y te propone actualizar la documentación viva (`docs/arquitectura/contexto-proyecto.md`) sin borrar contexto histórico.
@@ -166,6 +173,7 @@ Este kit garantiza que nadie degrade el diseño de tus páginas públicas y que 
 | Si necesitas... | Invoca esta skill |
 | :--- | :--- |
 | Configurar un proyecto nuevo | `/iniciar-toolkit` |
+| Elaborar el Plan Maestro de Dominio (Info Primaria) | `/crear-plan-maestro` |
 | Arreglar desbordamiento en celular | `/responsividad` |
 | Arreglar una tabla que scrollea toda la pantalla | `/mejorar-vista-fija` |
 | Destacar la fila que abrió un modal | `/resaltar-fila-abierta` |

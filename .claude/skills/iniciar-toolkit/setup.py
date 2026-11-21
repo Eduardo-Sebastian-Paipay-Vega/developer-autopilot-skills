@@ -202,6 +202,7 @@ def main():
         print("  ✓ /support-db               ─ Inspección viva del esquema ORM")
         print("  ✓ /diccionario-datos        ─ Documentación de tablas y columnas")
 
+    print("  ✓ /crear-plan-maestro       ─ Plan Maestro de Arquitectura y Dominio (Información Primaria)")
     print("  ✓ /crear-guia-tecnica       ─ Especificaciones técnicas en " + str(manuals_path))
     print("  ✓ /crear-manual-usuario     ─ Generación de manuales para clientes y exportación .docx")
 

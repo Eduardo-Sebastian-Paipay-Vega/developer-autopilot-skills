@@ -48,10 +48,11 @@ Cursor utiliza reglas de contexto (`.cursorrules` o la carpeta moderna `.cursor/
 
 ```markdown
 # Developer AI Toolkit Rules
-Este proyecto cuenta con un kit de 23 skills ubicadas en `.claude/skills/`.
+Este proyecto cuenta con un kit de 24 skills ubicadas en `.claude/skills/`.
 Siempre que el usuario solicite una tarea coincidente con las siguientes directivas, lee el archivo `SKILL.md` correspondiente antes de actuar:
 
 - Inicializar proyecto o setup: `.claude/skills/iniciar-toolkit/SKILL.md`
+- Plan Maestro de Arquitectura y Dominio: `.claude/skills/crear-plan-maestro/SKILL.md`
 - Resolución de conflictos Git: `.claude/skills/resolver-conflicto-merge/SKILL.md`
 - Responsividad móvil: `.claude/skills/responsividad/SKILL.md`
 - Tablas fijas y scroll interno: `.claude/skills/mejorar-vista-fija/SKILL.md`

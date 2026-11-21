@@ -82,6 +82,7 @@ Una vez inicializado el proyecto con esta skill, las demás herramientas convive
 | Situación u Objetivo | Skill a Invocar |
 | :--- | :--- |
 | **Inicio de proyecto o cambio de entorno** | `/iniciar-toolkit` |
+| **Generar Plan Maestro y Delimitaciones (Info Primaria)** | `/crear-plan-maestro` |
 | **Garantizar fidelidad visual de Landing Page** | `/landing-uniformizar` o `/landing-recopilar` |
 | **Auditar consistencia estética del sitio público** | `/landing-auditar` |
 | **Aplicar diseño de referencia a rutas públicas** | `/landing-aplicar` |

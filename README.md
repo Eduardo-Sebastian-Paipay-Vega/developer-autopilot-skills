@@ -1,7 +1,13 @@
 # 🧠 Skills para No Pensar — Enterprise & Design AI Toolkit
 
-> **Kit integral de 23 skills de ingeniería de software, diseño visual y DevOps para agentes de IA (Claude Code, Antigravity, Gemini CLI, Cursor).**  
+> **Kit integral de 23 skills de ingeniería de software, diseño visual y DevOps para agentes de IA (Claude Code, Antigravity, Gemini CLI, Cursor, Windsurf).**  
 > Diseñado para que cualquier desarrollador pueda llegar a cualquier proyecto, empresa o cliente y disponer de un copiloto con estándares de clase mundial sin fricción ni configuraciones manuales.
+
+---
+
+## 📚 Documentación Rápida
+* 📖 **[Manual de Uso para el Desarrollador (Guía paso a paso y Cheat Sheet)](docs/MANUAL_DE_USO.md)**
+* ⚙️ **[Guía de Configuración para Agentes (Claude, Cursor, Antigravity, Windsurf, Copilot)](docs/CONFIGURACION_AGENTES.md)**
 
 ---
 

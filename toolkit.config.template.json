@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "project": {
+    "name": "nombre-del-proyecto",
+    "description": "Descripción del sistema o producto",
+    "organization": "Nombre de la Empresa o Cliente"
+  },
+  "cloud": {
+    "provider": "gcp",
+    "project_id": "mi-proyecto-cloud",
+    "region": "southamerica-west1",
+    "services": {
+      "backend": "mi-backend-staging",
+      "frontend": "mi-frontend-staging",
+      "migration_job": "mi-backend-migrate",
+      "database_instance": "mi-sql-instance"
+    },
+    "urls": {
+      "backend_staging": "https://api-staging.ejemplo.com",
+      "frontend_staging": "https://staging.ejemplo.com"
+    }
+  },
+  "team": {
+    "members": [
+      {
+        "name": "DESARROLLADOR_1",
+        "emails": ["usuario@empresa.com", "dev@gmail.com"]
+      }
+    ]
+  },
+  "paths": {
+    "backend_dir": "BACKEND",
+    "frontend_dir": "frontend",
+    "docs_dir": "docs/arquitectura",
+    "manuals_dir": "docs/manuales"
+  }
+}

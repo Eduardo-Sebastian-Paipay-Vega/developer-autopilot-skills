@@ -1,68 +1,130 @@
-# Landing Design Guardian — kit de skills para Claude Code
+# 🧠 Skills para No Pensar — Enterprise & Design AI Toolkit
 
-**Objetivo:** usar el landing existente como fuente de verdad visual, documentarlo con evidencias y aplicar esa identidad **solo** a rutas y componentes públicos explícitamente autorizados. El dashboard, el sistema autenticado y el backend quedan fuera del alcance.
+> **Kit integral de 23 skills de ingeniería de software, diseño visual y DevOps para agentes de IA (Claude Code, Antigravity, Gemini CLI, Cursor).**  
+> Diseñado para que cualquier desarrollador pueda llegar a cualquier proyecto, empresa o cliente y disponer de un copiloto con estándares de clase mundial sin fricción ni configuraciones manuales.
 
-## Instalación en un repositorio
+---
 
-1. Descomprime este ZIP en la **raíz del repositorio**, de modo que aparezca `.claude/skills/landing-design-guardian/SKILL.md`.
-2. Abre `.claude/landing-design/scope.json`. Indica `baseUrl` (servidor local), `referenceRoute`, `publicRoutes` y, especialmente, las carpetas exactas de `allowedSourcePaths`. No agregues carpetas genéricas que incluyan el sistema privado.
-3. Para capturar estilos renderizados, dentro del proyecto instala Playwright si no existe:
-   ```powershell
-   npm install --save-dev playwright
-   npx playwright install chromium
-   ```
-   Si el repositorio ya tiene Playwright, reutilízalo. Inicia el servidor del landing como lo haces normalmente.
-4. Reinicia Claude Code para descubrir las skills y ejecuta, en orden:
-   ```text
-   /landing-recopilar
-   /landing-auditar
-   /landing-aplicar
-   /landing-verificar
-   ```
-   Alternativamente, usa `/landing-uniformizar` para orquestar los cuatro pasos en una ejecución, siempre que `allowedSourcePaths` esté bien configurado.
-   Usa `/landing-actualizar` solo cuando cambie *deliberadamente* el diseño de referencia.
+## 🚀 ¿Por dónde empezar? (La Skill Iniciadora)
 
-**No ejecutes `npm install` si el proyecto no usa npm**: el agente deberá identificar su gestor real (pnpm, yarn, bun) antes de proponer comandos equivalentes. La script usa `playwright` como dependencia ya instalada.
+Al abrir cualquier proyecto o repositorio nuevo, ejecuta un solo comando:
 
-## Comandos
-
-- `/landing-uniformizar`: orquestador integral (recopilar → auditar → aplicar → verificar), con freno si falta allowlist.
-
-- `/landing-recopilar`: captura datos medidos del landing + inspección de su código, construye la especificación visual sin cambiar el producto.
-- `/landing-auditar`: clasifica las pantallas públicas, encuentra divergencias y propone un plan por archivo.
-- `/landing-aplicar`: crea una línea base, realiza cambios solo en archivos permitidos, reutiliza componentes y valida que no alteró archivos fuera de alcance.
-- `/landing-verificar`: revisa responsive, estados, regresiones y build; emite veredicto con evidencias.
-- `/landing-actualizar`: actualiza la fuente de verdad tras cambios aprobados, versionando diferencias.
-
-## Herramientas incluidas
-
-Captura visual (con el servidor local encendido):
-
-```powershell
-node .claude/skills/landing-design-guardian/scripts/capture-landing.mjs
+```text
+/iniciar-toolkit
 ```
 
-Verificar un cambio de alcance (tomar snapshot **antes** de editar):
+Esta skill inspecciona el repositorio en 2 segundos:
+* Detecta el stack de frontend (Angular, React, Vue, Next.js, PrimeNG, Tailwind).
+* Detecta el stack de backend (Django, FastAPI, NestJS, Express).
+* Configura la identidad del desarrollador desde Git y ramas activas.
+* Genera el archivo de contexto `toolkit.config.json`.
+* Prepara las carpetas de documentación viva y activa la convivencia armónica entre todas las skills.
 
-```powershell
-node .claude/skills/landing-design-guardian/scripts/guard-changes.mjs snapshot
-# ... /landing-aplicar realiza modificaciones ...
-node .claude/skills/landing-design-guardian/scripts/guard-changes.mjs verify
+---
+
+## 📦 Cómo instalar este Toolkit en tus proyectos
+
+Tienes 3 formas limpias de usar este repositorio sin mezclar tus herramientas con el código de la empresa o cliente:
+
+### Opción 1: Instalación Global (Recomendada)
+Disponible en todos los proyectos de tu computadora sin tocar el `.git` del cliente:
+* **Antigravity / Gemini CLI:** Clona este repositorio en `~/.gemini/config/skills/`.
+* **Claude Code:** Clona este repositorio en `~/.claude/skills/`.
+
+### Opción 2: Como Git Submodule (Para proyectos de equipo)
+Si deseas que viva en la carpeta `.claude/skills` del repositorio pero como un puntero aislado que nunca mezcla archivos:
+```bash
+git submodule add https://github.com/Eduardo-Sebastian-Paipay-Vega/skills-para-no-pensar.git .claude/skills
 ```
 
-`capture-landing.mjs` genera capturas PNG y JSON con estilos computados para tres resoluciones. No emplea scraping remoto ni transmite información. `guard-changes.mjs` compara archivos antes/después y falla ante cambios fuera del alcance explícito. No hace commits.
+Para actualizar a la última versión en cualquier momento:
+```bash
+git submodule update --remote
+```
 
-## Límites y seguridad
+### Opción 3: Clon local con `.gitignore`
+Clona directamente dentro de tu proyecto:
+```bash
+git clone https://github.com/Eduardo-Sebastian-Paipay-Vega/skills-para-no-pensar.git .claude/skills
+```
+Y añade en el `.gitignore` del proyecto del cliente:
+```gitignore
+.claude/skills/
+toolkit.config.json
+```
 
-- **No** migrar automáticamente estilos al dashboard, intranet, panel privado, login operativo o cualquier superficie que forme parte del sistema sin una decisión explícita.
-- **No** reemplazar variables CSS globales si también las consume el sistema interno. Usar tokens aislados por contenedor o estilos del landing.
-- **No** refactorizar lógica de negocio, APIs, autenticación, modelos, migraciones, routing privado ni backend.
-- **No** inventar colores, fuentes, animaciones, tamaños o comportamientos. Distinguir *medido* vs. *inferido* vs. *no encontrado*.
-- **No** hacer commit, push, despliegue ni instalar herramientas sin permiso del usuario. El comando `/landing-aplicar` autoriza únicamente los cambios visuales acotados que describe.
-- Si la referencia y los archivos permitidos no están identificados, `recopilar` puede inventariar y proponer, pero `aplicar` debe detenerse sin escribir código.
+---
 
-## Evidencias creadas durante el uso
+## 🧭 Catálogo Maestro de Skills (23 Skills)
 
-`.claude/landing-design/` contendrá `DESIGN.md`, `TOKENS.json`, `COMPONENTS.md`, `PAGE-INVENTORY.md`, `AUDIT.md`, `VERIFICATION.md`, capturas en `evidence/`, y `change-baseline.json` (archivo técnico, local).
+### 1. Orquestación y Setup
+| Comando | Descripción |
+| :--- | :--- |
+| **`/iniciar-toolkit`** | Arrancador automático: detecta el stack técnico, genera `toolkit.config.json` y sincroniza las demás skills. |
 
-**Nota:** este ZIP es un kit original diseñado para el flujo solicitado. No incluye código copiado de las skills públicas citadas en la respuesta.
+### 2. Frontend y Experiencia de Usuario (UI/UX)
+| Comando | Descripción |
+| :--- | :--- |
+| **`/frontend-standards`** | Guía y estándares de oro de arquitectura Angular, componentes reactivos, PrimeNG y TypeScript. |
+| **`/frontend-review`** | Auditoría y corrección de componentes: OnPush, Signals, A11y, formularios y desacoplamiento REST. |
+| **`/responsividad`** | Adaptación móvil (<768px) con preservación pixel-perfect de escritorio y prevención del bug flex-wrap. |
+| **`/mejorar-vista-fija`** | Layout con Flexbox para tablas con sticky header, filtros anclados y scroll vertical interno sin desbordar la página. |
+| **`/tabla-orden-dinamico`** | Reordenamiento de columnas por usuario, anchos redimensionables y persistencia segura de preferencias. |
+| **`/resaltar-fila-abierta`** | Feedback visual de fila activa al abrir/cerrar diálogos modales para mantener el contexto del usuario. |
+
+### 3. Landing Design Guardian (Diseño Visual y Sitios Públicos)
+| Comando | Descripción |
+| :--- | :--- |
+| **`/landing-uniformizar`** | Orquestador completo de diseño visual: recopila tokens, audita páginas públicas, aplica estilos y verifica. |
+| **`/landing-recopilar`** | Inspección y captura de tokens de diseño computados (colores, tipografía, espaciado) con Playwright. |
+| **`/landing-auditar`** | Clasifica rutas públicas y detecta discrepancias contra el diseño de referencia. |
+| **`/landing-aplicar`** | Aplica la identidad visual exclusivamente a rutas autorizadas respetando la línea base. |
+| **`/landing-verificar`** | Comprobación de regresiones visuales y estados interactivos con evidencias gráficas. |
+| **`/landing-actualizar`** | Versiona y actualiza la fuente de verdad del diseño tras cambios aprobados. |
+| **`/landing-design-guardian`** | Reglas maestras de contención para proteger el sistema privado contra cambios de estilo del landing. |
+
+### 4. Backend, Bases de Datos y Modelos
+| Comando | Descripción |
+| :--- | :--- |
+| **`/support-db`** | Inspección viva de modelos ORM (`models.py`, entidades), tipos de datos, relaciones FK/M2M y enums. |
+| **`/diccionario-datos`** | Extrae y documenta tablas y campos directamente desde comentarios del ORM y PostgreSQL a Markdown y Word. |
+
+### 5. Documentación Viva y Entregables
+| Comando | Descripción |
+| :--- | :--- |
+| **`/actualizar-contexto`** | Analiza `git diff` al final de la sesión y actualiza la arquitectura viva (`docs/arquitectura`) sin perder historial. |
+| **`/crear-guia-tecnica`** | Genera especificaciones técnicas de módulos para soporte y desarrollo con diagramas de flujo Mermaid. |
+| **`/crear-manual-usuario`** | Redacta manuales en lenguaje de usuario final y los convierte a Word (`.docx`) mediante conversor integrado. |
+
+### 6. Git, DevOps y Reportes de Avance
+| Comando | Descripción |
+| :--- | :--- |
+| **`/resolver-conflicto-merge`** | Resolución determinista de conflictos Git en CLI con verificación de hunks, grep de imports y tests. |
+| **`/reporte-semanal-resumen`** | Extrae tus commits de Git de la semana y redacta el informe de avance en lenguaje de gerencia. |
+| **`/diagnostico-staging`** | Diagnóstico en Google Cloud Platform: Cloud Run, Cloud SQL, sincronización de Jobs de migración y logs. |
+| **`/update-main-staging`** | Pipeline completo de despliegue: validación local, commits convencionales, Cloud Build, migraciones y smoke tests. |
+
+---
+
+## 🛠️ Estructura del Repositorio
+
+```text
+skills-para-no-pensar/
+├── .claude/
+│   ├── landing-design/        # Configuración de scope y evidencias visuales
+│   └── skills/                # Directorio unificado de las 23 skills
+│       ├── iniciar-toolkit/
+│       ├── frontend-standards/
+│       ├── resolver-conflicto-merge/
+│       ├── landing-design-guardian/
+│       └── ...
+├── toolkit.config.template.json # Plantilla de configuración agnóstica
+└── README.md                  # Este documento
+```
+
+---
+
+## 📄 Licencia
+
+MIT License — Creado y mantenido por **Eduardo Sebastián Paipay Vega**.  
+Úsalo libremente en tus proyectos personales, profesionales y empresariales.

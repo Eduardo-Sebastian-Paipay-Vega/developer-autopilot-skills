@@ -14,6 +14,7 @@ Este manual está diseñado para que cualquier desarrollador aproveche al máxim
 6. [Módulo 4: Documentación y Entregables en Word](#6-módulo-4-documentación-y-entregables-en-word)
 7. [Módulo 5: Git, DevOps y Reportes Gerenciales](#7-módulo-5-git-devops-y-reportes-gerenciales)
 8. [Matriz de Consulta Rápida (Cheat Sheet)](#8-matriz-de-consulta-rápida-cheat-sheet)
+9. [Prompts Maestros de Activación y Actualización (Universal vs. Equipo Cerrado)](#9-prompts-maestros-de-activación-y-actualización-universal-vs-equipo-cerrado)
 
 ---
 
@@ -190,3 +191,64 @@ Este kit garantiza que nadie degrade el diseño de tus páginas públicas y que 
 | Generar informe semanal para tu jefe/gerencia | `/reporte-semanal-resumen` |
 | Revisar servicios caídos en Cloud Run | `/diagnostico-staging` |
 | Desplegar a staging con validaciones | `/update-main-staging` |
+
+---
+
+## 9. Prompts Maestros de Activación y Actualización (Universal vs. Equipo Cerrado)
+
+Para no tener que explicarle al agente el contexto desde cero cada vez, copia y pega el prompt que corresponda a tu escenario de trabajo:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                        ELIGE TU ESCENARIO                              │
+│                                                                        │
+│  [CASO 1: MODO UNIVERSAL]             [CASO 2: EQUIPO CERRADO / SQUAD] │
+│  • Freelance, pet projects o clientes • Empresas, squads, colegios     │
+│  • Libertad ágil de arquitectura      • Contratos estrictos y blindaje │
+│  • Sin burocracia de reglas fijas     • Aislamiento y cero alucinación │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### CASO 1: Modo Universal (Proyectos Propios, Freelance y Prototipos)
+
+#### A. Prompt de Arranque / Activación Inicial
+> *"Actúa como Senior Fullstack Architect. Vamos a trabajar en este proyecto utilizando el toolkit de automatización ubicado en `.claude/skills/`.*
+> 
+> *Por favor ejecuta `/iniciar-toolkit` para inspeccionar el repositorio, detectar el stack tecnológico (frontend, backend, base de datos y ramas de Git) y generar el archivo `toolkit.config.json`.*
+> 
+> *Una vez generado el contexto, muestra un resumen conciso del entorno detectado y las skills recomendadas para comenzar a construir funcionalidades con arquitectura limpia."*
+
+#### B. Prompt de Actualización (Nuevas Skills / Nuevas Herramientas)
+> *"Se han incorporado nuevas skills o mejoras al toolkit en GitHub. Por favor actualiza el submódulo ejecutando `git submodule update --remote .claude/skills`.*
+> 
+> *Luego ejecuta `/iniciar-toolkit` para refrescar `toolkit.config.json` con cualquier cambio reciente en dependencias o carpetas del proyecto, y confirma que todas las herramientas están sincronizadas y listas."*
+
+---
+
+### CASO 2: Modo Equipo Cerrado / Blindado (Squads, Empresas y Sistemas Institucionales)
+
+#### A. Prompt de Arranque / Activación con Blindaje Anti-Alucinación
+> *"Actúa como Tech Lead y Senior Software Engineer asignado a este proyecto de equipo. Tu objetivo es ejecutar tareas respetando estrictamente los contratos, roles y delimitaciones del proyecto:*
+> 
+> *1. **PASO 1 (Contexto de Infraestructura):** Ejecuta `/iniciar-toolkit` para asegurar que `toolkit.config.json` refleje las rutas exactas del frontend, backend y documentación del repositorio.*
+> *2. **PASO 2 (Contrato Canónico e Información Primaria):** Lee como FUENTE ÚNICA DE VERDAD el archivo maestro de planeación (`docs/planeacion/plan-maestro.md` o `docs/planeacion/plan.md`) y `AGENTS.md`. Si aún no existe el plan maestro, ejecútalo con `/crear-plan-maestro`.*
+> *3. **PASO 3 (Límites Inquebrantables y Anti-Alucinación):***
+>    - *PROHIBIDO inventar roles o permisos fuera del catálogo oficial (`rol_usuario_enum` y `permisos_core`).*
+>    - *PROHIBIDO implementar funcionalidades marcadas como Out-of-Scope (ej. pasarelas de pago no aplicables, cobros comerciales o hardware propietario).*
+>    - *RESPETA el aislamiento multi-tenant obligatorio (`withTenant`), el sobre canónico HTTP (`success`, `data`, `error`) y el diseño protegido (`landing-design-guardian`).*
+>    - *Si falta información crítica de negocio, DETENTE y pregunta antes de asumir o programar.*
+> 
+> *Confirma que has asimilado estas reglas antes de comenzar a editar código."*
+
+#### B. Prompt de Actualización (Evolución de Sprint / Nuevas Migraciones o Requisitos)
+> *"Actúa como Tech Lead del equipo. Ha ocurrido una evolución en el proyecto (nuevos Requisitos Funcionales, migraciones de base de datos o cambios en el alcance del sprint). Por favor ejecuta el siguiente protocolo de re-sincronización cerrada:*
+> 
+> *1. **AUDITORÍA DE INTEGRACIÓN:** Ejecuta `/crear-plan-maestro` (o actualiza el `plan.md`) para auditar la base de datos física (`database/migrations/`), las rutas del backend (`backend/src/routes/`) y las pantallas del frontend, actualizando la matriz de integración E2E ([OK], [PARCIAL], [PENDIENTE]).*
+> *2. **DETECCIÓN DE RESIDUOS:** Identifica rutas huérfanas, proyectos fantasma o tablas sin endpoint asociado que deban limpiarse.*
+> *3. **DOCUMENTACIÓN VIVA:** Ejecuta `/actualizar-contexto` para registrar en `docs/arquitectura/` qué cambió en la sesión respecto a los contratos arquitectónicos.*
+> *4. **VERIFICACIÓN DE LÍMITES:** Confirma que ningún cambio haya roto las reglas Out-of-Scope ni los contratos de aislamiento multi-tenant.*
+> 
+> *Muestra el reporte comparativo de lo actualizado antes de continuar con la siguiente tarea."*
+

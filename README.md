@@ -61,7 +61,41 @@ toolkit.config.json
 
 ---
 
-## 🧭 Catálogo Maestro de Skills (23 Skills)
+## 💬 Prompts Rápidos de Arranque (Copia y Pega)
+
+Consulta el **[Manual de Uso Completo](docs/MANUAL_DE_USO.md#9-prompts-maestros-de-activación-y-actualización-universal-vs-equipo-cerrado)** para ver los 4 prompts detallados con sus instrucciones de actualización. Aquí tienes los dos de arranque rápido:
+
+<details>
+<summary><b>🔹 Caso 1: Modo Universal (Proyectos Propios / Freelance / Prototipos)</b></summary>
+
+```text
+Actúa como Senior Fullstack Architect. Vamos a trabajar en este proyecto utilizando el toolkit de automatización ubicado en .claude/skills/.
+Por favor ejecuta /iniciar-toolkit para inspeccionar el repositorio, detectar el stack tecnológico (frontend, backend, base de datos y ramas de Git) y generar el archivo toolkit.config.json.
+Una vez generado el contexto, muestra un resumen conciso del entorno detectado y las skills recomendadas para comenzar a construir funcionalidades con arquitectura limpia.
+```
+</details>
+
+<details>
+<summary><b>🔒 Caso 2: Modo Equipo Cerrado (Squads / Empresas / Sistemas Institucionales)</b></summary>
+
+```text
+Actúa como Tech Lead y Senior Software Engineer asignado a este proyecto de equipo. Tu objetivo es ejecutar tareas respetando estrictamente los contratos, roles y delimitaciones del proyecto:
+
+1. PASO 1 (Contexto de Infraestructura): Ejecuta /iniciar-toolkit para asegurar que toolkit.config.json refleje las rutas exactas del frontend, backend y documentación del repositorio.
+2. PASO 2 (Contrato Canónico e Información Primaria): Lee como FUENTE ÚNICA DE VERDAD el archivo maestro de planeación (docs/planeacion/plan-maestro.md o docs/planeacion/plan.md) y AGENTS.md. Si aún no existe el plan maestro, ejecútalo con /crear-plan-maestro.
+3. PASO 3 (Límites Inquebrantables y Anti-Alucinación):
+   - PROHIBIDO inventar roles o permisos fuera del catálogo oficial (rol_usuario_enum y permisos_core).
+   - PROHIBIDO implementar funcionalidades marcadas como Out-of-Scope (ej. pasarelas de pago no aplicables, cobros comerciales o hardware propietario).
+   - RESPETA el aislamiento multi-tenant obligatorio (withTenant), el sobre canónico HTTP (success, data, error) y el diseño protegido (landing-design-guardian).
+   - Si falta información crítica de negocio, DETENTE y pregunta antes de asumir o programar.
+
+Confirma que has asimilado estas reglas antes de comenzar a editar código.
+```
+</details>
+
+---
+
+## 🧭 Catálogo Maestro de Skills (24 Skills)
 
 ### 1. Orquestación y Setup
 | Comando | Descripción |

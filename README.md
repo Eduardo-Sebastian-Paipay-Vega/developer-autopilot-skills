@@ -1,6 +1,6 @@
-# 🧠 Skills para No Pensar — Enterprise & Design AI Toolkit
+# 🚀 Developer Autopilot Skills — Enterprise & Fullstack AI Toolkit
 
-> **Kit integral de 23 skills de ingeniería de software, diseño visual y DevOps para agentes de IA (Claude Code, Antigravity, Gemini CLI, Cursor, Windsurf).**  
+> **Kit integral de 23 skills de ingeniería de software, diseño visual y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
 > Diseñado para que cualquier desarrollador pueda llegar a cualquier proyecto, empresa o cliente y disponer de un copiloto con estándares de clase mundial sin fricción ni configuraciones manuales.
 
 ---
@@ -40,7 +40,7 @@ Disponible en todos los proyectos de tu computadora sin tocar el `.git` del clie
 ### Opción 2: Como Git Submodule (Para proyectos de equipo)
 Si deseas que viva en la carpeta `.claude/skills` del repositorio pero como un puntero aislado que nunca mezcla archivos:
 ```bash
-git submodule add https://github.com/Eduardo-Sebastian-Paipay-Vega/skills-para-no-pensar.git .claude/skills
+git submodule add https://github.com/Eduardo-Sebastian-Paipay-Vega/developer-autopilot-skills.git .claude/skills
 ```
 
 Para actualizar a la última versión en cualquier momento:
@@ -51,7 +51,7 @@ git submodule update --remote
 ### Opción 3: Clon local con `.gitignore`
 Clona directamente dentro de tu proyecto:
 ```bash
-git clone https://github.com/Eduardo-Sebastian-Paipay-Vega/skills-para-no-pensar.git .claude/skills
+git clone https://github.com/Eduardo-Sebastian-Paipay-Vega/developer-autopilot-skills.git .claude/skills
 ```
 Y añade en el `.gitignore` del proyecto del cliente:
 ```gitignore
@@ -115,7 +115,7 @@ toolkit.config.json
 ## 🛠️ Estructura del Repositorio
 
 ```text
-skills-para-no-pensar/
+developer-autopilot-skills/
 ├── .claude/
 │   ├── landing-design/        # Configuración de scope y evidencias visuales
 │   └── skills/                # Directorio unificado de las 23 skills

@@ -21,7 +21,7 @@ Claude Code soporta de forma nativa la carpeta `.claude/skills/`.
 ### Configuración por Proyecto (Recomendada)
 1. En la raíz de tu proyecto, clona o agrega este repositorio como submódulo:
    ```bash
-   git submodule add https://github.com/Eduardo-Sebastian-Paipay-Vega/skills-para-no-pensar.git .claude/skills
+   git submodule add https://github.com/Eduardo-Sebastian-Paipay-Vega/developer-autopilot-skills.git .claude/skills
    ```
 2. Inicia o reinicia tu sesión de Claude Code:
    ```bash

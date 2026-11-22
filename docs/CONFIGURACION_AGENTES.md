@@ -1,6 +1,6 @@
 # ⚙️ Guía de Configuración para Agentes de IA
 
-Esta guía detalla cómo integrar y activar las **23 skills** de este toolkit en los principales entornos y agentes de inteligencia artificial del mercado: **Claude Code**, **Cursor IDE**, **Google Antigravity / Gemini CLI**, **Windsurf / Cascade**, y **VS Code con Cline / Roo Code / Copilot**.
+Esta guía detalla cómo integrar y activar las **26 skills** de este toolkit en los principales entornos y agentes de inteligencia artificial del mercado: **Claude Code**, **Cursor IDE**, **Google Antigravity / Gemini CLI**, **Windsurf / Cascade**, y **VS Code con Cline / Roo Code / Copilot**.
 
 ---
 
@@ -48,7 +48,7 @@ Cursor utiliza reglas de contexto (`.cursorrules` o la carpeta moderna `.cursor/
 
 ```markdown
 # Developer AI Toolkit Rules
-Este proyecto cuenta con un kit de 24 skills ubicadas en `.claude/skills/`.
+Este proyecto cuenta con un kit de 26 skills ubicadas en `.claude/skills/`.
 Siempre que el usuario solicite una tarea coincidente con las siguientes directivas, lee el archivo `SKILL.md` correspondiente antes de actuar:
 
 - Inicializar proyecto o setup: `.claude/skills/iniciar-toolkit/SKILL.md`

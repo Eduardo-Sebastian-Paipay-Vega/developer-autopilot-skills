@@ -1,6 +1,6 @@
-# 📖 Manual de Uso del Usuario — Developer AI Toolkit
+# 📖 Manual de Uso del Usuario — Developer Autopilot Skills
 
-Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **23 skills** del kit en su día a día. Aprenderás cuándo invocar cada herramienta, qué parámetros pasarle y cómo automatizar tareas repetitivas de desarrollo, diseño y gestión.
+Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **26 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
 
 ---
 
@@ -8,13 +8,9 @@ Este manual está diseñado para que cualquier desarrollador aproveche al máxim
 
 1. [El Ciclo de Vida de un Proyecto](#1-el-ciclo-de-vida-de-un-proyecto)
 2. [Paso 0: Inicialización con `/iniciar-toolkit`](#2-paso-0-inicialización-con-iniciar-toolkit)
-3. [Módulo 1: Frontend & Experiencia de Usuario (UI/UX)](#3-módulo-1-frontend--experiencia-de-usuario-uiux)
-4. [Módulo 2: Landing Pages y Diseño Visual Guardian](#4-módulo-2-landing-pages-y-diseño-visual-guardian)
-5. [Módulo 3: Backend y Bases de Datos](#5-módulo-3-backend-y-bases-de-datos)
-6. [Módulo 4: Documentación y Entregables en Word](#6-módulo-4-documentación-y-entregables-en-word)
-7. [Módulo 5: Git, DevOps y Reportes Gerenciales](#7-módulo-5-git-devops-y-reportes-gerenciales)
-8. [Matriz de Consulta Rápida (Cheat Sheet)](#8-matriz-de-consulta-rápida-cheat-sheet)
-9. [Prompts Maestros de Activación y Actualización (Universal vs. Equipo Cerrado)](#9-prompts-maestros-de-activación-y-actualización-universal-vs-equipo-cerrado)
+3. [Funcionalidades por Pestaña (Módulos 1 al 6)](#3-funcionalidades-por-pestaña-módulos-1-al-6)
+4. [Matriz de Consulta Rápida (Cheat Sheet)](#8-matriz-de-consulta-rápida-cheat-sheet)
+5. [Prompts Maestros de Activación y Actualización (Universal vs. Equipo Cerrado)](#9-prompts-maestros-de-activación-y-actualización-universal-vs-equipo-cerrado)
 
 ---
 
@@ -53,119 +49,140 @@ En el chat de tu agente de IA, escribe:
 
 ---
 
-## 3. Módulo 1: Frontend & Experiencia de Usuario (UI/UX)
+## 3. Funcionalidades por Pestaña (Módulos 1 al 6)
+
+<details open>
+<summary><b>💻 Módulo 1: Frontend & Experiencia de Usuario — UI/UX (6 skills)</b></summary>
 
 ### `/frontend-standards`
-* **Para qué sirve:** Define los estándares de oro para escribir componentes Angular, PrimeNG, Signals y estilos limpios.
-* **Cuándo usarlo:** Antes de crear una pantalla nueva o cuando quieras asegurarte de seguir las convenciones de arquitectura limpia.
+* **Para qué sirve:** Define estándares de arquitectura frontend, componentes reactivos y estilos limpios. Detecta el framework y librería UI real del proyecto (`toolkit.config.json` / `package.json`: PrimeNG, shadcn/ui, PrimeReact, MUI, Vuetify, etc.) sin asumir PrimeNG.
 * **Ejemplo de prompt:**
-  > *"Voy a crear la pantalla de gestión de usuarios. Aplica /frontend-standards para estructurar el componente y sus servicios."*
+  > *"Voy a crear la pantalla de gestión de usuarios. Aplica /frontend-standards adaptándolo a la librería UI instalada en este proyecto."*
 
 ### `/frontend-review`
-* **Para qué sirve:** Audita un componente existente contra buenas prácticas (ChangeDetection OnPush, Signals reactivos, validación de formularios, accesibilidad A11y y tipado TypeScript estricto).
-* **Cuándo usarlo:** Antes de hacer Pull Request o después de implementar una funcionalidad compleja.
+* **Para qué sirve:** Audita un componente existente contra buenas prácticas del stack real del proyecto (rendimiento, estado reactivo, validación de formularios, accesibilidad A11y y tipado TypeScript estricto).
 * **Ejemplo de prompt:**
   > *"/frontend-review src/app/features/usuarios/usuarios.component.ts"*
 
 ### `/responsividad`
-* **Para qué sirve:** Adapta cualquier pantalla a celulares (`<768px`) sin mover ni un solo píxel de la vista de escritorio (`≥768px`). Resuelve automáticamente el molesto bug de `flex-wrap` y colapsa grillas a una sola columna.
+* **Para qué sirve:** Adapta cualquier pantalla a celulares (`<768px`) sin mover ni un solo píxel de la vista de escritorio (`≥768px`). Resuelve el bug de `flex-wrap` y colapsa grillas a una columna.
 * **Ejemplo de prompt:**
   > *"Esta pantalla se desborda en móvil. Aplica /responsividad sobre el componente abierto en el editor."*
 
 ### `/mejorar-vista-fija`
-* **Para qué sirve:** Convierte tablas infinitas en tablas de **vista fija**: los filtros superiores, la cabecera de columnas y el paginador se quedan siempre a la vista; solo las filas del cuerpo hacen scroll vertical.
+* **Para qué sirve:** Convierte tablas extensas en tablas de **vista fija**: filtros, cabecera y paginador quedan anclados; solo las filas hacen scroll vertical.
 * **Ejemplo de prompt:**
   > *"/mejorar-vista-fija en la tabla de pedidos. Necesito que no scrollee toda la página."*
 
 ### `/tabla-orden-dinamico`
-* **Para qué sirve:** Permite que el usuario final arrastre columnas para ordenarlas a su gusto y estire los bordes para cambiar anchos, guardando su preferencia en backend o `localStorage`.
-* **Regla de oro:** La columna "Acciones" permanece siempre fija al final y protegida contra arrastres accidentales.
+* **Para qué sirve:** Permite arrastrar columnas para ordenarlas y ajustar anchos persistiendo preferencias por usuario, manteniendo la columna "Acciones" siempre fija.
 * **Ejemplo de prompt:**
   > *"/tabla-orden-dinamico en la tabla de facturación para que recuerde las columnas por usuario."*
 
 ### `/resaltar-fila-abierta`
-* **Para qué sirve:** Cuando un usuario hace clic en una fila (para ver detalle o editar en un modal) y lo cierra, esa fila queda suavemente pintada. Así no pierde la vista en listados de 100 registros.
+* **Para qué sirve:** Mantiene resaltada visualmente la fila desde la que se abrió un modal para no perder contexto en listados largos.
 * **Ejemplo de prompt:**
   > *"/resaltar-fila-abierta para marcar qué fila abrió el modal de edición."*
 
----
+</details>
 
-## 4. Módulo 2: Landing Pages y Diseño Visual Guardian
+<details>
+<summary><b>🎬 Módulo 2: Motion Design Engineering (MDES) & Pantallas del Sistema (2 skills interoperables)</b></summary>
 
-Este kit garantiza que nadie degrade el diseño de tus páginas públicas y que los estilos del landing se apliquen de forma consistente.
+### `/motion-design-engineer`
+* **Para qué sirve:** Sistema de ingeniería de animaciones e ilustraciones visuales **originales mediante código** (`SVG + CSS + JavaScript / WAAPI`, sin GIF ni Lottie de pago). Maneja niveles **M1–M4**, contrato JSON validable, tokens `--motion-*` (recoloreables en vivo), `prefers-reduced-motion` y scripts de auditoría (`validate-config.mjs`, `audit-motion.mjs`).
+* **Ejemplo de prompt:**
+  > *"/motion-design-engineer crea una animación M2 de un libro pasando páginas mientras se procesa un documento, usando los colores del tema de mi proyecto y adaptador para Angular/React."*
 
-### Flujo recomendado de 4 pasos:
-1. **/landing-recopilar:** Abre la landing con Playwright, extrae colores computados, fuentes tipográficas y espaciados reales.
-2. **/landing-auditar:** Compara tus pantallas públicas secundarias contra la landing de referencia y lista las discrepancias visuales.
-3. **/landing-aplicar:** Aplica los estilos y clases de la landing a las rutas públicas autorizadas (sin tocar nunca el dashboard privado ni el backend).
-4. **/landing-verificar:** Comprueba regresiones visuales en tres tamaños de pantalla (Desktop, Tablet, Mobile) y emite un veredicto con capturas PNG.
+### `/system-state-screens`
+* **Para qué sirve:** Diseña, genera y **cablea de punta a punta** las **15 pantallas de estado del sistema, transición y error**:
+  * **Estados:** Carga Global (`Full-page Loader`), `Skeleton Screen`, `Empty State` (`first-use`, `no-results`, `zero-inbox`), `Success State` y `Procesamiento en 2.º plano`.
+  * **Errores y bloqueos:** HTTP `400`, `401`, `403`, `404`, `429` (`Retry-After`), `500`, `502/504`, `503 Mantenimiento`, `Offline State` y `Force Update`.
+  * **Cableado real:** crea rutas físicas, Error Boundaries, interceptores HTTP y condicionales según el framework (Next.js, Angular, React, Vue/Nuxt). Se coordina con `/motion-design-engineer` si está instalada, o funciona de forma 100 % independiente con SVG/CSS limpios.
+* **Ejemplo de prompt:**
+  > *"/system-state-screens genera y cablea todas las pantallas de error (4xx/5xx), empty states, skeletons, mantenimiento y modo offline para este proyecto enlazando animaciones con motion-design-engineer."*
 
-> [!TIP]
-> Si tienes configurado `.claude/landing-design/scope.json`, puedes ejecutar directamente **/landing-uniformizar** para orquestar los 4 pasos en una sola llamada.
+</details>
 
----
+<details>
+<summary><b>🎨 Módulo 3: Landing Pages y Diseño Visual Guardian (7 skills)</b></summary>
 
-## 5. Módulo 3: Backend y Bases de Datos
+Este kit garantiza que nadie degrade el diseño de tus páginas públicas y que los estilos del landing se apliquen de forma consistente sin tocar el sistema privado.
+
+1. **`/landing-recopilar`:** Abre la landing con Playwright y extrae colores computados, tipografías y espaciados reales.
+2. **`/landing-auditar`:** Compara las pantallas públicas secundarias contra la landing de referencia y lista discrepancias.
+3. **`/landing-aplicar`:** Aplica los estilos solo a rutas públicas autorizadas en `scope.json`.
+4. **`/landing-verificar`:** Comprueba regresiones visuales en Desktop, Tablet y Mobile con capturas PNG.
+5. **`/landing-uniformizar`:** Orquesta los 4 pasos anteriores en una sola ejecución.
+6. **`/landing-actualizar`:** Versiona cambios aprobados en el diseño de referencia.
+7. **`/landing-design-guardian`:** Reglas maestras de contención visual.
+
+</details>
+
+<details>
+<summary><b>🗄️ Módulo 4: Backend y Bases de Datos (2 skills)</b></summary>
 
 ### `/support-db`
-* **Para qué sirve:** Inspecciona en tiempo real los modelos del ORM (`models.py`, entidades de base de datos) y las migraciones activas. Nunca responde de memoria: lee el código fuente exacto para decirte tipos de campos, choices, claves foráneas y relaciones Many-to-Many.
+* **Para qué sirve:** Inspecciona en tiempo real los modelos ORM (`models.py`, entidades) y migraciones activas. Nunca responde de memoria.
 * **Ejemplo de prompt:**
   > *"/support-db ¿Qué campos tiene el modelo de Factura y cómo se relaciona con Cliente?"*
 
 ### `/diccionario-datos`
-* **Para qué sirve:** Fomenta la regla de fuente única de verdad: redacta los comentarios en el modelo ORM y PostgreSQL (`db_table_comment` y `db_comment`) y genera el archivo `docs/arquitectura/diccionario-datos.md` automáticamente.
+* **Para qué sirve:** Escribe comentarios de negocio directamente en el ORM y PostgreSQL (`db_table_comment` y `db_comment`) y genera `docs/arquitectura/diccionario-datos.md`.
 * **Ejemplo de prompt:**
   > *"Acabo de agregar la tabla de suscripciones. Ejecuta /diccionario-datos para documentar los campos y actualizar el markdown."*
 
----
+</details>
 
-## 6. Módulo 4: Documentación Viva, Arquitectura y Entregables
+<details>
+<summary><b>📝 Módulo 5: Documentación Viva, Arquitectura y Entregables (4 skills)</b></summary>
 
 ### `/crear-plan-maestro`
-* **Para qué sirve:** Genera la **información primaria y fuente canónica de verdad** del proyecto (`docs/planeacion/plan-maestro.md`). Define Requisitos Funcionales (`RF-01` a `RF-n`), Casos de Uso (`CU-01` a `CU-n`), jerarquía modular, rutas/pantallas objetivo y límites Out-of-Scope (blindaje anti-alucinación para IA).
-  * **Si aún no hay código:** Estructura el dominio funcional y reporta explícitamente qué información falta aclarar antes de programar.
-  * **Si ya hay código:** Audita la integración E2E entre base de datos, backend REST y pantallas frontend, detectando residuos y componentes fantasma.
+* **Para qué sirve:** Genera la **información primaria** del proyecto (`docs/planeacion/plan-maestro.md`): RFs, Casos de Uso, jerarquía modular, rutas objetivo y límites Out-of-Scope. Si aún no hay código, reporta qué información falta; si ya hay código, audita la integración E2E (BD – Backend – Frontend) y residuos.
 * **Ejemplo de prompt:**
   > *"/crear-plan-maestro a partir de la visión del sistema y requerimientos del cliente."*
 
 ### `/actualizar-contexto`
-* **Para qué sirve:** Se ejecuta al terminar una sesión de desarrollo. Analiza con `git diff` qué cambió realmente en la arquitectura (nuevos endpoints, carpetas o contratos) y te propone actualizar la documentación viva (`docs/arquitectura/contexto-proyecto.md`) sin borrar contexto histórico.
+* **Para qué sirve:** Al cerrar una sesión de desarrollo, analiza `git diff` y propone actualizaciones a la documentación viva (`docs/arquitectura/`) sin borrar historial.
 * **Ejemplo de prompt:**
   > *"Terminamos por hoy. Ejecuta /actualizar-contexto para registrar lo implementado."*
 
 ### `/crear-guia-tecnica <módulo>`
-* **Para qué sirve:** Redacta una especificación técnica de nivel senior para desarrolladores, DevOps y soporte: roles requeridos, diagrama de flujo Mermaid, endpoints consumidos, estados y checklist de despliegue.
+* **Para qué sirve:** Redacta una especificación técnica para desarrollo y soporte (roles, Mermaid, endpoints, estados y checklist pre-producción).
 * **Ejemplo de prompt:**
   > *"/crear-guia-tecnica pagos-stripe"*
 
 ### `/crear-manual-usuario <módulo>`
-* **Para qué sirve:** Escribe un manual en lenguaje accesible (sin código ni tecnicismos) para el cliente final y lo convierte a un documento editable de Microsoft Word (`.docx`) mediante su conversor integrado.
+* **Para qué sirve:** Redacta un manual en lenguaje no técnico para el usuario final y lo convierte a Microsoft Word (`.docx`) con el conversor integrado.
 * **Ejemplo de prompt:**
   > *"/crear-manual-usuario facturacion"*
 
----
+</details>
 
-## 7. Módulo 5: Git, DevOps y Reportes Gerenciales
+<details>
+<summary><b>⚙️ Módulo 6: Git, DevOps y Reportes Gerenciales (4 skills)</b></summary>
 
 ### `/resolver-conflicto-merge`
-* **Para qué sirve:** Cuando Git se detiene por conflictos en un merge o rebase, esta skill los resuelve directamente desde la terminal. Materializa los marcadores, analiza el código de ambos lados con rigor, elimina imports muertos con `grep` y corre los tests del proyecto antes de commitear.
+* **Para qué sirve:** Resuelve conflictos de merge/rebase directamente desde CLI: materializa marcadores, integra ambos lados con criterio, limpia imports huérfanos con `grep` y corre los tests del proyecto.
 * **Ejemplo de prompt:**
   > *"/resolver-conflicto-merge"*
 
 ### `/reporte-semanal-resumen`
-* **Para qué sirve:** Lee automáticamente todos tus commits de Git de la semana (domingo a sábado) y redacta en 5 segundos tu informe de avance en lenguaje de gerencia, listo para copiar y pegar en Slack, correo o el acta de seguimiento.
+* **Para qué sirve:** Lee tus commits de Git de la semana (domingo a sábado) y redacta el informe de avance en lenguaje de gerencia listo para copiar y pegar.
 * **Ejemplo de prompt:**
   > *"/reporte-semanal-resumen"*
 
 ### `/diagnostico-staging`
-* **Para qué sirve:** Revisa por qué falló el entorno de staging en Google Cloud: compara si la imagen del Job de migración coincide con la del backend, audita logs de error recientes y previene accidentes con `--update-secrets`.
+* **Para qué sirve:** Diagnostica Google Cloud Run + Cloud SQL: revisa sincronización de imágenes de Jobs de migración, logs recientes y previene errores con `--update-secrets`.
 * **Ejemplo de prompt:**
   > *"/diagnostico-staging. El backend en Cloud Run devuelve error 500 tras el despliegue."*
 
 ### `/update-main-staging`
-* **Para qué sirve:** Conduce el flujo de CI/CD: corre tests locales, propone commits estructurados (Conventional Commits), sube a la rama remota, vigila el build de Cloud Build y ejecuta smoke tests HTTP 200.
+* **Para qué sirve:** Orquesta el flujo CI/CD: validaciones locales, Conventional Commits, promoción de ramas, seguimiento de Cloud Build, migraciones y smoke tests HTTP 200.
 * **Ejemplo de prompt:**
   > *"/update-main-staging para publicar los cambios validados a staging."*
+
+</details>
 
 ---
 

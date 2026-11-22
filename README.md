@@ -95,26 +95,46 @@ Confirma que has asimilado estas reglas antes de comenzar a editar código.
 
 ---
 
-## 🧭 Catálogo Maestro de Skills (26 Skills)
+## 🧭 Catálogo Maestro de Skills (26 Skills por Funcionalidad)
 
-### 1. Orquestación y Setup
+Despliega cada pestaña para ver los comandos, propósito y enlace directo a cada funcionalidad:
+
+<details open>
+<summary><b>1. 🚀 Orquestación y Setup (1 skill)</b></summary>
+
 | Comando | Descripción |
 | :--- | :--- |
-| **`/iniciar-toolkit`** | Arrancador automático: detecta el stack técnico, genera `toolkit.config.json` y sincroniza las demás skills. |
+| **`/iniciar-toolkit`** | Arrancador automático: detecta el stack técnico (framework + librería UI real sin asumir PrimeNG), genera `toolkit.config.json` y sincroniza las demás skills. |
 
-### 2. Frontend y Experiencia de Usuario (UI/UX)
+</details>
+
+<details>
+<summary><b>2. 💻 Frontend y Experiencia de Usuario — UI/UX (6 skills)</b></summary>
+
 | Comando | Descripción |
 | :--- | :--- |
-| **`/frontend-standards`** | Guía y estándares de oro de arquitectura Angular, componentes reactivos, PrimeNG y TypeScript. |
-| **`/frontend-review`** | Auditoría y corrección de componentes: OnPush, Signals, A11y, formularios y desacoplamiento REST. |
-| **`/responsividad`** | Adaptación móvil (<768px) con preservación pixel-perfect de escritorio y prevención del bug flex-wrap. |
-| **`/mejorar-vista-fija`** | Layout con Flexbox para tablas con sticky header, filtros anclados y scroll vertical interno sin desbordar la página. |
+| **`/frontend-standards`** | Estándares de arquitectura frontend, componentes reactivos, validación y manejo de errores; se adapta al framework y librería UI real del proyecto. |
+| **`/frontend-review`** | Auditoría y corrección de componentes: rendimiento, estado reactivo, A11y, formularios y desacoplamiento REST. |
+| **`/responsividad`** | Adaptación móvil (`<768px`) con preservación pixel-perfect de escritorio y prevención del bug `flex-wrap`. |
+| **`/mejorar-vista-fija`** | Layout Flexbox para tablas con sticky header, filtros anclados y scroll vertical interno sin desbordar la página. |
 | **`/tabla-orden-dinamico`** | Reordenamiento de columnas por usuario, anchos redimensionables y persistencia segura de preferencias. |
 | **`/resaltar-fila-abierta`** | Feedback visual de fila activa al abrir/cerrar diálogos modales para mantener el contexto del usuario. |
-| **`/motion-design-engineer`** | **MDES:** Ingeniería de animaciones, ilustraciones vectoriales y escenas (SVG + CSS + WAAPI) sin GIF ni Lottie de pago, con niveles M1–M4, tokens de color y accesibilidad. |
-| **`/system-state-screens`** | Genera y cablea las 15 pantallas de estado y error (loaders, skeletons, empty states, éxito, 2.º plano, HTTP 4xx/5xx, mantenimiento, offline y force update) con rutas, interceptores y enlace opcional a MDES. |
 
-### 3. Landing Design Guardian (Diseño Visual y Sitios Públicos)
+</details>
+
+<details>
+<summary><b>3. 🎬 Motion Design Engineering & Pantallas del Sistema (2 skills interoperables)</b></summary>
+
+| Comando | Descripción |
+| :--- | :--- |
+| **`/motion-design-engineer`** | **MDES:** Ingeniería de animaciones, ilustraciones vectoriales y escenas (`SVG + CSS + WAAPI`) sin GIF ni Lottie de pago, con niveles M1–M4, tokens `--motion-*`, validadores CLI y accesibilidad. |
+| **`/system-state-screens`** | Genera y cablea las **15 pantallas de estado y error** (Full-page Loader, Skeleton, Empty States ×3, Success, 2.º plano, HTTP `400/401/403/404/429/500/502/503/504`, Offline y Force Update) con rutas, interceptores HTTP, Error Boundaries y puente opcional con MDES. |
+
+</details>
+
+<details>
+<summary><b>4. 🎨 Landing Design Guardian — Diseño Visual y Sitios Públicos (7 skills)</b></summary>
+
 | Comando | Descripción |
 | :--- | :--- |
 | **`/landing-uniformizar`** | Orquestador completo de diseño visual: recopila tokens, audita páginas públicas, aplica estilos y verifica. |
@@ -125,13 +145,21 @@ Confirma que has asimilado estas reglas antes de comenzar a editar código.
 | **`/landing-actualizar`** | Versiona y actualiza la fuente de verdad del diseño tras cambios aprobados. |
 | **`/landing-design-guardian`** | Reglas maestras de contención para proteger el sistema privado contra cambios de estilo del landing. |
 
-### 4. Backend, Bases de Datos y Modelos
+</details>
+
+<details>
+<summary><b>5. 🗄️ Backend, Bases de Datos y Modelos (2 skills)</b></summary>
+
 | Comando | Descripción |
 | :--- | :--- |
 | **`/support-db`** | Inspección viva de modelos ORM (`models.py`, entidades), tipos de datos, relaciones FK/M2M y enums. |
 | **`/diccionario-datos`** | Extrae y documenta tablas y campos directamente desde comentarios del ORM y PostgreSQL a Markdown y Word. |
 
-### 5. Documentación Viva, Arquitectura y Entregables
+</details>
+
+<details>
+<summary><b>6. 📝 Documentación Viva, Arquitectura y Entregables (4 skills)</b></summary>
+
 | Comando | Descripción |
 | :--- | :--- |
 | **`/crear-plan-maestro`** | Genera el Plan Maestro de Arquitectura y Dominio (Información Primaria): RFs, Casos de Uso, delimitaciones Out-of-Scope y auditoría E2E. |
@@ -139,13 +167,19 @@ Confirma que has asimilado estas reglas antes de comenzar a editar código.
 | **`/crear-guia-tecnica`** | Genera especificaciones técnicas de módulos para soporte y desarrollo con diagramas de flujo Mermaid. |
 | **`/crear-manual-usuario`** | Redacta manuales en lenguaje de usuario final y los convierte a Word (`.docx`) mediante conversor integrado. |
 
-### 6. Git, DevOps y Reportes de Avance
+</details>
+
+<details>
+<summary><b>7. ⚙️ Git, DevOps y Reportes de Avance (4 skills)</b></summary>
+
 | Comando | Descripción |
 | :--- | :--- |
 | **`/resolver-conflicto-merge`** | Resolución determinista de conflictos Git en CLI con verificación de hunks, grep de imports y tests. |
 | **`/reporte-semanal-resumen`** | Extrae tus commits de Git de la semana y redacta el informe de avance en lenguaje de gerencia. |
 | **`/diagnostico-staging`** | Diagnóstico en Google Cloud Platform: Cloud Run, Cloud SQL, sincronización de Jobs de migración y logs. |
 | **`/update-main-staging`** | Pipeline completo de despliegue: validación local, commits convencionales, Cloud Build, migraciones y smoke tests. |
+
+</details>
 
 ---
 
@@ -154,15 +188,21 @@ Confirma que has asimilado estas reglas antes de comenzar a editar código.
 ```text
 developer-autopilot-skills/
 ├── .claude/
-│   ├── landing-design/        # Configuración de scope y evidencias visuales
-│   └── skills/                # Directorio unificado de las 23 skills
+│   ├── landing-design/            # Configuración de scope y evidencias visuales
+│   └── skills/                    # Directorio unificado de las 26 skills
 │       ├── iniciar-toolkit/
+│       ├── motion-design-engineer/
+│       ├── system-state-screens/
+│       ├── crear-plan-maestro/
 │       ├── frontend-standards/
 │       ├── resolver-conflicto-merge/
 │       ├── landing-design-guardian/
 │       └── ...
-├── toolkit.config.template.json # Plantilla de configuración agnóstica
-└── README.md                  # Este documento
+├── docs/
+│   ├── MANUAL_DE_USO.md           # Manual por pestañas de funcionalidad y prompts maestros
+│   └── CONFIGURACION_AGENTES.md   # Setup para Claude, Cursor, Antigravity, Windsurf, Copilot
+├── toolkit.config.template.json   # Plantilla de configuración agnóstica
+└── README.md                      # Este documento
 ```
 
 ---

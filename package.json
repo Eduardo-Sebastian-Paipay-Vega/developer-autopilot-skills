@@ -1,0 +1,16 @@
+{
+  "name": "developer-autopilot-skills",
+  "version": "1.0.0",
+  "description": "Enterprise & Fullstack AI Agent Skills Toolkit (Claude Code, Antigravity, Codex, Cursor, Windsurf, Cline)",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "autopilot": "./scripts/autopilot.mjs",
+    "das": "./scripts/autopilot.mjs"
+  },
+  "scripts": {
+    "verify": "node tests/verify-toolkit.mjs",
+    "sync:global": "node scripts/autopilot.mjs sync-global",
+    "sync:external": "node scripts/sync-external.mjs"
+  }
+}

@@ -33,17 +33,23 @@ Esta skill inspecciona el repositorio en 2 segundos:
 > [!IMPORTANT]
 > Este repositorio contiene internamente `.claude/skills/`. **Nunca** lo agregues como submódulo directamente en `.claude/skills` (produciría `.claude/skills/.claude/skills/`). Usa el instalador oficial [`scripts/install.mjs`](scripts/install.mjs) que copia cada skill directamente a la ruta que espera tu agente.
 
-### Opción 1: Sincronización Global para TODOS tus agentes a la vez (Claude + Antigravity + Codex)
-Clona este repositorio una sola vez y ejecuta `scripts/autopilot.mjs sync`: actualiza el repo, sincroniza las 22 skills externas de Cloudflare, corre los tests y propaga a **Claude Code, Antigravity (AGY) y Codex** en un solo paso, sin tocar el código de ningún proyecto:
+### Opción 1: CLI Global Contextual (`autopilot` / `das`) — ¡Sin rutas largas!
+Clona este repositorio **una sola vez** y enlázalo con `npm link`. A partir de ahí, puedes ejecutar `autopilot` (o `das`) desde **cualquier carpeta o proyecto** de tu PC y detectará automáticamente tanto dónde vive el toolkit como en qué proyecto estás parado:
 
 ```bash
 git clone --recurse-submodules https://github.com/Eduardo-Sebastian-Paipay-Vega/developer-autopilot-skills.git ~/tools/developer-autopilot-skills
+cd ~/tools/developer-autopilot-skills
+npm link
 
-# Actualiza TODOS tus agentes globales (Claude + Antigravity + Codex) + Cloudflare skills:
-node ~/tools/developer-autopilot-skills/scripts/autopilot.mjs sync --target all-global
-
-# O crea una nueva skill validada en la fuente única y propágala a todos los agentes:
-node ~/tools/developer-autopilot-skills/scripts/autopilot.mjs new-skill mi-skill "Descripción clara de qué resuelve."
+# Ya desde CUALQUIER proyecto en tu terminal:
+autopilot where                 # Verifica rutas detectadas automáticamente
+autopilot sync-global           # Actualiza Claude + Antigravity + Codex + Cloudflare
+autopilot sync                  # Instala/actualiza el proyecto actual (Claude + Codex + Cursor)
+autopilot init                  # Detecta stack/UI/BD y crea toolkit.config.json en el proyecto actual
+autopilot scan --strict         # Escaneo anti-mock en el proyecto actual
+autopilot chg metrics           # Métricas SIGCS del registro de cambios del proyecto actual
+autopilot external --check      # Verifica si hay nueva versión de Cloudflare Skills
+autopilot new-skill mi-skill "Descripción clara de qué resuelve."
 ```
 
 ### Opción 2: Submódulo aislado por Proyecto (Equipos)

@@ -1,15 +1,20 @@
 #!/usr/bin/env node
 /**
- * Developer Autopilot Skills — CLI Unificado para Agentes y Humanos (0 dependencias)
+ * Developer Autopilot Skills — CLI Global Contextual (`autopilot` / `das`)
  *
- * Permite que cualquier agente (Claude Code, Antigravity/AGY, Codex, Cursor, Windsurf)
- * actualice o cree skills desde la Fuente Única de Verdad y propague los cambios a
- * TODOS los agentes sin tocar el código fuente de ningún proyecto.
+ * Detecta automáticamente dónde vive la fuente única del toolkit (incluso vía `npm link`)
+ * y en qué proyecto estás parado (`process.cwd()`), eliminando rutas largas.
  *
- * Subcomandos:
- *   node scripts/autopilot.mjs sync [--target all-global|all-project|...] [--dest <ruta>] [--include-external] [--skip-pull] [--dry-run]
- *   node scripts/autopilot.mjs new-skill <nombre-kebab> "<descripción>"
- *   node scripts/autopilot.mjs verify
+ * Subcomandos desde CUALQUIER carpeta:
+ *   autopilot where                                        Muestra la ruta del toolkit y el proyecto actual (cwd).
+ *   autopilot sync-global [--no-external] [--dry-run]      Actualiza Claude + Antigravity + Codex globalmente.
+ *   autopilot sync [--target all-project|...] [--dest .]   Actualiza el proyecto actual (o --dest).
+ *   autopilot init [--include-email]                       Ejecuta iniciar-toolkit/setup.py en el proyecto actual.
+ *   autopilot scan [--strict] [--json]                     Ejecuta mock-free-audit/scripts/scan-mocks.mjs en el proyecto actual.
+ *   autopilot chg <init|add|metrics|validate> [flags]      Ejecuta change-governance/scripts/change-registry.mjs en el proyecto actual.
+ *   autopilot external [--check] [--reset]                 Consulta o actualiza skills externas read-only (Cloudflare).
+ *   autopilot new-skill <nombre-kebab> "<descripción>"     Crea una skill nueva validada en la fuente única.
+ *   autopilot verify                                       Ejecuta la suite automatizada completa del toolkit.
  */
 
 import fs from 'node:fs';
@@ -17,19 +22,30 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const REPO_ROOT = path.resolve(__dirname, '..');
+// realpathSync garantiza que `npm link` resuelva la carpeta real del repositorio
+const REAL_SCRIPT_PATH = fs.realpathSync(fileURLToPath(import.meta.url));
+const REPO_ROOT = path.resolve(path.dirname(REAL_SCRIPT_PATH), '..');
+const CALLER_CWD = process.cwd();
+const PY_CMD = process.platform === 'win32' ? 'python' : 'python3';
 
-function runNode(scriptRel, extraArgs = []) {
+function runNode(scriptRel, extraArgs = [], cwd = REPO_ROOT) {
   execFileSync(process.execPath, [path.join(REPO_ROOT, scriptRel), ...extraArgs], {
-    cwd: REPO_ROOT,
+    cwd,
     stdio: 'inherit',
   });
 }
 
-function cmdSync(argv) {
-  let target = 'all-global';
-  let dest = null;
+function cmdWhere() {
+  console.log(`📦 Fuente única del toolkit: ${REPO_ROOT}`);
+  console.log(`📂 Proyecto actual (cwd):    ${CALLER_CWD}`);
+  const hasCfg = fs.existsSync(path.join(CALLER_CWD, 'toolkit.config.json'));
+  const hasSkills = fs.existsSync(path.join(CALLER_CWD, '.claude', 'skills'));
+  console.log(`🔎 Estado en cwd: toolkit.config.json=${hasCfg ? 'sí' : 'no'} · .claude/skills=${hasSkills ? 'sí' : 'no'}`);
+}
+
+function cmdSync(argv, defaultTarget) {
+  let target = defaultTarget;
+  let dest = defaultTarget === 'all-global' ? null : CALLER_CWD;
   let includeExternal = true;
   let skipPull = false;
   let dryRun = false;
@@ -37,7 +53,7 @@ function cmdSync(argv) {
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--target' && argv[i + 1]) target = argv[++i];
-    else if (a === '--dest' && argv[i + 1]) dest = argv[++i];
+    else if (a === '--dest' && argv[i + 1]) dest = path.resolve(CALLER_CWD, argv[++i]);
     else if (a === '--no-external') includeExternal = false;
     else if (a === '--include-external') includeExternal = true;
     else if (a === '--skip-pull') skipPull = true;
@@ -66,14 +82,16 @@ function cmdSync(argv) {
   console.log('\n=== 3/4 Validando integridad del toolkit antes de propagar ===');
   runNode('tests/verify-toolkit.mjs');
 
-  console.log(`\n=== 4/4 Propagando a agentes (target: ${target}) ===`);
+  console.log(`\n=== 4/4 Propagando a agentes (target: ${target}${dest && target !== 'all-global' ? ` → ${dest}` : ''}) ===`);
   const installArgs = ['--target', target];
-  if (dest) installArgs.push('--dest', dest);
+  if (dest && target !== 'all-global' && target !== 'claude-global' && target !== 'antigravity' && target !== 'codex-global') {
+    installArgs.push('--dest', dest);
+  }
   if (includeExternal) installArgs.push('--include-external');
   if (dryRun) installArgs.push('--dry-run');
   runNode('scripts/install.mjs', installArgs);
 
-  console.log('\n🎉 Todos los agentes sincronizados desde la misma fuente sin tocar el código de tus proyectos.');
+  console.log('\n🎉 Sincronización completada sin tocar el código de negocio de tus proyectos.');
 }
 
 function cmdNewSkill(argv) {
@@ -86,7 +104,6 @@ function cmdNewSkill(argv) {
   }
   if (description.length < 20) {
     console.error('❌ Proporciona una descripción clara (mínimo 20 caracteres).');
-    console.error('   Ejemplo: node scripts/autopilot.mjs new-skill api-contract-check "Valida contratos OpenAPI/REST antes de desplegar."');
     process.exit(2);
   }
 
@@ -120,30 +137,57 @@ function cmdNewSkill(argv) {
   ].join('\n');
 
   fs.writeFileSync(path.join(skillDir, 'SKILL.md'), md, 'utf8');
-  console.log(`✅ Skill creada: .claude/skills/${name}/SKILL.md`);
-  console.log('📌 Siguientes pasos:');
-  console.log('   1. Completa el procedimiento y agrega referencias en references/ si hace falta.');
-  console.log('   2. Actualiza el conteo y tabla en README.md, docs/MANUAL_DE_USO.md y docs/CONFIGURACION_AGENTES.md.');
-  console.log('   3. Ejecuta: node scripts/autopilot.mjs verify');
-  console.log('   4. Propaga a todos tus agentes: node scripts/autopilot.mjs sync --skip-pull');
+  console.log(`✅ Skill creada: ${path.join(skillDir, 'SKILL.md')}`);
+  console.log('📌 Siguientes pasos: actualiza README/docs → `autopilot verify` → `autopilot sync-global --skip-pull`');
+}
+
+function printHelp() {
+  console.log('Developer Autopilot Skills — CLI Global Contextual (`autopilot` / `das`)');
+  console.log('');
+  console.log('Uso desde CUALQUIER carpeta (auto-detecta tu proyecto actual):');
+  console.log('  autopilot where                                        Muestra rutas del toolkit y proyecto actual');
+  console.log('  autopilot sync                                         Actualiza el proyecto actual (Claude + Codex + Cursor)');
+  console.log('  autopilot sync-global                                  Actualiza todos tus agentes globales (Claude + AGY + Codex)');
+  console.log('  autopilot init [--include-email]                       Detecta stack/UI/BD y genera toolkit.config.json en cwd');
+  console.log('  autopilot scan [--strict] [--json]                     Ejecuta escaneo anti-mock en cwd');
+  console.log('  autopilot chg <init|add|metrics|validate> [opciones]   Gestiona fichas CHG-XXXX y métricas SIGCS en cwd');
+  console.log('  autopilot external [--check] [--reset]                 Comprueba/actualiza skills externas (Cloudflare)');
+  console.log('  autopilot new-skill <nombre-kebab> "<descripción>"     Crea nueva skill validada en la fuente única');
+  console.log('  autopilot verify                                       Ejecuta la suite completa de verificación');
 }
 
 function main() {
   const [cmd, ...rest] = process.argv.slice(2);
   if (!cmd || cmd === '-h' || cmd === '--help') {
-    console.log('Developer Autopilot Skills — CLI Multi-Agente');
-    console.log('Uso:');
-    console.log('  node scripts/autopilot.mjs sync [--target all-global|all-project|...] [--dest <ruta>] [--no-external] [--skip-pull] [--dry-run]');
-    console.log('  node scripts/autopilot.mjs new-skill <nombre-kebab> "<descripción>"');
-    console.log('  node scripts/autopilot.mjs verify');
+    printHelp();
     process.exit(0);
   }
 
-  if (cmd === 'sync') cmdSync(rest);
-  else if (cmd === 'new-skill') cmdNewSkill(rest);
-  else if (cmd === 'verify') runNode('tests/verify-toolkit.mjs');
-  else {
+  if (cmd === 'where') cmdWhere();
+  else if (cmd === 'sync') cmdSync(rest, 'all-project');
+  else if (cmd === 'sync-global') cmdSync(rest, 'all-global');
+  else if (cmd === 'init') {
+    execFileSync(PY_CMD, [path.join(REPO_ROOT, '.claude', 'skills', 'iniciar-toolkit', 'setup.py'), '--dir', CALLER_CWD, ...rest], {
+      cwd: CALLER_CWD,
+      stdio: 'inherit',
+    });
+  } else if (cmd === 'scan') {
+    const hasPath = rest.some((a) => !a.startsWith('-'));
+    const scanArgs = hasPath ? rest : [CALLER_CWD, ...rest];
+    runNode('.claude/skills/mock-free-audit/scripts/scan-mocks.mjs', scanArgs, CALLER_CWD);
+  } else if (cmd === 'chg') {
+    const hasDir = rest.includes('--dir');
+    const chgArgs = hasDir ? rest : [...rest, '--dir', CALLER_CWD];
+    runNode('.claude/skills/change-governance/scripts/change-registry.mjs', chgArgs, CALLER_CWD);
+  } else if (cmd === 'external') {
+    runNode('scripts/sync-external.mjs', rest);
+  } else if (cmd === 'new-skill') {
+    cmdNewSkill(rest);
+  } else if (cmd === 'verify') {
+    runNode('tests/verify-toolkit.mjs');
+  } else {
     console.error(`❌ Subcomando desconocido: ${cmd}`);
+    printHelp();
     process.exit(2);
   }
 }

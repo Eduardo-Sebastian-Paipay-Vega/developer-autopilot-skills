@@ -34,56 +34,65 @@ La skill obtiene las variables del pipeline desde `toolkit.config.json` o las so
 ---
 
 ### Fase 1: Validación y Puertas de Calidad Locales (Quality Gates)
-Antes de tocar cualquier rama remota o disparar pipelines de nube:
-1. **Frontend:** Ejecutar build de prueba para descartar errores de TypeScript y empaquetado:
+Antes de tocar cualquier rama remota o disparar pipelines de nube, detectar qué capas existen y ejecutar solo las validaciones válidas para cada stack:
+1. **Frontend (si existe `package.json`):**
    ```bash
    npm run build --if-present
+   npm run lint --if-present
    ```
-2. **Backend:** Ejecutar validación de modelos, comprobación de migraciones pendientes y suite de pruebas:
+   *(En pnpm/yarn usar el gestor real del repositorio).*
+2. **Backend Django (solo si existe `manage.py`):**
    ```bash
-   python manage.py check --if-present
-   python manage.py makemigrations --check --dry-run --if-present
-   python -m pytest --if-present
+   python manage.py check
+   python manage.py makemigrations --check --dry-run
    ```
-3. Si alguna prueba falla, el despliegue se cancela de inmediato para evitar propagar errores a staging.
+3. **Suite de pruebas Python (solo si existe `pytest.ini`, `pyproject.toml` o carpeta `tests/`):**
+   ```bash
+   python -m pytest
+   ```
+4. **Backend Node/TypeScript (si existe `package.json` en backend):**
+   ```bash
+   npm run build --if-present
+   npm test --if-present
+   ```
+5. Si alguna prueba o validación falla, el despliegue **se detiene inmediatamente** para evitar propagar errores a staging.
 
-### Fase 2: Convención de Commits Estructurados
+### Fase 2: Convención de Commits Estructurados (Puerta de autorización #1)
 * Analizar los cambios locales con `git status` y `git diff`.
-* Generar mensajes de commit siguiendo la convención estándar (Conventional Commits):
-  * `feat(modulo): descripción de nueva funcionalidad`
-  * `fix(modulo): corrección de bug identificado`
-  * `refactor(modulo): mejora estructural interna sin cambio de contrato`
-  * `docs(modulo): actualización de documentación técnica o manuales`
-* Solicitar confirmación del mensaje de commit al usuario antes de registrarlo.
+* Proponer el mensaje de commit siguiendo Conventional Commits (`feat`, `fix`, `refactor`, `docs`).
+* **🛑 PUERTA OBLIGATORIA:** Mostrar archivos y mensaje propuesto y esperar confirmación explícita del usuario antes de ejecutar `git commit`.
 
-### Fase 3: Promoción de Ramas en Git
-1. Enviar cambios a la rama de desarrollo remoto:
+### Fase 3: Promoción de Ramas en Git (Puerta de autorización #2)
+* **🛑 PUERTA OBLIGATORIA:** Nunca encadenar `push` a `dev` ni `merge` + `push` a `main` sin autorización expresa en esa sesión. Verificar antes que la rama destino esté al día (`git fetch origin`).
+1. Enviar cambios a la rama de desarrollo remoto (solo con confirmación):
    ```bash
    git push origin <BRANCH_DEV>
    ```
-2. Si el disparador de Cloud Build está asociado a la rama principal:
+2. Promoción a la rama principal (requiere confirmación separada y explícita, nunca automática):
    ```bash
    git checkout <BRANCH_MAIN>
+   git pull --ff-only origin <BRANCH_MAIN>
    git merge <BRANCH_DEV> --no-ff -m "Promoción de staging: integración de <BRANCH_DEV>"
    git push origin <BRANCH_MAIN>
    git checkout <BRANCH_DEV>
    ```
 
-### Fase 4: Monitoreo de Build en la Nube (Cloud Build / CI)
+### Fase 4: Monitoreo de Build en la Nube (Cloud Build / CI — solo lectura)
 Consultar el estado de ejecución del trigger de integración continua:
 ```bash
 gcloud builds list --limit=3 --project=<PROJECT_ID> --region=<REGION> --format="table(id, status, createTime, duration)"
 ```
 Esperar a que el estado sea `SUCCESS` antes de continuar con la alineación de base de datos.
 
-### Fase 5: Alineación de Imágenes y Migraciones de Base de Datos
-1. Obtener el hash o tag de la imagen recién construida por el pipeline:
+### Fase 5: Alineación de Imágenes y Migraciones de Base de Datos (Puerta de autorización #3)
+* **🛑 PUERTA OBLIGATORIA:** Confirmar antes que no existan importaciones o tareas en segundo plano activas (ver `/diagnostico-staging`) y solicitar autorización explícita antes de actualizar o ejecutar el Job de migración.
+1. Obtener el hash o tag de la imagen recién construida por el pipeline (solo lectura):
    ```bash
    IMAGEN_NUEVA=$(gcloud run services describe <BACKEND_SERVICE> --region=<REGION> --project=<PROJECT_ID> --format="value(spec.template.spec.containers[0].image)")
    ```
-2. Actualizar el Job de migraciones con la imagen idéntica y ejecutar:
+2. Con confirmación explícita, actualizar el Job de migraciones con la imagen idéntica y ejecutar:
    ```bash
-   gcloud run jobs update <MIGRATION_JOB> --image=$IMAGEN_NUEVA --region=<REGION> --project=<PROJECT_ID>
+   gcloud run jobs update <MIGRATION_JOB> --image="$IMAGEN_NUEVA" --region=<REGION> --project=<PROJECT_ID>
    gcloud run jobs execute <MIGRATION_JOB> --region=<REGION> --project=<PROJECT_ID> --wait
    ```
 3. Revisar logs del job para confirmar que las migraciones se aplicaron con éxito (`OK`).

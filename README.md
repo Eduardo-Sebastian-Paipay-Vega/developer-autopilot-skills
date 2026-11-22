@@ -28,36 +28,44 @@ Esta skill inspecciona el repositorio en 2 segundos:
 
 ---
 
-## 📦 Cómo instalar este Toolkit en tus proyectos
+## 📦 Cómo instalar este Toolkit (sin rutas anidadas)
 
-Tienes 3 formas limpias de usar este repositorio sin mezclar tus herramientas con el código de la empresa o cliente:
+> [!IMPORTANT]
+> Este repositorio contiene internamente `.claude/skills/`. **Nunca** lo agregues como submódulo directamente en `.claude/skills` (produciría `.claude/skills/.claude/skills/`). Usa el instalador oficial [`scripts/install.mjs`](scripts/install.mjs) que copia cada skill directamente a la ruta que espera tu agente.
 
-### Opción 1: Instalación Global (Recomendada)
-Disponible en todos los proyectos de tu computadora sin tocar el `.git` del cliente:
-* **Antigravity / Gemini CLI:** Clona este repositorio en `~/.gemini/config/skills/`.
-* **Claude Code:** Clona este repositorio en `~/.claude/skills/`.
+### Opción 1: Instalación Global (Recomendada para tu PC)
+Clona este repositorio una sola vez en una carpeta local (ej. `~/tools/developer-autopilot-skills`) y ejecuta el instalador según tu agente:
 
-### Opción 2: Como Git Submodule (Para proyectos de equipo)
-Si deseas que viva en la carpeta `.claude/skills` del repositorio pero como un puntero aislado que nunca mezcla archivos:
 ```bash
-git submodule add https://github.com/Eduardo-Sebastian-Paipay-Vega/developer-autopilot-skills.git .claude/skills
+git clone https://github.com/Eduardo-Sebastian-Paipay-Vega/developer-autopilot-skills.git ~/tools/developer-autopilot-skills
+
+# Para Claude Code (instala en ~/.claude/skills/<skill>/)
+node ~/tools/developer-autopilot-skills/scripts/install.mjs --target claude-global
+
+# Para Google Antigravity / Gemini CLI (instala en ~/.gemini/config/skills/<skill>/)
+node ~/tools/developer-autopilot-skills/scripts/install.mjs --target antigravity
 ```
 
-Para actualizar a la última versión en cualquier momento:
+### Opción 2: Submódulo aislado por Proyecto (Equipos)
+Monta el repositorio en `.developer-autopilot/` y ejecuta el instalador hacia tu proyecto:
+
 ```bash
-git submodule update --remote
+git submodule add https://github.com/Eduardo-Sebastian-Paipay-Vega/developer-autopilot-skills.git .developer-autopilot
+node .developer-autopilot/scripts/install.mjs --target claude-project
+# Otros targets: --target cursor | --target windsurf | --target cline
 ```
 
-### Opción 3: Clon local con `.gitignore`
-Clona directamente dentro de tu proyecto:
+Para actualizar en cualquier momento:
 ```bash
-git clone https://github.com/Eduardo-Sebastian-Paipay-Vega/developer-autopilot-skills.git .claude/skills
+git submodule update --remote --merge .developer-autopilot
+node .developer-autopilot/scripts/install.mjs --target claude-project
 ```
-Y añade en el `.gitignore` del proyecto del cliente:
-```gitignore
-.claude/skills/
-toolkit.config.json
+
+### Opción 3: Verificación automatizada del repositorio
+```bash
+node tests/verify-toolkit.mjs
 ```
+Valida frontmatter de las 26 skills, referencias internas, sintaxis JS/Python, archivos JSON, validadores MDES y `--dry-run` del instalador.
 
 ---
 

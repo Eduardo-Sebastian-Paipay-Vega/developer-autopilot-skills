@@ -5,7 +5,7 @@ description: Skill iniciadora y orquestadora del Toolkit de desarrollo. Inspecci
 
 # Iniciar Toolkit — Orquestación, Contexto y Convivencia de Skills
 
-Esta skill actúa como el **arrancador y director de orquesta** del Toolkit. Al llegar a un repositorio o proyecto nuevo (sea en una empresa nueva, freelance o proyecto personal), esta skill analiza el entorno, genera el contexto vivo y adapta el comportamiento de las demás 15 skills para que trabajen sincronizadas y sin fricción.
+Esta skill actúa como el **arrancador y director de orquesta** del Toolkit. Al llegar a un repositorio o proyecto nuevo (sea en una empresa nueva, freelance o proyecto personal), esta skill analiza el entorno, genera el contexto vivo y adapta el comportamiento de todas las demás skills del catálogo para que trabajen sincronizadas y sin fricción.
 
 ---
 

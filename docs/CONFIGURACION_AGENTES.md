@@ -14,27 +14,41 @@ Esta guía detalla cómo integrar y activar las **26 skills** de este toolkit en
 
 ---
 
+## Matriz de Compatibilidad Real por Agente
+
+No todos los agentes descubren `SKILL.md` de la misma manera. Esta tabla distingue el mecanismo real de cada entorno:
+
+| Agente | Mecanismo de descubrimiento | Target en `scripts/install.mjs` | Estado |
+| :--- | :--- | :--- | :--- |
+| **Google Antigravity / Gemini CLI** | Nativo en `~/.gemini/config/skills/<skill>/SKILL.md` | `--target antigravity` | Verificado en entorno real |
+| **Claude Code (Anthropic CLI)** | Nativo en `.claude/skills/<skill>/SKILL.md` o `~/.claude/skills/<skill>/SKILL.md` | `--target claude-project` / `claude-global` | Formato estándar nativo |
+| **Cursor IDE** | No auto-descubre `SKILL.md`; requiere `.cursor/rules/*.mdc` | `--target cursor` | Vía archivo de reglas generado |
+| **Windsurf / Cascade** | No auto-descubre `SKILL.md`; requiere `.windsurfrules` | `--target windsurf` | Vía archivo de reglas generado |
+| **Cline / Roo Code (VS Code)** | No auto-descubre `SKILL.md`; requiere `.clinerules` | `--target cline` | Vía archivo de reglas generado |
+
+---
+
 ## 1. Claude Code (Anthropic CLI)
 
-Claude Code soporta de forma nativa la carpeta `.claude/skills/`.
+Claude Code soporta de forma nativa `.claude/skills/<skill>/SKILL.md` (sin carpetas intermedias anidadas).
 
 ### Configuración por Proyecto (Recomendada)
-1. En la raíz de tu proyecto, clona o agrega este repositorio como submódulo:
+1. En la raíz de tu proyecto, agrega este repositorio como submódulo en `.developer-autopilot` y ejecuta el instalador oficial:
    ```bash
-   git submodule add https://github.com/Eduardo-Sebastian-Paipay-Vega/developer-autopilot-skills.git .claude/skills
+   git submodule add https://github.com/Eduardo-Sebastian-Paipay-Vega/developer-autopilot-skills.git .developer-autopilot
+   node .developer-autopilot/scripts/install.mjs --target claude-project
    ```
 2. Inicia o reinicia tu sesión de Claude Code:
    ```bash
    claude
    ```
-3. Claude Code descubrirá automáticamente todas las carpetas que contengan un `SKILL.md` y las registrará como comandos slash (`/iniciar-toolkit`, `/responsividad`, etc.).
+3. Claude Code descubrirá directamente cada carpeta en `.claude/skills/<skill>/SKILL.md`.
 
 ### Configuración Global (Disponible en todos tus proyectos)
-Si no deseas crear la carpeta `.claude/skills` en cada repositorio:
-1. Clona el repositorio en la carpeta global de tu usuario:
-   * **Linux/macOS:** `~/.claude/skills/`
-   * **Windows:** `C:\Users\<TuUsuario>\.claude\skills\`
-2. Cada vez que abras Claude Code en cualquier directorio, las 23 skills estarán activas globalmente.
+```bash
+git clone https://github.com/Eduardo-Sebastian-Paipay-Vega/developer-autopilot-skills.git ~/tools/developer-autopilot-skills
+node ~/tools/developer-autopilot-skills/scripts/install.mjs --target claude-global
+```
 
 ---
 

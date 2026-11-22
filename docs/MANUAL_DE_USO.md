@@ -240,7 +240,7 @@ Para no tener que explicarle al agente el contexto desde cero cada vez, copia y 
 > *Una vez generado el contexto, muestra un resumen conciso del entorno detectado y las skills recomendadas para comenzar a construir funcionalidades con arquitectura limpia."*
 
 #### B. Prompt de Actualización (Nuevas Skills / Nuevas Herramientas)
-> *"Se han incorporado nuevas skills o mejoras al toolkit en GitHub. Por favor actualiza el submódulo ejecutando `git submodule update --remote .claude/skills`.*
+> *"Se han incorporado nuevas skills o mejoras al toolkit en GitHub. Por favor actualiza el submódulo ejecutando `git submodule update --remote --merge .developer-autopilot` y vuelve a ejecutar `node .developer-autopilot/scripts/install.mjs --target claude-project` (o el target de mi agente).*
 > 
 > *Luego ejecuta `/iniciar-toolkit` para refrescar `toolkit.config.json` con cualquier cambio reciente en dependencias o carpetas del proyecto, y confirma que todas las herramientas están sincronizadas y listas."*
 

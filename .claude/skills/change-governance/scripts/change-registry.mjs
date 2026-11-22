@@ -317,20 +317,21 @@ function cmdValidate(root, strict) {
 }
 
 function main() {
-  const [cmd, ...rest] = process.argv.slice(2);
+  const [rawCmd, ...rest] = process.argv.slice(2);
+  const cmd = (rawCmd || '').toLowerCase();
   const flags = parseFlags(rest);
   const root = path.resolve(flags.dir || process.cwd());
 
-  if (!cmd || cmd === '-h' || cmd === '--help') {
-    console.log('Uso: node scripts/change-registry.mjs <init|add|metrics|validate> [opciones]');
+  if (!cmd || cmd === '-h' || cmd === '--help' || cmd === 'ayuda') {
+    console.log('Uso: node scripts/change-registry.mjs <iniciar|agregar|metricas|validar | init|add|metrics|validate> [opciones]');
     process.exit(0);
   }
-  if (cmd === 'init') cmdInit(root);
-  else if (cmd === 'add') cmdAdd(root, flags);
-  else if (cmd === 'metrics') cmdMetrics(root, Boolean(flags.json));
-  else if (cmd === 'validate') cmdValidate(root, Boolean(flags.strict));
+  if (cmd === 'init' || cmd === 'iniciar') cmdInit(root);
+  else if (cmd === 'add' || cmd === 'agregar') cmdAdd(root, flags);
+  else if (cmd === 'metrics' || cmd === 'metricas') cmdMetrics(root, Boolean(flags.json));
+  else if (cmd === 'validate' || cmd === 'validar') cmdValidate(root, Boolean(flags.strict));
   else {
-    console.error(`❌ Subcomando desconocido: ${cmd}`);
+    console.error(`❌ Subcomando desconocido: ${rawCmd}`);
     process.exit(2);
   }
 }

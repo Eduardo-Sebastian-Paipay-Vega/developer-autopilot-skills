@@ -144,49 +144,50 @@ function cmdNewSkill(argv) {
 function printHelp() {
   console.log('Developer Autopilot Skills — CLI Global Contextual (`autopilot` / `das`)');
   console.log('');
-  console.log('Uso desde CUALQUIER carpeta (auto-detecta tu proyecto actual):');
-  console.log('  autopilot where                                        Muestra rutas del toolkit y proyecto actual');
-  console.log('  autopilot sync                                         Actualiza el proyecto actual (Claude + Codex + Cursor)');
-  console.log('  autopilot sync-global                                  Actualiza todos tus agentes globales (Claude + AGY + Codex)');
-  console.log('  autopilot init [--include-email]                       Detecta stack/UI/BD y genera toolkit.config.json en cwd');
-  console.log('  autopilot scan [--strict] [--json]                     Ejecuta escaneo anti-mock en cwd');
-  console.log('  autopilot chg <init|add|metrics|validate> [opciones]   Gestiona fichas CHG-XXXX y métricas SIGCS en cwd');
-  console.log('  autopilot external [--check] [--reset]                 Comprueba/actualiza skills externas (Cloudflare)');
-  console.log('  autopilot new-skill <nombre-kebab> "<descripción>"     Crea nueva skill validada en la fuente única');
-  console.log('  autopilot verify                                       Ejecuta la suite completa de verificación');
+  console.log('Uso desde CUALQUIER carpeta (español o inglés — auto-detecta tu proyecto actual):');
+  console.log('  autopilot donde             (where)       Muestra rutas del toolkit y proyecto actual');
+  console.log('  autopilot actualizar        (sync)        Actualiza el proyecto actual (Claude + Codex + Cursor)');
+  console.log('  autopilot actualizar-global (sync-global) Actualiza todos tus agentes globales (Claude + AGY + Codex)');
+  console.log('  autopilot iniciar           (init)        Detecta stack/UI/BD y crea toolkit.config.json en cwd');
+  console.log('  autopilot escanear          (scan)        Ejecuta escaneo anti-mock en cwd [--strict] [--json]');
+  console.log('  autopilot cambio            (chg)         Gestiona fichas CHG-XXXX y métricas SIGCS (iniciar|agregar|metricas|validar)');
+  console.log('  autopilot externas          (external)    Comprueba/actualiza skills externas read-only (Cloudflare) [--check]');
+  console.log('  autopilot nueva-skill       (new-skill)   Crea nueva skill validada en la fuente única');
+  console.log('  autopilot verificar         (verify)      Ejecuta la suite completa de verificación');
 }
 
 function main() {
-  const [cmd, ...rest] = process.argv.slice(2);
-  if (!cmd || cmd === '-h' || cmd === '--help') {
+  const [rawCmd, ...rest] = process.argv.slice(2);
+  const cmd = (rawCmd || '').toLowerCase();
+  if (!cmd || cmd === '-h' || cmd === '--help' || cmd === 'ayuda') {
     printHelp();
     process.exit(0);
   }
 
-  if (cmd === 'where') cmdWhere();
-  else if (cmd === 'sync') cmdSync(rest, 'all-project');
-  else if (cmd === 'sync-global') cmdSync(rest, 'all-global');
-  else if (cmd === 'init') {
+  if (cmd === 'where' || cmd === 'donde') cmdWhere();
+  else if (cmd === 'sync' || cmd === 'actualizar') cmdSync(rest, 'all-project');
+  else if (cmd === 'sync-global' || cmd === 'actualizar-global') cmdSync(rest, 'all-global');
+  else if (cmd === 'init' || cmd === 'iniciar') {
     execFileSync(PY_CMD, [path.join(REPO_ROOT, '.claude', 'skills', 'iniciar-toolkit', 'setup.py'), '--dir', CALLER_CWD, ...rest], {
       cwd: CALLER_CWD,
       stdio: 'inherit',
     });
-  } else if (cmd === 'scan') {
+  } else if (cmd === 'scan' || cmd === 'escanear') {
     const hasPath = rest.some((a) => !a.startsWith('-'));
     const scanArgs = hasPath ? rest : [CALLER_CWD, ...rest];
     runNode('.claude/skills/mock-free-audit/scripts/scan-mocks.mjs', scanArgs, CALLER_CWD);
-  } else if (cmd === 'chg') {
+  } else if (cmd === 'chg' || cmd === 'cambio' || cmd === 'cambios') {
     const hasDir = rest.includes('--dir');
     const chgArgs = hasDir ? rest : [...rest, '--dir', CALLER_CWD];
     runNode('.claude/skills/change-governance/scripts/change-registry.mjs', chgArgs, CALLER_CWD);
-  } else if (cmd === 'external') {
+  } else if (cmd === 'external' || cmd === 'externas') {
     runNode('scripts/sync-external.mjs', rest);
-  } else if (cmd === 'new-skill') {
+  } else if (cmd === 'new-skill' || cmd === 'nueva-skill') {
     cmdNewSkill(rest);
-  } else if (cmd === 'verify') {
+  } else if (cmd === 'verify' || cmd === 'verificar') {
     runNode('tests/verify-toolkit.mjs');
   } else {
-    console.error(`❌ Subcomando desconocido: ${cmd}`);
+    console.error(`❌ Subcomando desconocido: ${rawCmd}`);
     printHelp();
     process.exit(2);
   }

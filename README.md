@@ -41,15 +41,16 @@ git clone --recurse-submodules https://github.com/Eduardo-Sebastian-Paipay-Vega/
 cd ~/tools/developer-autopilot-skills
 npm link
 
-# Ya desde CUALQUIER proyecto en tu terminal:
-autopilot where                 # Verifica rutas detectadas automáticamente
-autopilot sync-global           # Actualiza Claude + Antigravity + Codex + Cloudflare
-autopilot sync                  # Instala/actualiza el proyecto actual (Claude + Codex + Cursor)
-autopilot init                  # Detecta stack/UI/BD y crea toolkit.config.json en el proyecto actual
-autopilot scan --strict         # Escaneo anti-mock en el proyecto actual
-autopilot chg metrics           # Métricas SIGCS del registro de cambios del proyecto actual
-autopilot external --check      # Verifica si hay nueva versión de Cloudflare Skills
-autopilot new-skill mi-skill "Descripción clara de qué resuelve."
+# Ya desde CUALQUIER proyecto en tu terminal (soporta español e inglés):
+autopilot donde                 # (where)       Verifica rutas detectadas automáticamente
+autopilot actualizar-global     # (sync-global) Actualiza Claude + Antigravity + Codex + Cloudflare
+autopilot actualizar            # (sync)        Instala/actualiza el proyecto actual (Claude + Codex + Cursor)
+autopilot iniciar               # (init)        Detecta stack/UI/BD y crea toolkit.config.json en el proyecto actual
+autopilot escanear --strict     # (scan)        Escaneo anti-mock en el proyecto actual
+autopilot cambio metricas       # (chg metrics) Métricas SIGCS del registro de cambios del proyecto actual
+autopilot externas --check      # (external)    Verifica si hay nueva versión de Cloudflare Skills
+autopilot nueva-skill mi-skill "Descripción clara de qué resuelve."
+autopilot verificar             # (verify)      Corre todas las pruebas automatizadas del toolkit
 ```
 
 ### Opción 2: Submódulo aislado por Proyecto (Equipos)

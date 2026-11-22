@@ -22,6 +22,8 @@ No todos los agentes descubren `SKILL.md` de la misma manera. Esta tabla disting
 | :--- | :--- | :--- | :--- |
 | **Google Antigravity / Gemini CLI** | Nativo en `~/.gemini/config/skills/<skill>/SKILL.md` | `--target antigravity` | Verificado en entorno real |
 | **Claude Code (Anthropic CLI)** | Nativo en `.claude/skills/<skill>/SKILL.md` o `~/.claude/skills/<skill>/SKILL.md` | `--target claude-project` / `claude-global` | Formato estándar nativo |
+| **OpenAI Codex CLI** | Nativo en `.agents/skills/<skill>/SKILL.md` o `~/.codex/skills/<skill>/SKILL.md` | `--target codex-project` / `codex-global` | Formato estándar Agent Skills |
+| **Todos los agentes a la vez** | Propaga simultáneamente a Claude + Antigravity + Codex (global) o Claude + Codex + Cursor (proyecto) | `--target all-global` / `all-project` | Vía `scripts/autopilot.mjs sync` |
 | **Cursor IDE** | No auto-descubre `SKILL.md`; requiere `.cursor/rules/*.mdc` | `--target cursor` | Vía archivo de reglas generado |
 | **Windsurf / Cascade** | No auto-descubre `SKILL.md`; requiere `.windsurfrules` | `--target windsurf` | Vía archivo de reglas generado |
 | **Cline / Roo Code (VS Code)** | No auto-descubre `SKILL.md`; requiere `.clinerules` | `--target cline` | Vía archivo de reglas generado |

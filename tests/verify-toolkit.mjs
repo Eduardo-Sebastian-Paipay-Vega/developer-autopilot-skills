@@ -164,7 +164,18 @@ try {
   check('motion-design-engineer audit-motion.mjs', false, err.stderr?.toString() || err.message);
 }
 
-for (const target of ['claude-project', 'claude-global', 'antigravity', 'cursor', 'windsurf', 'cline']) {
+for (const target of [
+  'claude-project',
+  'claude-global',
+  'antigravity',
+  'codex-project',
+  'codex-global',
+  'cursor',
+  'windsurf',
+  'cline',
+  'all-global',
+  'all-project',
+]) {
   try {
     execFileSync(process.execPath, [
       path.join(REPO_ROOT, 'scripts', 'install.mjs'),
@@ -175,6 +186,13 @@ for (const target of ['claude-project', 'claude-global', 'antigravity', 'cursor'
   } catch (err) {
     check(`scripts/install.mjs --target ${target} --dry-run`, false, err.stderr?.toString() || err.message);
   }
+}
+
+try {
+  execFileSync(process.execPath, [path.join(REPO_ROOT, 'scripts', 'autopilot.mjs'), '--help'], { stdio: 'pipe' });
+  check('scripts/autopilot.mjs --help', true);
+} catch (err) {
+  check('scripts/autopilot.mjs --help', false, err.stderr?.toString() || err.message);
 }
 
 console.log('\n=== 6. Integridad de skills externas oficiales (read-only) ===');

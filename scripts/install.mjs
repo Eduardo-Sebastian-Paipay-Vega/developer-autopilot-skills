@@ -1,11 +1,17 @@
 #!/usr/bin/env node
 /**
- * Developer Autopilot Skills — Instalador oficial (sin dependencias)
- * Evita la estructura anidada `.claude/skills/.claude/skills/` instalando
- * cada skill directamente en la ruta que espera cada agente.
+ * Developer Autopilot Skills — Instalador Multi-Agente (sin dependencias)
+ * Instala y sincroniza las skills directamente en las rutas nativas de cada agente,
+ * sin rutas anidadas y sin tocar el código fuente de tus proyectos.
+ *
+ * Targets individuales:
+ *   claude-project | claude-global | antigravity | codex-project | codex-global | cursor | windsurf | cline
+ * Targets combinados (actualizan todos a la vez):
+ *   all-global  -> Claude Code (~/.claude/skills) + Antigravity (~/.gemini/config/skills) + Codex (~/.codex/skills)
+ *   all-project -> Proyecto destino: Claude (.claude/skills) + Codex (.agents/skills) + Cursor (.cursor/rules)
  *
  * Uso:
- *   node scripts/install.mjs --target <claude-project|claude-global|antigravity|cursor|windsurf|cline> [--dest <ruta>] [--dry-run]
+ *   node scripts/install.mjs --target <target> [--dest <ruta>] [--include-external] [--dry-run]
  */
 
 import fs from 'node:fs';
@@ -19,7 +25,18 @@ const SKILLS_SRC = path.join(REPO_ROOT, '.claude', 'skills');
 const EXTERNAL_SOURCES_FILE = path.join(REPO_ROOT, 'external', 'sources.json');
 const LANDING_SCOPE_SRC = path.join(REPO_ROOT, '.claude', 'landing-design', 'scope.json');
 
-const VALID_TARGETS = ['claude-project', 'claude-global', 'antigravity', 'cursor', 'windsurf', 'cline'];
+const VALID_TARGETS = [
+  'claude-project',
+  'claude-global',
+  'antigravity',
+  'codex-project',
+  'codex-global',
+  'cursor',
+  'windsurf',
+  'cline',
+  'all-global',
+  'all-project',
+];
 
 function parseArgs(argv) {
   const opts = { target: null, dest: process.cwd(), dryRun: false, includeExternal: false };
@@ -90,6 +107,48 @@ function buildRulesFile(skills, skillsRelDir) {
   return lines.join('\n');
 }
 
+function installSingle(target, skills, opts) {
+  const home = os.homedir();
+  const isGlobal = target === 'claude-global' || target === 'antigravity' || target === 'codex-global';
+  const tag = opts.dryRun ? '[DRY-RUN] ' : '';
+
+  let skillsDst;
+  if (target === 'claude-global') skillsDst = path.join(home, '.claude', 'skills');
+  else if (target === 'antigravity') skillsDst = path.join(home, '.gemini', 'config', 'skills');
+  else if (target === 'codex-global') skillsDst = path.join(home, '.codex', 'skills');
+  else if (target === 'codex-project') skillsDst = path.join(opts.dest, '.agents', 'skills');
+  else skillsDst = path.join(opts.dest, '.claude', 'skills');
+
+  console.log(`${tag}[${target}] ${skills.length} skills → ${skillsDst}`);
+  for (const s of skills) {
+    copyDir(s.srcDir, path.join(skillsDst, s.name), opts.dryRun);
+  }
+
+  if (!isGlobal && target !== 'codex-project' && fs.existsSync(LANDING_SCOPE_SRC)) {
+    const scopeDst = path.join(opts.dest, '.claude', 'landing-design', 'scope.json');
+    if (!fs.existsSync(scopeDst)) {
+      if (!opts.dryRun) {
+        fs.mkdirSync(path.dirname(scopeDst), { recursive: true });
+        fs.copyFileSync(LANDING_SCOPE_SRC, scopeDst);
+      }
+      console.log(`${tag}[${target}] Plantilla creada: ${scopeDst}`);
+    }
+  }
+
+  let rulesPath = null;
+  if (target === 'cursor') rulesPath = path.join(opts.dest, '.cursor', 'rules', 'developer-autopilot.mdc');
+  else if (target === 'windsurf') rulesPath = path.join(opts.dest, '.windsurfrules');
+  else if (target === 'cline') rulesPath = path.join(opts.dest, '.clinerules');
+
+  if (rulesPath) {
+    if (!opts.dryRun) {
+      fs.mkdirSync(path.dirname(rulesPath), { recursive: true });
+      fs.writeFileSync(rulesPath, buildRulesFile(skills, '.claude/skills'), 'utf8');
+    }
+    console.log(`${tag}[${target}] Reglas generadas: ${rulesPath}`);
+  }
+}
+
 function main() {
   const opts = parseArgs(process.argv.slice(2));
   if (!opts.target || !VALID_TARGETS.includes(opts.target)) {
@@ -98,53 +157,18 @@ function main() {
   }
 
   const skills = listSkills(opts.includeExternal);
-  const home = os.homedir();
-  const isGlobal = opts.target === 'claude-global' || opts.target === 'antigravity';
+  const targets = opts.target === 'all-global'
+    ? ['claude-global', 'antigravity', 'codex-global']
+    : opts.target === 'all-project'
+      ? ['claude-project', 'codex-project', 'cursor']
+      : [opts.target];
 
-  let skillsDst;
-  if (opts.target === 'claude-global') skillsDst = path.join(home, '.claude', 'skills');
-  else if (opts.target === 'antigravity') skillsDst = path.join(home, '.gemini', 'config', 'skills');
-  else skillsDst = path.join(opts.dest, '.claude', 'skills');
+  for (const t of targets) {
+    installSingle(t, skills, opts);
+  }
 
   const tag = opts.dryRun ? '[DRY-RUN] ' : '';
-  console.log(`${tag}Instalando ${skills.length} skills para target "${opts.target}" → ${skillsDst}`);
-
-  for (const s of skills) {
-    copyDir(s.srcDir, path.join(skillsDst, s.name), opts.dryRun);
-  }
-
-  // Copiar plantilla de scope para landing-design si es instalación de proyecto y aún no existe
-  if (!isGlobal && fs.existsSync(LANDING_SCOPE_SRC)) {
-    const scopeDst = path.join(opts.dest, '.claude', 'landing-design', 'scope.json');
-    if (!fs.existsSync(scopeDst)) {
-      if (!opts.dryRun) {
-        fs.mkdirSync(path.dirname(scopeDst), { recursive: true });
-        fs.copyFileSync(LANDING_SCOPE_SRC, scopeDst);
-      }
-      console.log(`${tag}Plantilla creada: ${scopeDst}`);
-    }
-  }
-
-  // Generar reglas explícitas para agentes que no auto-descubren .claude/skills/
-  const rulesContent = buildRulesFile(skills, '.claude/skills');
-  let rulesPath = null;
-  if (opts.target === 'cursor') {
-    rulesPath = path.join(opts.dest, '.cursor', 'rules', 'developer-autopilot.mdc');
-  } else if (opts.target === 'windsurf') {
-    rulesPath = path.join(opts.dest, '.windsurfrules');
-  } else if (opts.target === 'cline') {
-    rulesPath = path.join(opts.dest, '.clinerules');
-  }
-
-  if (rulesPath) {
-    if (!opts.dryRun) {
-      fs.mkdirSync(path.dirname(rulesPath), { recursive: true });
-      fs.writeFileSync(rulesPath, rulesContent, 'utf8');
-    }
-    console.log(`${tag}Archivo de reglas generado: ${rulesPath}`);
-  }
-
-  console.log(`${tag}✅ Instalación completada (${skills.length} skills, sin rutas anidadas).`);
+  console.log(`${tag}✅ Sincronización completada (${skills.length} skills en ${targets.join(', ')}).`);
 }
 
 main();

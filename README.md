@@ -33,17 +33,17 @@ Esta skill inspecciona el repositorio en 2 segundos:
 > [!IMPORTANT]
 > Este repositorio contiene internamente `.claude/skills/`. **Nunca** lo agregues como submódulo directamente en `.claude/skills` (produciría `.claude/skills/.claude/skills/`). Usa el instalador oficial [`scripts/install.mjs`](scripts/install.mjs) que copia cada skill directamente a la ruta que espera tu agente.
 
-### Opción 1: Instalación Global (Recomendada para tu PC)
-Clona este repositorio una sola vez en una carpeta local (ej. `~/tools/developer-autopilot-skills`) y ejecuta el instalador según tu agente:
+### Opción 1: Sincronización Global para TODOS tus agentes a la vez (Claude + Antigravity + Codex)
+Clona este repositorio una sola vez y ejecuta `scripts/autopilot.mjs sync`: actualiza el repo, sincroniza las 22 skills externas de Cloudflare, corre los tests y propaga a **Claude Code, Antigravity (AGY) y Codex** en un solo paso, sin tocar el código de ningún proyecto:
 
 ```bash
-git clone https://github.com/Eduardo-Sebastian-Paipay-Vega/developer-autopilot-skills.git ~/tools/developer-autopilot-skills
+git clone --recurse-submodules https://github.com/Eduardo-Sebastian-Paipay-Vega/developer-autopilot-skills.git ~/tools/developer-autopilot-skills
 
-# Para Claude Code (instala en ~/.claude/skills/<skill>/)
-node ~/tools/developer-autopilot-skills/scripts/install.mjs --target claude-global
+# Actualiza TODOS tus agentes globales (Claude + Antigravity + Codex) + Cloudflare skills:
+node ~/tools/developer-autopilot-skills/scripts/autopilot.mjs sync --target all-global
 
-# Para Google Antigravity / Gemini CLI (instala en ~/.gemini/config/skills/<skill>/)
-node ~/tools/developer-autopilot-skills/scripts/install.mjs --target antigravity
+# O crea una nueva skill validada en la fuente única y propágala a todos los agentes:
+node ~/tools/developer-autopilot-skills/scripts/autopilot.mjs new-skill mi-skill "Descripción clara de qué resuelve."
 ```
 
 ### Opción 2: Submódulo aislado por Proyecto (Equipos)

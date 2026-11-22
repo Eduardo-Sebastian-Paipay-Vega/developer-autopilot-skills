@@ -59,6 +59,7 @@ Siempre que el usuario solicite una tarea coincidente con las siguientes directi
 - Reordenar columnas: `.claude/skills/tabla-orden-dinamico/SKILL.md`
 - Resaltar fila activa: `.claude/skills/resaltar-fila-abierta/SKILL.md`
 - Ingeniería de animaciones e ilustraciones (MDES): `.claude/skills/motion-design-engineer/SKILL.md`
+- Pantallas de estado del sistema, errores 4xx/5xx y rutas: `.claude/skills/system-state-screens/SKILL.md`
 - Auditoría frontend: `.claude/skills/frontend-review/SKILL.md`
 - Estándares UI: `.claude/skills/frontend-standards/SKILL.md`
 - Modelos y BD: `.claude/skills/support-db/SKILL.md`

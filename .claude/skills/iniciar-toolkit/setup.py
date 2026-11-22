@@ -241,6 +241,7 @@ def main():
         print("  ✓ /tabla-orden-dinamico     ─ Tablas interactivas")
         print("  ✓ /resaltar-fila-abierta    ─ Feedback de fila activa en modales")
         print("  ✓ /motion-design-engineer   ─ Motor MDES de animaciones e ilustraciones SVG+CSS+JS")
+        print("  ✓ /system-state-screens     ─ Pantallas de estado, transición, errores 4xx/5xx, offline y rutas")
 
     if info.get("landing") or info["frontend"]:
         print("  ✓ /landing-uniformizar      ─ Kit Landing Design Guardian (auditar, aplicar y verificar landing)")

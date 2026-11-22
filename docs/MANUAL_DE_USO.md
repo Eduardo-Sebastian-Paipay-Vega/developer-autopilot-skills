@@ -179,6 +179,7 @@ Este kit garantiza que nadie degrade el diseño de tus páginas públicas y que 
 | Arreglar una tabla que scrollea toda la pantalla | `/mejorar-vista-fija` |
 | Destacar la fila que abrió un modal | `/resaltar-fila-abierta` |
 | Crear animaciones, ilustraciones o escenas en código (MDES) | `/motion-design-engineer` |
+| Generar y cablear pantallas de estado, errores 4xx/5xx, offline y rutas | `/system-state-screens` |
 | Dejar columnas reordenables por el usuario | `/tabla-orden-dinamico` |
 | Auditar código de un componente frontend | `/frontend-review` |
 | Capturar tokens de diseño de una landing | `/landing-recopilar` |

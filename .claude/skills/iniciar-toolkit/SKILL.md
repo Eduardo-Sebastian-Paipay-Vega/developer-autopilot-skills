@@ -94,6 +94,7 @@ Una vez inicializado el proyecto con esta skill, las demás herramientas convive
 | **Tablas interactivas con arrastre y anchos dinámicos**| `/tabla-orden-dinamico` |
 | **Feedback visual al cerrar un diálogo modal** | `/resaltar-fila-abierta` |
 | **Crear animaciones, ilustraciones o escenas SVG+CSS+JS** | `/motion-design-engineer` |
+| **Generar y cablear pantallas de estado, errores 4xx/5xx, offline y rutas** | `/system-state-screens` |
 | **Revisar y auditar la calidad de un componente** | `/frontend-review` |
 | **Normas de código y buenas prácticas UI** | `/frontend-standards` |
 | **Consultar modelos, campos y relaciones de BD** | `/support-db` |

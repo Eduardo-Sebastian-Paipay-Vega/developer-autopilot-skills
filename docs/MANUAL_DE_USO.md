@@ -1,6 +1,6 @@
 # 📖 Manual de Uso del Usuario — Developer Autopilot Skills
 
-Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **26 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
+Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **27 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
 
 ---
 
@@ -52,7 +52,12 @@ En el chat de tu agente de IA, escribe:
 ## 3. Funcionalidades por Pestaña (Módulos 1 al 6)
 
 <details open>
-<summary><b>💻 Módulo 1: Frontend & Experiencia de Usuario — UI/UX (6 skills)</b></summary>
+<summary><b>💻 Módulo 1: Frontend & Experiencia de Usuario — UI/UX (7 skills)</b></summary>
+
+### `/enterprise-sidebar`
+* **Para qué sirve:** Diseña, reorganiza e implementa sidebars empresariales completos (`260px` expandido / `68px` colapsado con Popover/Flyout / Drawer móvil `<768px`), aplicando profundidad máx. 2 niveles, Regla de Miller (3–7 ítems), filtrado recursivo RBAC (oculta padres y secciones vacías), WCAG 2.2 AA, persistencia sin *layout shift* y atajo `Ctrl+B`, heredando los tokens de diseño y librería UI del proyecto.
+* **Ejemplo de prompt:**
+  > *"/enterprise-sidebar reorganiza nuestras rutas en máximo 2 niveles e implementa el sidebar colapsable con Flyout y filtrado RBAC respetando nuestra librería UI y paleta."*
 
 ### `/frontend-standards`
 * **Para qué sirve:** Define estándares de arquitectura frontend, componentes reactivos y estilos limpios. Detecta el framework y librería UI real del proyecto (`toolkit.config.json` / `package.json`: PrimeNG, shadcn/ui, PrimeReact, MUI, Vuetify, etc.) sin asumir PrimeNG.
@@ -220,6 +225,7 @@ Este repositorio integra [`cloudflare/skills`](https://github.com/cloudflare/ski
 | Generar y cablear pantallas de estado, errores 4xx/5xx, offline y rutas | `/system-state-screens` |
 | Dejar columnas reordenables por el usuario | `/tabla-orden-dinamico` |
 | Auditar código de un componente frontend | `/frontend-review` |
+| Diseñar o reorganizar el sidebar empresarial con RBAC | `/enterprise-sidebar` |
 | Capturar tokens de diseño de una landing | `/landing-recopilar` |
 | Uniformizar diseño en páginas públicas | `/landing-uniformizar` |
 | Consultar tipos y relaciones de base de datos | `/support-db` |

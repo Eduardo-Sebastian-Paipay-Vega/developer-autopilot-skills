@@ -96,6 +96,7 @@ Una vez inicializado el proyecto con esta skill, las demás herramientas convive
 | **Crear animaciones, ilustraciones o escenas SVG+CSS+JS** | `/motion-design-engineer` |
 | **Generar y cablear pantallas de estado, errores 4xx/5xx, offline y rutas** | `/system-state-screens` |
 | **Revisar y auditar la calidad de un componente** | `/frontend-review` |
+| **Diseñar o reorganizar el sidebar empresarial con RBAC** | `/enterprise-sidebar` |
 | **Normas de código y buenas prácticas UI** | `/frontend-standards` |
 | **Consultar modelos, campos y relaciones de BD** | `/support-db` |
 | **Documentar tablas en PostgreSQL y el ORM** | `/diccionario-datos` |

@@ -367,6 +367,7 @@ def main():
     print("  ✓ /reporte-semanal-resumen  ─ Informe semanal desde Git")
     if info["frontend"]:
         print("  ✓ /frontend-review          ─ Auditoría de componentes (" + info["frontend"] + ")")
+        print("  ✓ /enterprise-sidebar       ─ Sidebar empresarial (260/68px, Flyout, RBAC, WCAG 2.2 AA)")
         print("  ✓ /responsividad            ─ Optimización móvil")
         print("  ✓ /motion-design-engineer   ─ Animaciones e ilustraciones SVG+CSS+JS (MDES)")
         print("  ✓ /system-state-screens     ─ Pantallas de estado, errores 4xx/5xx, offline y rutas")

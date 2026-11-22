@@ -1,6 +1,6 @@
 # 🚀 Developer Autopilot Skills — Enterprise & Fullstack AI Toolkit
 
-> **Kit integral de 26 skills de ingeniería de software, diseño visual, motion engineering y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
+> **Kit integral de 27 skills de ingeniería de software, diseño visual, motion engineering y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
 > Diseñado para que cualquier desarrollador pueda llegar a cualquier proyecto, empresa o cliente y disponer de un copiloto con estándares de clase mundial sin fricción ni configuraciones manuales.
 
 ---
@@ -103,7 +103,7 @@ Confirma que has asimilado estas reglas antes de comenzar a editar código.
 
 ---
 
-## 🧭 Catálogo Maestro de Skills (26 Skills por Funcionalidad)
+## 🧭 Catálogo Maestro de Skills (27 Skills por Funcionalidad)
 
 Despliega cada pestaña para ver los comandos, propósito y enlace directo a cada funcionalidad:
 
@@ -117,12 +117,13 @@ Despliega cada pestaña para ver los comandos, propósito y enlace directo a cad
 </details>
 
 <details>
-<summary><b>2. 💻 Frontend y Experiencia de Usuario — UI/UX (6 skills)</b></summary>
+<summary><b>2. 💻 Frontend y Experiencia de Usuario — UI/UX (7 skills)</b></summary>
 
 | Comando | Descripción |
 | :--- | :--- |
 | **`/frontend-standards`** | Estándares de arquitectura frontend, componentes reactivos, validación y manejo de errores; se adapta al framework y librería UI real del proyecto. |
 | **`/frontend-review`** | Auditoría y corrección de componentes: rendimiento, estado reactivo, A11y, formularios y desacoplamiento REST. |
+| **`/enterprise-sidebar`** | Diseña, reorganiza e implementa sidebars empresariales (`260px`/`68px` con Flyout/Drawer móvil, máx. 2 niveles, RBAC recursivo, WCAG 2.2 AA y `Ctrl+B`) heredando el diseño y librería UI del proyecto. |
 | **`/responsividad`** | Adaptación móvil (`<768px`) con preservación pixel-perfect de escritorio y prevención del bug `flex-wrap`. |
 | **`/mejorar-vista-fija`** | Layout Flexbox para tablas con sticky header, filtros anclados y scroll vertical interno sin desbordar la página. |
 | **`/tabla-orden-dinamico`** | Reordenamiento de columnas por usuario, anchos redimensionables y persistencia segura de preferencias. |
@@ -219,7 +220,7 @@ Incluye las 22 skills oficiales de Cloudflare: `cloudflare`, `workers-best-pract
 developer-autopilot-skills/
 ├── .claude/
 │   ├── landing-design/            # Configuración de scope y evidencias visuales
-│   └── skills/                    # Directorio unificado de las 26 skills
+│   └── skills/                    # Directorio unificado de las 27 skills
 │       ├── iniciar-toolkit/
 │       ├── motion-design-engineer/
 │       ├── system-state-screens/

@@ -84,6 +84,7 @@ Una vez inicializado el proyecto con esta skill, las demás herramientas convive
 | :--- | :--- |
 | **Inicio de proyecto o cambio de entorno** | `/iniciar-toolkit` |
 | **Generar Plan Maestro y Delimitaciones (Info Primaria)** | `/crear-plan-maestro` |
+| **Registrar cambio grande (`CHG-XXXX`), métricas y commits** | `/change-governance` |
 | **Garantizar fidelidad visual de Landing Page** | `/landing-uniformizar` o `/landing-recopilar` |
 | **Auditar consistencia estética del sitio público** | `/landing-auditar` |
 | **Aplicar diseño de referencia a rutas públicas** | `/landing-aplicar` |

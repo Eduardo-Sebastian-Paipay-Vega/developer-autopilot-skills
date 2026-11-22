@@ -378,6 +378,7 @@ def main():
     if info["cloud"]["provider"] == "cloudflare":
         print("  ✓ /cloudflare               ─ Skills oficiales de Cloudflare (external/cloudflare-skills)")
     print("  ✓ /crear-plan-maestro       ─ Plan Maestro de Arquitectura y Dominio (Información Primaria)")
+    print("  ✓ /change-governance        ─ Gobierno de cambios grandes (CHG-XXXX, métricas, PR y CHANGELOG_INTERNO)")
     print("  ✓ /crear-guia-tecnica       ─ Especificaciones técnicas")
     print("  ✓ /crear-manual-usuario     ─ Manual de usuario y exportación .docx")
     print("\n🎉 Entorno listo.")

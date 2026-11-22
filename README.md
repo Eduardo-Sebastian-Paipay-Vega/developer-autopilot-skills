@@ -1,6 +1,6 @@
 # 🚀 Developer Autopilot Skills — Enterprise & Fullstack AI Toolkit
 
-> **Kit integral de 28 skills de ingeniería de software, diseño visual, motion engineering y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
+> **Kit integral de 29 skills de ingeniería de software, diseño visual, motion engineering, gobierno de cambios y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
 > Diseñado para que cualquier desarrollador pueda llegar a cualquier proyecto, empresa o cliente y disponer de un copiloto con estándares de clase mundial sin fricción ni configuraciones manuales.
 
 ---
@@ -103,7 +103,7 @@ Confirma que has asimilado estas reglas antes de comenzar a editar código.
 
 ---
 
-## 🧭 Catálogo Maestro de Skills (28 Skills por Funcionalidad)
+## 🧭 Catálogo Maestro de Skills (29 Skills por Funcionalidad)
 
 Despliega cada pestaña para ver los comandos, propósito y enlace directo a cada funcionalidad:
 
@@ -168,10 +168,11 @@ Despliega cada pestaña para ver los comandos, propósito y enlace directo a cad
 </details>
 
 <details>
-<summary><b>6. 📝 Documentación Viva, Arquitectura y Entregables (4 skills)</b></summary>
+<summary><b>6. 📝 Documentación Viva, Arquitectura y Gobierno de Cambios (5 skills)</b></summary>
 
 | Comando | Descripción |
 | :--- | :--- |
+| **`/change-governance`** | **SIGCS (Regla obligatoria en cambios C2–C4):** registro trazable `CHG-XXXX` en 15 dimensiones, métricas reales (`change-registry.mjs`), `CHANGELOG_INTERNO.md`, ramas/commits `tipo(CHG-XXXX)` y plantilla de PR. |
 | **`/crear-plan-maestro`** | Genera el Plan Maestro de Arquitectura y Dominio (Información Primaria): RFs, Casos de Uso, delimitaciones Out-of-Scope y auditoría E2E. |
 | **`/actualizar-contexto`** | Analiza `git diff` al final de la sesión y actualiza la arquitectura viva (`docs/arquitectura`) sin perder historial. |
 | **`/crear-guia-tecnica`** | Genera especificaciones técnicas de módulos para soporte y desarrollo con diagramas de flujo Mermaid. |
@@ -221,7 +222,7 @@ Incluye las 22 skills oficiales de Cloudflare: `cloudflare`, `workers-best-pract
 developer-autopilot-skills/
 ├── .claude/
 │   ├── landing-design/            # Configuración de scope y evidencias visuales
-│   └── skills/                    # Directorio unificado de las 28 skills
+│   └── skills/                    # Directorio unificado de las 29 skills
 │       ├── iniciar-toolkit/
 │       ├── motion-design-engineer/
 │       ├── system-state-screens/

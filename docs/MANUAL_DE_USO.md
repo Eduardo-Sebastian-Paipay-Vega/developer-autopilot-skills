@@ -1,6 +1,6 @@
 # 📖 Manual de Uso del Usuario — Developer Autopilot Skills
 
-Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **28 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
+Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **29 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
 
 ---
 
@@ -145,7 +145,12 @@ Este kit garantiza que nadie degrade el diseño de tus páginas públicas y que 
 </details>
 
 <details>
-<summary><b>📝 Módulo 5: Documentación Viva, Arquitectura y Entregables (4 skills)</b></summary>
+<summary><b>📝 Módulo 5: Documentación Viva, Arquitectura y Gobierno de Cambios (5 skills)</b></summary>
+
+### `/change-governance` *(Regla obligatoria en cambios grandes C2–C4)*
+* **Para qué sirve:** Gestiona la trazabilidad completa de cada cambio importante (`CHG-XXXX`) en 15 dimensiones (funcional, UX/UI, arquitectura, BD, API, seguridad), genera el prefijo exacto de rama y commit (`feat(CHG-XXXX): ...`), sincroniza `docs/CHANGELOG_INTERNO.md` y calcula métricas reales con `scripts/change-registry.mjs`.
+* **Ejemplo de prompt:**
+  > *"/change-governance registra este cambio C3 antes de implementar, dame el CHG-ID, la rama y el prefijo de commit, y al cerrar actualiza CHANGELOG_INTERNO.md y las métricas."*
 
 ### `/crear-plan-maestro`
 * **Para qué sirve:** Genera la **información primaria** del proyecto (`docs/planeacion/plan-maestro.md`): RFs, Casos de Uso, jerarquía modular, rutas objetivo y límites Out-of-Scope. Si aún no hay código, reporta qué información falta; si ya hay código, audita la integración E2E (BD – Backend – Frontend) y residuos.
@@ -223,6 +228,7 @@ Este repositorio integra [`cloudflare/skills`](https://github.com/cloudflare/ski
 | :--- | :--- |
 | Configurar un proyecto nuevo | `/iniciar-toolkit` |
 | Elaborar el Plan Maestro de Dominio (Info Primaria) | `/crear-plan-maestro` |
+| Registrar cambio grande (`CHG-XXXX`), métricas y commit/PR | `/change-governance` |
 | Arreglar desbordamiento en celular | `/responsividad` |
 | Arreglar una tabla que scrollea toda la pantalla | `/mejorar-vista-fija` |
 | Destacar la fila que abrió un modal | `/resaltar-fila-abierta` |

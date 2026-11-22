@@ -350,6 +350,36 @@ try {
     strictExitedNonZero = true;
   }
   check('Integración scan-mocks.mjs: --strict falla (exit != 0) ante hallazgos CRITICAL/HIGH', strictExitedNonZero);
+
+  // 7.6 Prueba real de change-governance/scripts/change-registry.mjs (init -> add -> metrics -> validate)
+  const cmDir = path.join(tmpRoot, 'cm-test-app');
+  fs.mkdirSync(cmDir, { recursive: true });
+  const cmScript = path.join(SKILLS_DIR, 'change-governance', 'scripts', 'change-registry.mjs');
+
+  execFileSync(process.execPath, [cmScript, 'init', '--dir', cmDir], { stdio: 'pipe' });
+  execFileSync(process.execPath, [
+    cmScript, 'add',
+    '--dir', cmDir,
+    '--title', 'Rediseño del sidebar con RBAC',
+    '--type', 'UI/UX',
+    '--criticality', 'C3',
+    '--dimensions', 'ux-ui,frontend,seguridad',
+    '--modules', 'navegacion',
+    '--refs', 'RF-04',
+  ], { stdio: 'pipe' });
+
+  const metricsOut = execFileSync(process.execPath, [cmScript, 'metrics', '--dir', cmDir, '--json'], { encoding: 'utf8' });
+  const metrics = JSON.parse(metricsOut);
+  check('Integración change-registry.mjs: init + add crea CHG-0001 y calcula métricas',
+    metrics.totalChanges === 1
+    && metrics.byCriticality.C3 === 1
+    && metrics.kpis.traceabilityPct === 100
+    && fs.existsSync(path.join(cmDir, '.change-management', 'changes', 'CHG-0001.md'))
+    && fs.existsSync(path.join(cmDir, 'docs', 'CHANGELOG_INTERNO.md'))
+    && fs.existsSync(path.join(cmDir, '.github', 'pull_request_template.md')));
+
+  execFileSync(process.execPath, [cmScript, 'validate', '--dir', cmDir, '--strict'], { stdio: 'pipe' });
+  check('Integración change-registry.mjs: validate --strict aprueba registro válido', true);
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });
 }

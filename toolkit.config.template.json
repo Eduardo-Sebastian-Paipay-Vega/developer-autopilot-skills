@@ -9,7 +9,10 @@
     "frontend": "Angular | React | Next.js | Vue | Svelte",
     "ui_libraries": ["PrimeNG | PrimeReact | shadcn/ui | MUI | Angular Material | Ant Design | Vuetify"],
     "css_framework": "Tailwind CSS | SCSS | CSS",
-    "backend": "Django | Express | NestJS | FastAPI"
+    "backend": "Django | Express | NestJS | FastAPI",
+    "databases": ["PostgreSQL | MySQL | SQLite | MongoDB | Redis"],
+    "orms": ["Prisma | Drizzle ORM | Django ORM | TypeORM | SQLAlchemy"],
+    "package_managers": ["pnpm | npm | yarn | bun | uv"]
   },
   "cloud": {
     "provider": "gcp",

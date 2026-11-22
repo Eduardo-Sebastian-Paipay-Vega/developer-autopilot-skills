@@ -13,6 +13,7 @@
  */
 
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -53,7 +54,7 @@ const skillDirs = fs.readdirSync(SKILLS_DIR, { withFileTypes: true })
 
 check(`Carpetas de skills encontradas: ${skillDirs.length}`, skillDirs.length > 0);
 
-const REF_LINK = /`((?:references|scripts|core|schema|templates)\/[\w.-]+(?:\.[\w.-]+)?)`/g;
+const REF_LINK = /`((?:references|scripts|core|schema|templates)(?:\/[\w.-]+)+)`/g;
 
 for (const name of skillDirs) {
   const skillDir = path.join(SKILLS_DIR, name);
@@ -77,6 +78,9 @@ for (const name of skillDirs) {
   const missingRefs = [];
   for (const m of md.matchAll(REF_LINK)) {
     const rel = m[1];
+    const rootSeg = rel.split('/')[0];
+    // `core/` solo es referencia interna si la propia skill posee una carpeta `core/` (evita rutas de proyectos Angular `src/app/core/...`)
+    if (rootSeg === 'core' && !fs.existsSync(path.join(skillDir, 'core'))) continue;
     if (!fs.existsSync(path.join(skillDir, rel))) missingRefs.push(rel);
   }
   if (missingRefs.length > 0) {
@@ -213,6 +217,107 @@ if (fs.existsSync(extManifestPath)) {
   } catch (err) {
     check('external/sources.json es JSON válido', false, err.message);
   }
+}
+
+console.log('\n=== 7. Pruebas de integración reales (directorio temporal) ===');
+const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'das-verify-'));
+try {
+  const projDir = path.join(tmpRoot, 'sample-project');
+  fs.mkdirSync(projDir, { recursive: true });
+
+  // 7.1 Instalación real all-project --include-external
+  execFileSync(process.execPath, [
+    path.join(REPO_ROOT, 'scripts', 'install.mjs'),
+    '--target', 'all-project',
+    '--dest', projDir,
+    '--include-external',
+  ], { stdio: 'pipe' });
+
+  const claudeSkillsDir = path.join(projDir, '.claude', 'skills');
+  const codexSkillsDir = path.join(projDir, '.agents', 'skills');
+  const cursorRulesFile = path.join(projDir, '.cursor', 'rules', 'developer-autopilot.mdc');
+  const manifestFile = path.join(claudeSkillsDir, '.developer-autopilot-manifest.json');
+
+  const hasNestedBug = fs.existsSync(path.join(claudeSkillsDir, '.claude'));
+  check('Integración: instalación sin anidación (.claude/skills/.claude no existe)', !hasNestedBug);
+  check('Integración: manifiesto creado en .claude/skills/', fs.existsSync(manifestFile));
+  check('Integración: reglas Cursor generadas (.cursor/rules/developer-autopilot.mdc)', fs.existsSync(cursorRulesFile));
+
+  const manifestObj = JSON.parse(fs.readFileSync(manifestFile, 'utf8'));
+  const expectedWithExt = fs.existsSync(path.join(REPO_ROOT, 'external', 'cloudflare-skills', 'skills'))
+    ? count + 22
+    : count;
+  check(`Integración: ${expectedWithExt} skills instaladas en Claude y Codex`,
+    manifestObj.skillCount === expectedWithExt
+    && fs.existsSync(path.join(claudeSkillsDir, 'motion-design-engineer', 'SKILL.md'))
+    && fs.existsSync(path.join(codexSkillsDir, 'system-state-screens', 'SKILL.md')),
+    `manifest=${manifestObj.skillCount}, esperado=${expectedWithExt}`);
+
+  // 7.2 Idempotencia: segunda instalación sobre el mismo destino
+  execFileSync(process.execPath, [
+    path.join(REPO_ROOT, 'scripts', 'install.mjs'),
+    '--target', 'claude-project',
+    '--dest', projDir,
+    '--include-external',
+  ], { stdio: 'pipe' });
+  const manifestObj2 = JSON.parse(fs.readFileSync(manifestFile, 'utf8'));
+  check('Integración: instalación idempotente (2.ª ejecución conserva conteo exacto)', manifestObj2.skillCount === expectedWithExt);
+
+  // 7.3 Pruning seguro: eliminar skill obsoleta administrada SIN tocar skill ajena del usuario
+  const customSkillDir = path.join(claudeSkillsDir, 'custom-user-skill');
+  fs.mkdirSync(customSkillDir, { recursive: true });
+  fs.writeFileSync(path.join(customSkillDir, 'SKILL.md'), '---\nname: custom-user-skill\ndescription: Skill privada del usuario.\n---\n', 'utf8');
+
+  const obsoleteSkillDir = path.join(claudeSkillsDir, 'obsolete-managed-skill');
+  fs.mkdirSync(obsoleteSkillDir, { recursive: true });
+  fs.writeFileSync(path.join(obsoleteSkillDir, 'SKILL.md'), '---\nname: obsolete-managed-skill\ndescription: Skill obsoleta.\n---\n', 'utf8');
+  manifestObj2.skills.push('obsolete-managed-skill');
+  fs.writeFileSync(manifestFile, JSON.stringify(manifestObj2, null, 2), 'utf8');
+
+  execFileSync(process.execPath, [
+    path.join(REPO_ROOT, 'scripts', 'install.mjs'),
+    '--target', 'claude-project',
+    '--dest', projDir,
+    '--include-external',
+  ], { stdio: 'pipe' });
+
+  check('Integración: skill obsoleta eliminada automáticamente (pruning por manifiesto)', !fs.existsSync(obsoleteSkillDir));
+  check('Integración: skill ajena del usuario preservada intacta', fs.existsSync(path.join(customSkillDir, 'SKILL.md')));
+
+  // 7.4 Prueba real de iniciar-toolkit/setup.py (detección BD/ORM/PM + protección PII)
+  const mockApp = path.join(tmpRoot, 'mock-fullstack');
+  fs.mkdirSync(mockApp, { recursive: true });
+  fs.writeFileSync(path.join(mockApp, 'package.json'), JSON.stringify({
+    name: 'mock-fullstack',
+    dependencies: {
+      next: '^15.0.0',
+      react: '^19.0.0',
+      '@radix-ui/react-dialog': '^1.0.0',
+      tailwindcss: '^3.4.0',
+      express: '^4.19.0',
+      pg: '^8.12.0',
+      '@prisma/client': '^5.18.0',
+    },
+  }, null, 2), 'utf8');
+  fs.writeFileSync(path.join(mockApp, 'pnpm-lock.yaml'), 'lockfileVersion: 9.0\n', 'utf8');
+
+  execFileSync(pyCmd, [
+    path.join(SKILLS_DIR, 'iniciar-toolkit', 'setup.py'),
+    '--dir', mockApp,
+  ], { stdio: 'pipe' });
+
+  const genCfg = JSON.parse(fs.readFileSync(path.join(mockApp, 'toolkit.config.json'), 'utf8'));
+  check('Integración setup.py: detecta Next.js + shadcn + Express + PostgreSQL + Prisma + pnpm',
+    genCfg.stack?.frontend === 'Next.js'
+    && (genCfg.stack?.ui_libraries || []).includes('shadcn/ui + Radix UI')
+    && genCfg.stack?.backend === 'Express'
+    && (genCfg.stack?.databases || []).includes('PostgreSQL')
+    && (genCfg.stack?.orms || []).includes('Prisma')
+    && (genCfg.stack?.package_managers || []).includes('pnpm'),
+    JSON.stringify(genCfg.stack));
+  check('Integración setup.py: protección PII (no expone email en toolkit.config.json por defecto)', !genCfg.team);
+} finally {
+  fs.rmSync(tmpRoot, { recursive: true, force: true });
 }
 
 console.log(`\n========================================`);

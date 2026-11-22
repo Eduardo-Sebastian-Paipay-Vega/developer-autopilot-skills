@@ -1,17 +1,21 @@
 #!/usr/bin/env node
 /**
- * Developer Autopilot Skills — Instalador Multi-Agente (sin dependencias)
- * Instala y sincroniza las skills directamente en las rutas nativas de cada agente,
- * sin rutas anidadas y sin tocar el código fuente de tus proyectos.
+ * Developer Autopilot Skills — Instalador Multi-Agente con Manifiesto (0 dependencias)
+ *
+ * Garantiza sincronización exacta (réplica limpia) mediante un manifiesto por destino
+ * (`.developer-autopilot-manifest.json`):
+ *  - Reemplaza limpiamente cada skill administrada (sin dejar archivos viejos dentro).
+ *  - Elimina automáticamente skills obsoletas que ya no existen en la fuente.
+ *  - NUNCA toca ni elimina skills ajenas al toolkit que el usuario haya creado.
  *
  * Targets individuales:
  *   claude-project | claude-global | antigravity | codex-project | codex-global | cursor | windsurf | cline
- * Targets combinados (actualizan todos a la vez):
+ * Targets combinados:
  *   all-global  -> Claude Code (~/.claude/skills) + Antigravity (~/.gemini/config/skills) + Codex (~/.codex/skills)
  *   all-project -> Proyecto destino: Claude (.claude/skills) + Codex (.agents/skills) + Cursor (.cursor/rules)
  *
  * Uso:
- *   node scripts/install.mjs --target <target> [--dest <ruta>] [--include-external] [--dry-run]
+ *   node scripts/install.mjs --target <target> [--dest <ruta>] [--include-external] [--no-prune] [--dry-run]
  */
 
 import fs from 'node:fs';
@@ -24,6 +28,7 @@ const REPO_ROOT = path.resolve(__dirname, '..');
 const SKILLS_SRC = path.join(REPO_ROOT, '.claude', 'skills');
 const EXTERNAL_SOURCES_FILE = path.join(REPO_ROOT, 'external', 'sources.json');
 const LANDING_SCOPE_SRC = path.join(REPO_ROOT, '.claude', 'landing-design', 'scope.json');
+export const MANIFEST_FILENAME = '.developer-autopilot-manifest.json';
 
 const VALID_TARGETS = [
   'claude-project',
@@ -39,15 +44,16 @@ const VALID_TARGETS = [
 ];
 
 function parseArgs(argv) {
-  const opts = { target: null, dest: process.cwd(), dryRun: false, includeExternal: false };
+  const opts = { target: null, dest: process.cwd(), dryRun: false, includeExternal: false, prune: true };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--target' && argv[i + 1]) opts.target = argv[++i];
     else if (a === '--dest' && argv[i + 1]) opts.dest = path.resolve(argv[++i]);
     else if (a === '--dry-run') opts.dryRun = true;
     else if (a === '--include-external') opts.includeExternal = true;
+    else if (a === '--no-prune') opts.prune = false;
     else if (a === '-h' || a === '--help') {
-      console.log(`Uso: node scripts/install.mjs --target <${VALID_TARGETS.join('|')}> [--dest <ruta>] [--include-external] [--dry-run]`);
+      console.log(`Uso: node scripts/install.mjs --target <${VALID_TARGETS.join('|')}> [--dest <ruta>] [--include-external] [--no-prune] [--dry-run]`);
       process.exit(0);
     }
   }
@@ -86,10 +92,27 @@ function listSkills(includeExternal) {
   return skills.sort((a, b) => a.name.localeCompare(b.name));
 }
 
-function copyDir(src, dst, dryRun) {
+function syncDirExact(src, dst, dryRun) {
   if (dryRun) return;
   fs.mkdirSync(path.dirname(dst), { recursive: true });
+  if (fs.existsSync(dst)) {
+    fs.rmSync(dst, { recursive: true, force: true });
+  }
   fs.cpSync(src, dst, { recursive: true, force: true });
+}
+
+function readPreviousManifest(skillsDst) {
+  const manifestPath = path.join(skillsDst, MANIFEST_FILENAME);
+  if (!fs.existsSync(manifestPath)) return null;
+  try {
+    const data = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+    if (data && data.managedBy === 'developer-autopilot-skills' && Array.isArray(data.skills)) {
+      return data;
+    }
+  } catch {
+    return null;
+  }
+  return null;
 }
 
 function buildRulesFile(skills, skillsRelDir) {
@@ -119,9 +142,40 @@ function installSingle(target, skills, opts) {
   else if (target === 'codex-project') skillsDst = path.join(opts.dest, '.agents', 'skills');
   else skillsDst = path.join(opts.dest, '.claude', 'skills');
 
-  console.log(`${tag}[${target}] ${skills.length} skills → ${skillsDst}`);
+  const currentNames = new Set(skills.map((s) => s.name));
+  const prevManifest = readPreviousManifest(skillsDst);
+  const removed = [];
+
+  // Eliminar SOLO skills administradas previamente que ya no están en la fuente (nunca skills ajenas)
+  if (opts.prune && prevManifest) {
+    for (const prevName of prevManifest.skills) {
+      if (!currentNames.has(prevName) && /^[a-z0-9]+(-[a-z0-9]+)*$/.test(prevName)) {
+        const obsoleteDir = path.join(skillsDst, prevName);
+        if (fs.existsSync(obsoleteDir)) {
+          if (!opts.dryRun) fs.rmSync(obsoleteDir, { recursive: true, force: true });
+          removed.push(prevName);
+        }
+      }
+    }
+  }
+
+  console.log(`${tag}[${target}] ${skills.length} skills → ${skillsDst}${removed.length ? ` (eliminadas ${removed.length} obsoletas: ${removed.join(', ')})` : ''}`);
   for (const s of skills) {
-    copyDir(s.srcDir, path.join(skillsDst, s.name), opts.dryRun);
+    syncDirExact(s.srcDir, path.join(skillsDst, s.name), opts.dryRun);
+  }
+
+  // Escribir manifiesto de skills administradas
+  if (!opts.dryRun) {
+    fs.mkdirSync(skillsDst, { recursive: true });
+    const manifestData = {
+      managedBy: 'developer-autopilot-skills',
+      target,
+      includeExternal: opts.includeExternal,
+      updatedAt: new Date().toISOString(),
+      skillCount: skills.length,
+      skills: skills.map((s) => s.name),
+    };
+    fs.writeFileSync(path.join(skillsDst, MANIFEST_FILENAME), `${JSON.stringify(manifestData, null, 2)}\n`, 'utf8');
   }
 
   if (!isGlobal && target !== 'codex-project' && fs.existsSync(LANDING_SCOPE_SRC)) {
@@ -171,4 +225,6 @@ function main() {
   console.log(`${tag}✅ Sincronización completada (${skills.length} skills en ${targets.join(', ')}).`);
 }
 
-main();
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main();
+}

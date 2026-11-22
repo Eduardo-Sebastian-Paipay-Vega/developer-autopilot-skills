@@ -36,10 +36,10 @@ python iniciar-toolkit/setup.py
 
 ### Paso 2: Análisis del Diagnóstico y Detección de Librería UI
 El script examina el proyecto y confirma:
-* **Identidad:** Nombre del proyecto y usuario activo de Git (`user.name` y `user.email`).
+* **Identidad y Privacidad (PII):** Detecta nombre del proyecto y rama activa. **Por defecto NO escribe tu correo personal en `toolkit.config.json`** para evitar exponer PII en Git (solo se incluye si el usuario pasa `--include-email` de forma explícita).
 * **Frontend y Librería UI:** Framework detectado (Angular, Next.js, React, Vue, Svelte, Astro) y librería de componentes real (`PrimeNG`, `PrimeReact`, `PrimeVue`, `shadcn/ui + Radix UI`, `Angular Material`, `MUI`, `Ant Design`, `Vuetify`, `Chakra UI`, `Tailwind CSS`, etc.).
 * **Regla si el formato/librería UI no está definido:** Si el script no detecta la librería de UI (por ejemplo, proyecto nuevo sin `package.json`), **preguntar explícitamente al usuario** qué framework y librería de componentes usará (o buscar su documentación oficial) y registrarlo en `toolkit.config.json` bajo `stack.ui_libraries`. **Nunca asumir PrimeNG por defecto.**
-* **Backend:** Framework detectado (ej. Django, FastAPI, NestJS) y su ubicación.
+* **Backend, BD, ORM y Package Manager:** Detecta de forma independiente backend (`Django`, `FastAPI`, `NestJS`, `Express`, `Fastify`, `Hono`), bases de datos (`PostgreSQL`, `Supabase`, `MySQL`, `SQLite`, `MongoDB`, `Redis`), ORMs (`Prisma`, `Drizzle`, `Django ORM`, `TypeORM`, `SQLAlchemy`, `node-pg-migrate`) y gestores de paquetes (`pnpm`, `yarn`, `bun`, `npm`, `uv`, `poetry`).
 * **Infraestructura:** Presencia de Dockerfiles o pipelines de Cloud Build / GCP.
 * **Estructura Documental:** Verifica y crea si no existen las carpetas de documentación viva (`docs/arquitectura/` y `docs/manuales/`).
 

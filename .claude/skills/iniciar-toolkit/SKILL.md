@@ -99,6 +99,7 @@ Una vez inicializado el proyecto con esta skill, las demás herramientas convive
 | **Diseñar o reorganizar el sidebar empresarial con RBAC** | `/enterprise-sidebar` |
 | **Normas de código y buenas prácticas UI** | `/frontend-standards` |
 | **Consultar modelos, campos y relaciones de BD** | `/support-db` |
+| **Auditar/eliminar mocks y verificar integración real con backend** | `/mock-free-audit` |
 | **Documentar tablas en PostgreSQL y el ORM** | `/diccionario-datos` |
 | **Al cerrar una sesión con cambios importantes** | `/actualizar-contexto` |
 | **Generar especificación técnica de un módulo** | `/crear-guia-tecnica` |

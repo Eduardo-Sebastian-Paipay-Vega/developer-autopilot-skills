@@ -372,6 +372,7 @@ def main():
         print("  ✓ /motion-design-engineer   ─ Animaciones e ilustraciones SVG+CSS+JS (MDES)")
         print("  ✓ /system-state-screens     ─ Pantallas de estado, errores 4xx/5xx, offline y rutas")
     if info["backend"] or info["databases"]:
+        print("  ✓ /mock-free-audit          ─ Auditoría anti-mock e integridad real con backend/BD")
         print("  ✓ /support-db               ─ Inspección viva del esquema y modelos")
         print("  ✓ /diccionario-datos        ─ Documentación de tablas y columnas")
     if info["cloud"]["provider"] == "cloudflare":

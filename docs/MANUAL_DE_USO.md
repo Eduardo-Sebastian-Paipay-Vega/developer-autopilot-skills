@@ -1,6 +1,6 @@
 # 📖 Manual de Uso del Usuario — Developer Autopilot Skills
 
-Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **27 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
+Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **28 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
 
 ---
 
@@ -125,7 +125,12 @@ Este kit garantiza que nadie degrade el diseño de tus páginas públicas y que 
 </details>
 
 <details>
-<summary><b>🗄️ Módulo 4: Backend y Bases de Datos (2 skills)</b></summary>
+<summary><b>🗄️ Módulo 4: Backend, Bases de Datos e Integridad Anti-Mock (3 skills)</b></summary>
+
+### `/mock-free-audit`
+* **Para qué sirve:** Ejecuta una auditoría estática, dinámica y de contrato (`MK-001` a `MK-015` + scanner CLI `scripts/scan-mocks.mjs`) para detectar y eliminar datos simulados, fallbacks silenciosos en `catch`, catálogos estáticos, auth bypass y CRUDs falsos, reemplazándolos por integración real contra backend y BD (verificada con CRUD round-trip y Chaos Test).
+* **Ejemplo de prompt:**
+  > *"/mock-free-audit audita este proyecto, lista todos los mocks o fallbacks ocultos y dame el plan antes de reemplazarlos."*
 
 ### `/support-db`
 * **Para qué sirve:** Inspecciona en tiempo real los modelos ORM (`models.py`, entidades) y migraciones activas. Nunca responde de memoria.
@@ -229,6 +234,7 @@ Este repositorio integra [`cloudflare/skills`](https://github.com/cloudflare/ski
 | Capturar tokens de diseño de una landing | `/landing-recopilar` |
 | Uniformizar diseño en páginas públicas | `/landing-uniformizar` |
 | Consultar tipos y relaciones de base de datos | `/support-db` |
+| Auditar y eliminar mocks / verificar integración real con backend | `/mock-free-audit` |
 | Documentar tablas en PostgreSQL | `/diccionario-datos` |
 | Resolver un merge roto en Git | `/resolver-conflicto-merge` |
 | Actualizar docs al cerrar el día | `/actualizar-contexto` |

@@ -316,6 +316,40 @@ try {
     && (genCfg.stack?.package_managers || []).includes('pnpm'),
     JSON.stringify(genCfg.stack));
   check('Integración setup.py: protección PII (no expone email en toolkit.config.json por defecto)', !genCfg.team);
+
+  // 7.5 Prueba real de mock-free-audit/scripts/scan-mocks.mjs
+  const mockScanDir = path.join(tmpRoot, 'mock-scan-app');
+  fs.mkdirSync(path.join(mockScanDir, 'src', 'services'), { recursive: true });
+  fs.writeFileSync(path.join(mockScanDir, 'package.json'), JSON.stringify({
+    name: 'mock-scan-app',
+    dependencies: { msw: '^2.0.0' },
+  }), 'utf8');
+  fs.writeFileSync(path.join(mockScanDir, 'src', 'services', 'users.mock.ts'), 'export const ENABLE_MOCK_API = true;\nsetTimeout(() => {}, 500);\n', 'utf8');
+  fs.writeFileSync(path.join(mockScanDir, 'src', 'services', 'users.spec.ts'), 'export const ENABLE_MOCK_API = true;\n', 'utf8');
+
+  const scanJsonOut = execFileSync(process.execPath, [
+    path.join(SKILLS_DIR, 'mock-free-audit', 'scripts', 'scan-mocks.mjs'),
+    mockScanDir,
+    '--json',
+  ], { encoding: 'utf8' });
+  const scanReport = JSON.parse(scanJsonOut);
+  const specFlagged = scanReport.findings.some((f) => f.file.includes('users.spec.ts'));
+  check('Integración scan-mocks.mjs: detecta msw, flag ENABLE_MOCK_API, archivo *.mock.ts y setTimeout',
+    scanReport.counts.CRITICAL >= 2 && scanReport.counts.HIGH >= 2,
+    JSON.stringify(scanReport.counts));
+  check('Integración scan-mocks.mjs: ignora legítimamente pruebas unitarias (*.spec.ts)', !specFlagged);
+
+  let strictExitedNonZero = false;
+  try {
+    execFileSync(process.execPath, [
+      path.join(SKILLS_DIR, 'mock-free-audit', 'scripts', 'scan-mocks.mjs'),
+      mockScanDir,
+      '--strict',
+    ], { stdio: 'pipe' });
+  } catch {
+    strictExitedNonZero = true;
+  }
+  check('Integración scan-mocks.mjs: --strict falla (exit != 0) ante hallazgos CRITICAL/HIGH', strictExitedNonZero);
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });
 }

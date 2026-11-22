@@ -1,0 +1,30 @@
+{
+  "$schema": "../../schema/mdes.config.schema.json",
+  "id": "book-opening-001",
+  "name": "Book Opening & Page Turning",
+  "description": "Libro abierto en perspectiva 2D que pasa páginas secuencialmente con flotación y brillos.",
+  "version": "0.1.0",
+  "category": "object",
+  "pattern": "book-opening",
+  "complexity": "M2",
+  "renderer": "svg-css",
+  "canvas": { "width": 240, "height": 180, "viewBox": "0 0 240 180" },
+  "visual": {
+    "primaryColor": "#2563EB",
+    "secondaryColor": "#93C5FD",
+    "accentColor": "#10B981",
+    "surfaceColor": "#FFFFFF",
+    "strokeColor": "#1E3A8A",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2.5,
+    "scale": 1,
+    "opacity": 1
+  },
+  "motion": { "duration": 2200, "speed": 1, "easing": "loop", "loop": true, "direction": "normal", "delay": 0, "intensity": 0.8 },
+  "behavior": { "trigger": "automatic", "initialState": "processing", "states": ["idle", "processing", "success"], "reducedMotion": "static", "pauseWhenHidden": true },
+  "accessibility": {
+    "decorative": false,
+    "ariaLabel": "Libro pasando páginas",
+    "stateLabels": { "idle": "Libro abierto", "processing": "Leyendo páginas", "success": "Lectura completada" }
+  }
+}

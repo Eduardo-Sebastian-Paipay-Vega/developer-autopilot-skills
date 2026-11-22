@@ -1,0 +1,29 @@
+{
+  "$schema": "../../schema/mdes.config.schema.json",
+  "id": "spinner-ring-001",
+  "name": "Spinner Ring",
+  "description": "Indicador de carga ligero M1 con estados processing, success y error.",
+  "version": "0.1.0",
+  "category": "loading",
+  "pattern": "spinner-ring",
+  "complexity": "M1",
+  "renderer": "svg-css",
+  "canvas": { "width": 64, "height": 64, "viewBox": "0 0 64 64" },
+  "visual": {
+    "primaryColor": "#2563EB",
+    "secondaryColor": "#DBEAFE",
+    "accentColor": "#10B981",
+    "dangerColor": "#EF4444",
+    "backgroundColor": "transparent",
+    "strokeWidth": 5,
+    "scale": 1,
+    "opacity": 1
+  },
+  "motion": { "duration": 1000, "speed": 1, "easing": "linear", "loop": true, "direction": "normal", "delay": 0, "intensity": 0.8 },
+  "behavior": { "trigger": "automatic", "initialState": "processing", "states": ["idle", "processing", "success", "error"], "reducedMotion": "static", "pauseWhenHidden": true },
+  "accessibility": {
+    "decorative": false,
+    "ariaLabel": "Cargando",
+    "stateLabels": { "idle": "Listo", "processing": "Cargando", "success": "Completado", "error": "Error al cargar" }
+  }
+}

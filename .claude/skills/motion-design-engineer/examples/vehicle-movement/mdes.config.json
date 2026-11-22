@@ -1,0 +1,30 @@
+{
+  "$schema": "../../schema/mdes.config.schema.json",
+  "id": "vehicle-movement-001",
+  "name": "Delivery Vehicle in Motion",
+  "description": "Vehículo de reparto 2D con ruedas rotando, suspensión, carretera continua, faro pulsante y líneas de velocidad.",
+  "version": "0.1.0",
+  "category": "object",
+  "pattern": "vehicle-movement",
+  "complexity": "M2",
+  "renderer": "svg-css",
+  "canvas": { "width": 240, "height": 160, "viewBox": "0 0 240 160" },
+  "visual": {
+    "primaryColor": "#2563EB",
+    "secondaryColor": "#93C5FD",
+    "accentColor": "#10B981",
+    "surfaceColor": "#FFFFFF",
+    "strokeColor": "#1E3A8A",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2.5,
+    "scale": 1,
+    "opacity": 1
+  },
+  "motion": { "duration": 1200, "speed": 1, "easing": "linear", "loop": true, "direction": "normal", "delay": 0, "intensity": 0.8 },
+  "behavior": { "trigger": "automatic", "initialState": "processing", "states": ["idle", "processing", "success"], "reducedMotion": "static", "pauseWhenHidden": true },
+  "accessibility": {
+    "decorative": false,
+    "ariaLabel": "Envío en camino",
+    "stateLabels": { "idle": "Vehículo detenido", "processing": "Envío en camino", "success": "Envío entregado" }
+  }
+}

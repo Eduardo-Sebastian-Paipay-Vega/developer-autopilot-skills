@@ -22,6 +22,9 @@ El patrón garantiza que:
 
 ## Implementación Técnica Estandarizada
 
+> [!NOTE]
+> **Agnóstico de librería UI:** Comprueba primero en `toolkit.config.json` o `package.json` qué framework y librería de tabla usa el proyecto (Angular/PrimeNG, React/shadcn/TanStack, PrimeReact, MUI, Vue/Vuetify, etc.) y aplica este patrón con la sintaxis reactiva y tokens CSS de ese stack (o pregunta al usuario si aún no está definido).
+
 ### 1. Definición de Estilos (Design System / CSS)
 Utilizar tokens del tema activo o variables de resaltado:
 

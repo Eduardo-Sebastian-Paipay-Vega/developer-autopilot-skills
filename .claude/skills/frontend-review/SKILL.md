@@ -11,6 +11,11 @@ Esta skill proporciona un protocolo estructurado para auditar componentes de int
 
 ## Procedimiento de Revisión
 
+### Paso 0: Detección de Stack y Librería UI Real
+Antes de auditar, verifica en `toolkit.config.json` o `package.json` qué framework (Angular, React, Next.js, Vue, Svelte) y qué librería de componentes (`PrimeNG`, `shadcn/ui`, `PrimeReact`, `MUI`, `Angular Material`, `Vuetify`, `Ant Design`, etc.) usa el proyecto.
+* Evalúa el componente contra las convenciones del **stack real del proyecto** (si es necesario, consulta la documentación oficial de la librería detectada).
+* Si la librería UI no es evidente o hay dos conviviendo en migración, pregunta al usuario cuál es la librería objetivo antes de proponer refactors.
+
 ### Paso 1: Identificación del Componente
 Localizar el componente objetivo indicado por el usuario o abierto en el contexto de trabajo. Analizar sus archivos vinculados:
 * Lógica y Controlador (`.ts` / `.tsx` / `.js`)

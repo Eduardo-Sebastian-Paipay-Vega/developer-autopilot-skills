@@ -27,6 +27,8 @@ def detectar_stack(raiz: Path) -> dict:
     info = {
         "nombre_proyecto": raiz.name,
         "frontend": None,
+        "ui_libraries": [],
+        "css_framework": None,
         "backend": None,
         "base_datos": None,
         "carpetas": {
@@ -44,7 +46,7 @@ def detectar_stack(raiz: Path) -> dict:
         }
     }
 
-    # 1. Detectar Frontend
+    # 1. Detectar Frontend y Librerías UI
     candidatos_front = ["frontend", "client", "ui", "web", "src/app", "."]
     for c in candidatos_front:
         p = raiz / c
@@ -54,21 +56,54 @@ def detectar_stack(raiz: Path) -> dict:
                 data = json.loads(pkg.read_text(encoding="utf-8", errors="ignore"))
                 deps = {**data.get("dependencies", {}), **data.get("devDependencies", {})}
                 frame = "JavaScript/Node"
-                if "@angular/core" in deps:
+                if "next" in deps:
+                    frame = "Next.js"
+                elif "@angular/core" in deps:
                     frame = "Angular"
-                elif "react" in deps:
-                    frame = "React"
+                elif "nuxt" in deps:
+                    frame = "Nuxt"
                 elif "vue" in deps:
                     frame = "Vue"
-                elif "next" in deps:
-                    frame = "Next.js"
+                elif "svelte" in deps:
+                    frame = "Svelte"
+                elif "astro" in deps:
+                    frame = "Astro"
+                elif "react" in deps:
+                    frame = "React"
 
+                ui_libs = []
                 if "primeng" in deps:
-                    frame += " + PrimeNG"
-                elif "tailwindcss" in deps:
-                    frame += " + TailwindCSS"
+                    ui_libs.append("PrimeNG")
+                if "primereact" in deps:
+                    ui_libs.append("PrimeReact")
+                if "primevue" in deps:
+                    ui_libs.append("PrimeVue")
+                if (p / "components.json").exists() or any(k.startswith("@radix-ui/") for k in deps):
+                    ui_libs.append("shadcn/ui + Radix UI")
+                if "@angular/material" in deps:
+                    ui_libs.append("Angular Material")
+                if "@mui/material" in deps:
+                    ui_libs.append("Material UI (MUI)")
+                if "antd" in deps:
+                    ui_libs.append("Ant Design")
+                if "vuetify" in deps:
+                    ui_libs.append("Vuetify")
+                if "@chakra-ui/react" in deps:
+                    ui_libs.append("Chakra UI")
+                if "daisyui" in deps:
+                    ui_libs.append("DaisyUI")
+
+                css_fw = None
+                if "tailwindcss" in deps:
+                    css_fw = "Tailwind CSS"
+                elif "bootstrap" in deps:
+                    css_fw = "Bootstrap"
+                elif "sass" in deps or "scss" in deps:
+                    css_fw = "SCSS"
 
                 info["frontend"] = frame
+                info["ui_libraries"] = ui_libs
+                info["css_framework"] = css_fw
                 info["carpetas"]["frontend"] = c if c != "." else ""
                 break
             except Exception:
@@ -131,12 +166,14 @@ def main():
     info = detectar_stack(raiz)
 
     print("🔎 Diagnóstico detectado automáticamente:")
-    print(f"  • Proyecto:  {info['nombre_proyecto']}")
-    print(f"  • Frontend:  {info['frontend'] or 'No detectado / No aplica'}")
-    print(f"  • Backend:   {info['backend'] or 'No detectado / No aplica'}")
+    print(f"  • Proyecto:     {info['nombre_proyecto']}")
+    print(f"  • Frontend:     {info['frontend'] or 'No detectado / Preguntar al usuario'}")
+    print(f"  • Librería UI:  {', '.join(info['ui_libraries']) if info['ui_libraries'] else 'No detectada / Preguntar al usuario'}")
+    print(f"  • Estilos CSS:  {info['css_framework'] or 'CSS estándar / Por definir'}")
+    print(f"  • Backend:      {info['backend'] or 'No detectado / No aplica'}")
     print(f"  • Carpeta Docs: {info['carpetas']['docs']}")
     print(f"  • Desarrollador Git: {info['git']['usuario']} <{info['git']['email']}>")
-    print(f"  • Rama activa: {info['git']['rama_actual']}\n")
+    print(f"  • Rama activa:  {info['git']['rama_actual']}\n")
 
     # Generar o actualizar toolkit.config.json
     config_file = raiz / "toolkit.config.json"
@@ -150,6 +187,16 @@ def main():
 
     config_data.setdefault("project", {})["name"] = info["nombre_proyecto"]
     config_data["project"].setdefault("description", f"Proyecto {info['nombre_proyecto']}")
+
+    config_data.setdefault("stack", {})
+    if info["frontend"]:
+        config_data["stack"]["frontend"] = info["frontend"]
+    if info["ui_libraries"]:
+        config_data["stack"]["ui_libraries"] = info["ui_libraries"]
+    if info["css_framework"]:
+        config_data["stack"]["css_framework"] = info["css_framework"]
+    if info["backend"]:
+        config_data["stack"]["backend"] = info["backend"]
 
     config_data.setdefault("paths", {})
     if info["carpetas"]["frontend"]:
@@ -193,6 +240,7 @@ def main():
         print("  ✓ /mejorar-vista-fija       ─ Tablas con scroll interno y sticky header")
         print("  ✓ /tabla-orden-dinamico     ─ Tablas interactivas")
         print("  ✓ /resaltar-fila-abierta    ─ Feedback de fila activa en modales")
+        print("  ✓ /motion-design-engineer   ─ Motor MDES de animaciones e ilustraciones SVG+CSS+JS")
 
     if info.get("landing") or info["frontend"]:
         print("  ✓ /landing-uniformizar      ─ Kit Landing Design Guardian (auditar, aplicar y verificar landing)")

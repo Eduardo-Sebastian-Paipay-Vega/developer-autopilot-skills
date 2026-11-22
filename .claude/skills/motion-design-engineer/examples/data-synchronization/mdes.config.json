@@ -1,0 +1,31 @@
+{
+  "$schema": "../../schema/mdes.config.schema.json",
+  "id": "data-synchronization-001",
+  "name": "Cloud Data Synchronization",
+  "description": "Nube con flechas de sincronización, pulsos de paquetes y transiciones limpias a success/error.",
+  "version": "0.1.0",
+  "category": "loading",
+  "pattern": "cloud-sync",
+  "complexity": "M2",
+  "renderer": "svg-css",
+  "canvas": { "width": 240, "height": 180, "viewBox": "0 0 240 180" },
+  "visual": {
+    "primaryColor": "#2563EB",
+    "secondaryColor": "#93C5FD",
+    "accentColor": "#10B981",
+    "dangerColor": "#EF4444",
+    "surfaceColor": "#FFFFFF",
+    "strokeColor": "#1E3A8A",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2.5,
+    "scale": 1,
+    "opacity": 1
+  },
+  "motion": { "duration": 1800, "speed": 1, "easing": "standard", "loop": true, "direction": "normal", "delay": 0, "intensity": 0.75 },
+  "behavior": { "trigger": "automatic", "initialState": "processing", "states": ["idle", "processing", "success", "error"], "reducedMotion": "static", "pauseWhenHidden": true },
+  "accessibility": {
+    "decorative": false,
+    "ariaLabel": "Sincronizando datos en la nube",
+    "stateLabels": { "idle": "Sincronización en espera", "processing": "Sincronizando datos", "success": "Datos sincronizados", "error": "Error de sincronización" }
+  }
+}

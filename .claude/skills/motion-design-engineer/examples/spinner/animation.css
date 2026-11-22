@@ -1,0 +1,41 @@
+/* M1 — Spinner Ring */
+.mdes-spinner [data-part="badge-success"],
+.mdes-spinner [data-part="badge-error"] {
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity var(--motion-dur-fast) var(--motion-ease-enter),
+              transform var(--motion-dur-base) var(--motion-ease-emphasized);
+}
+
+.mdes-spinner[data-motion-state="processing"] [data-part="arc"] {
+  animation: mdes-spinner-rotate var(--motion-duration) linear infinite;
+}
+
+.mdes-spinner[data-motion-state="success"] [data-part="track"],
+.mdes-spinner[data-motion-state="success"] [data-part="arc"],
+.mdes-spinner[data-motion-state="error"] [data-part="track"],
+.mdes-spinner[data-motion-state="error"] [data-part="arc"] {
+  opacity: 0;
+}
+
+.mdes-spinner[data-motion-state="success"] [data-part="badge-success"] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.mdes-spinner[data-motion-state="error"] [data-part="badge-error"] {
+  opacity: 1;
+  transform: scale(1);
+  animation: mdes-spinner-shake 360ms var(--motion-ease-standard) 1;
+}
+
+@keyframes mdes-spinner-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes mdes-spinner-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(calc(-4px * var(--motion-intensity))); }
+  75% { transform: translateX(calc(4px * var(--motion-intensity))); }
+}

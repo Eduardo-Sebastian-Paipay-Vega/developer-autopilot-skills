@@ -1,0 +1,61 @@
+<div class="mdes mdes-book" role="img" aria-label="Libro pasando páginas">
+  <svg viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- Capa 1: Sombra -->
+    <g data-part="shadow">
+      <ellipse cx="120" cy="154" rx="76" ry="9" fill="var(--motion-shadow)" />
+    </g>
+
+    <!-- Grupo flotante del libro -->
+    <g data-part="book-body">
+      <!-- Capa 2: Tapa trasera -->
+      <g data-part="cover">
+        <rect x="34" y="54" width="172" height="84" rx="8" fill="var(--motion-primary)" stroke="var(--motion-stroke)" stroke-width="var(--motion-stroke-width)" />
+        <rect x="115" y="54" width="10" height="84" fill="var(--motion-stroke)" />
+      </g>
+
+      <!-- Capa 3: Bloques de páginas estáticas izq./der. -->
+      <g data-part="pages-base">
+        <path d="M44 48 C72 44 102 46 120 56 L120 132 C102 124 72 122 44 126 Z"
+              fill="var(--motion-surface)" stroke="var(--motion-stroke)" stroke-width="var(--motion-stroke-width)" stroke-linejoin="round" />
+        <path d="M196 48 C168 44 138 46 120 56 L120 132 C138 124 168 122 196 126 Z"
+              fill="var(--motion-surface)" stroke="var(--motion-stroke)" stroke-width="var(--motion-stroke-width)" stroke-linejoin="round" />
+        <!-- Líneas de texto izquierda -->
+        <line x1="56" y1="68" x2="104" y2="71" stroke="var(--motion-secondary)" stroke-width="3" stroke-linecap="round" />
+        <line x1="56" y1="82" x2="104" y2="85" stroke="var(--motion-secondary)" stroke-width="3" stroke-linecap="round" />
+        <line x1="56" y1="96" x2="94" y2="98" stroke="var(--motion-secondary)" stroke-width="3" stroke-linecap="round" />
+        <!-- Líneas de texto derecha -->
+        <line x1="136" y1="71" x2="184" y2="68" stroke="var(--motion-secondary)" stroke-width="3" stroke-linecap="round" />
+        <line x1="136" y1="85" x2="184" y2="82" stroke="var(--motion-secondary)" stroke-width="3" stroke-linecap="round" />
+        <line x1="136" y1="98" x2="174" y2="96" stroke="var(--motion-secondary)" stroke-width="3" stroke-linecap="round" />
+      </g>
+
+      <!-- Capa 4: Hojas que giran desde el lomo (x=120) -->
+      <g data-part="leaf-1">
+        <path d="M120 56 C138 46 168 44 194 48 L194 124 C168 120 138 122 120 132 Z"
+              fill="var(--motion-surface)" stroke="var(--motion-stroke)" stroke-width="var(--motion-stroke-width)" stroke-linejoin="round" />
+        <line x1="136" y1="76" x2="178" y2="73" stroke="var(--motion-primary)" stroke-width="2.5" stroke-linecap="round" />
+        <line x1="136" y1="90" x2="172" y2="88" stroke="var(--motion-secondary)" stroke-width="2.5" stroke-linecap="round" />
+      </g>
+      <g data-part="leaf-2">
+        <path d="M120 56 C138 46 168 44 194 48 L194 124 C168 120 138 122 120 132 Z"
+              fill="var(--motion-surface)" stroke="var(--motion-stroke)" stroke-width="var(--motion-stroke-width)" stroke-linejoin="round" />
+        <line x1="136" y1="76" x2="178" y2="73" stroke="var(--motion-accent)" stroke-width="2.5" stroke-linecap="round" />
+        <line x1="136" y1="90" x2="168" y2="88" stroke="var(--motion-secondary)" stroke-width="2.5" stroke-linecap="round" />
+      </g>
+      <g data-part="leaf-3">
+        <path d="M120 56 C138 46 168 44 194 48 L194 124 C168 120 138 122 120 132 Z"
+              fill="var(--motion-surface)" stroke="var(--motion-stroke)" stroke-width="var(--motion-stroke-width)" stroke-linejoin="round" />
+        <line x1="136" y1="76" x2="176" y2="73" stroke="var(--motion-primary)" stroke-width="2.5" stroke-linecap="round" />
+      </g>
+    </g>
+
+    <!-- Capa 5: Brillos decorativos -->
+    <g data-part="sparkle-1">
+      <path d="M68 24 L71 31 L78 34 L71 37 L68 44 L65 37 L58 34 L65 31 Z" fill="var(--motion-accent)" />
+    </g>
+    <g data-part="sparkle-2">
+      <path d="M174 18 L176 23 L181 25 L176 27 L174 32 L172 27 L167 25 L172 23 Z" fill="var(--motion-primary)" />
+    </g>
+  </svg>
+  <span class="mdes-sr-only" data-motion-live>Leyendo páginas</span>
+</div>

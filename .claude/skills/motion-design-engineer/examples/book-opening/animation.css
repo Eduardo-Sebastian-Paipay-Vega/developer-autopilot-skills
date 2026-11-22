@@ -1,0 +1,61 @@
+/* M2 — Book Opening & Page Turning */
+.mdes-book [data-part="leaf-1"],
+.mdes-book [data-part="leaf-2"],
+.mdes-book [data-part="leaf-3"] {
+  transform-origin: left center;
+  opacity: 0;
+}
+
+/* Frame estático representativo (idle / reduced-motion): una hoja levemente levantada */
+.mdes-book [data-part="leaf-1"] {
+  opacity: 1;
+  transform: scaleX(0.85) skewY(-3deg);
+}
+
+.mdes-book[data-motion-state="processing"] [data-part="book-body"] {
+  animation: mdes-book-float var(--motion-duration) var(--motion-ease-loop) infinite;
+}
+
+.mdes-book[data-motion-state="processing"] [data-part="shadow"] {
+  animation: mdes-book-shadow var(--motion-duration) var(--motion-ease-loop) infinite;
+}
+
+.mdes-book[data-motion-state="processing"] [data-part="leaf-1"] {
+  animation: mdes-book-flip var(--motion-duration) var(--motion-ease-standard) infinite;
+}
+.mdes-book[data-motion-state="processing"] [data-part="leaf-2"] {
+  animation: mdes-book-flip var(--motion-duration) var(--motion-ease-standard) calc(var(--motion-duration) * -0.33) infinite;
+}
+.mdes-book[data-motion-state="processing"] [data-part="leaf-3"] {
+  animation: mdes-book-flip var(--motion-duration) var(--motion-ease-standard) calc(var(--motion-duration) * -0.66) infinite;
+}
+
+.mdes-book[data-motion-state="processing"] [data-part="sparkle-1"] {
+  animation: mdes-book-sparkle var(--motion-duration) var(--motion-ease-loop) infinite;
+}
+.mdes-book[data-motion-state="processing"] [data-part="sparkle-2"] {
+  animation: mdes-book-sparkle var(--motion-duration) var(--motion-ease-loop) calc(var(--motion-duration) * 0.45) infinite;
+}
+
+@keyframes mdes-book-flip {
+  0%   { transform: scaleX(1) skewY(0deg); opacity: 0; }
+  10%  { transform: scaleX(0.95) skewY(-2deg); opacity: 1; }
+  50%  { transform: scaleX(0.05) skewY(-10deg); opacity: 1; }
+  88%  { transform: scaleX(-0.98) skewY(2deg); opacity: 1; }
+  100% { transform: scaleX(-1) skewY(0deg); opacity: 0; }
+}
+
+@keyframes mdes-book-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(calc(-6px * var(--motion-intensity))); }
+}
+
+@keyframes mdes-book-shadow {
+  0%, 100% { transform: scaleX(1); opacity: 0.9; }
+  50%      { transform: scaleX(calc(1 - 0.1 * var(--motion-intensity))); opacity: 0.55; }
+}
+
+@keyframes mdes-book-sparkle {
+  0%, 100% { transform: scale(0.4) translateY(4px); opacity: 0; }
+  50%      { transform: scale(1) translateY(calc(-4px * var(--motion-intensity))); opacity: 1; }
+}

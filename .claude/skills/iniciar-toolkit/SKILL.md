@@ -34,10 +34,11 @@ python .claude/skills/iniciar-toolkit/setup.py
 python iniciar-toolkit/setup.py
 ```
 
-### Paso 2: Análisis del Diagnóstico
+### Paso 2: Análisis del Diagnóstico y Detección de Librería UI
 El script examina el proyecto y confirma:
 * **Identidad:** Nombre del proyecto y usuario activo de Git (`user.name` y `user.email`).
-* **Frontend:** Framework detectado (ej. Angular + PrimeNG, React + Tailwind, etc.) y su carpeta base.
+* **Frontend y Librería UI:** Framework detectado (Angular, Next.js, React, Vue, Svelte, Astro) y librería de componentes real (`PrimeNG`, `PrimeReact`, `PrimeVue`, `shadcn/ui + Radix UI`, `Angular Material`, `MUI`, `Ant Design`, `Vuetify`, `Chakra UI`, `Tailwind CSS`, etc.).
+* **Regla si el formato/librería UI no está definido:** Si el script no detecta la librería de UI (por ejemplo, proyecto nuevo sin `package.json`), **preguntar explícitamente al usuario** qué framework y librería de componentes usará (o buscar su documentación oficial) y registrarlo en `toolkit.config.json` bajo `stack.ui_libraries`. **Nunca asumir PrimeNG por defecto.**
 * **Backend:** Framework detectado (ej. Django, FastAPI, NestJS) y su ubicación.
 * **Infraestructura:** Presencia de Dockerfiles o pipelines de Cloud Build / GCP.
 * **Estructura Documental:** Verifica y crea si no existen las carpetas de documentación viva (`docs/arquitectura/` y `docs/manuales/`).
@@ -92,6 +93,7 @@ Una vez inicializado el proyecto con esta skill, las demás herramientas convive
 | **Evitar que una tabla scrollee la página completa** | `/mejorar-vista-fija` |
 | **Tablas interactivas con arrastre y anchos dinámicos**| `/tabla-orden-dinamico` |
 | **Feedback visual al cerrar un diálogo modal** | `/resaltar-fila-abierta` |
+| **Crear animaciones, ilustraciones o escenas SVG+CSS+JS** | `/motion-design-engineer` |
 | **Revisar y auditar la calidad de un componente** | `/frontend-review` |
 | **Normas de código y buenas prácticas UI** | `/frontend-standards` |
 | **Consultar modelos, campos y relaciones de BD** | `/support-db` |

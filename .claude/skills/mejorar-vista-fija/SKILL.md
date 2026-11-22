@@ -67,6 +67,9 @@ El error clásico al implementar este patrón es colocar `height: 100%` en eleme
 
 ## Configuración en Frameworks y Librerías de UI
 
+> [!NOTE]
+> **Detecta primero la librería de tablas real del proyecto** (`toolkit.config.json` o `package.json`). No asumas PrimeNG: si el proyecto usa `shadcn/ui` + TanStack Table, `PrimeReact`, `MUI DataGrid`, `AG Grid`, `Vuetify` o tablas HTML/Tailwind nativas, aplica la misma cadena Flexbox (`height: 100%` en raíz → `flex: 1; min-height: 0` en contenedores) usando las props/clases nativas de esa librería (consulta su documentación oficial si hace falta o pregunta al usuario si aún no está definida).
+
 ### En PrimeNG (`p-table`):
 * Configurar `[scrollable]="true"`
 * Configurar `scrollHeight="flex"` (permite que la tabla llene automáticamente el alto del contenedor padre).

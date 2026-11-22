@@ -1,0 +1,43 @@
+<div class="mdes mdes-sync" role="status" aria-label="Sincronizando datos en la nube">
+  <svg viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- Capa 1: Sombra -->
+    <g data-part="shadow">
+      <ellipse cx="120" cy="150" rx="60" ry="7" fill="var(--motion-shadow)" />
+    </g>
+
+    <!-- Capa 2: Pulsos de subida/bajada -->
+    <g data-part="pulse-up">
+      <circle cx="102" cy="140" r="4" fill="var(--motion-accent)" />
+    </g>
+    <g data-part="pulse-down">
+      <circle cx="138" cy="116" r="4" fill="var(--motion-primary)" />
+    </g>
+
+    <!-- Capa 3: Nube -->
+    <g data-part="cloud">
+      <path d="M68 122 H174 C189 122 200 111 200 97 C200 84 190 74 177 73 C173 52 155 38 134 38 C115 38 99 50 93 67 C90 66 87 65 84 65 C67 65 54 78 54 94 C54 110 60 122 68 122 Z"
+            fill="var(--motion-surface)" stroke="var(--motion-stroke)" stroke-width="var(--motion-stroke-width)" stroke-linejoin="round" />
+
+      <!-- Flechas giratorias (processing) -->
+      <g data-part="arrows">
+        <path d="M104 86 A18 18 0 0 1 136 78" stroke="var(--motion-primary)" stroke-width="4" stroke-linecap="round" />
+        <path d="M132 71 L138 79 L129 81" stroke="var(--motion-primary)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M136 94 A18 18 0 0 1 104 102" stroke="var(--motion-secondary)" stroke-width="4" stroke-linecap="round" />
+        <path d="M108 109 L102 101 L111 99" stroke="var(--motion-secondary)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+      </g>
+
+      <!-- Éxito -->
+      <g data-part="check">
+        <circle cx="120" cy="90" r="18" fill="var(--motion-accent)" />
+        <path d="M112 90 L118 96 L129 84" stroke="var(--motion-surface)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+      </g>
+
+      <!-- Error -->
+      <g data-part="cross">
+        <circle cx="120" cy="90" r="18" fill="var(--motion-danger)" />
+        <path d="M114 84 L126 96 M126 84 L114 96" stroke="var(--motion-surface)" stroke-width="3.5" stroke-linecap="round" />
+      </g>
+    </g>
+  </svg>
+  <span class="mdes-sr-only" data-motion-live>Sincronizando datos</span>
+</div>

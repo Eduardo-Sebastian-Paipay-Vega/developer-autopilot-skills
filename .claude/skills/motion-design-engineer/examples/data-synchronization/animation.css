@@ -1,0 +1,70 @@
+/* M2 — Cloud Data Synchronization */
+.mdes-sync [data-part="check"],
+.mdes-sync [data-part="cross"] {
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity var(--motion-dur-fast) var(--motion-ease-enter),
+              transform var(--motion-dur-base) var(--motion-ease-emphasized);
+}
+
+.mdes-sync [data-part="pulse-up"],
+.mdes-sync [data-part="pulse-down"] {
+  opacity: 0;
+}
+
+.mdes-sync[data-motion-state="processing"] [data-part="cloud"] {
+  animation: mdes-sync-float calc(var(--motion-duration) * 1.4) var(--motion-ease-loop) infinite;
+}
+.mdes-sync[data-motion-state="processing"] [data-part="arrows"] {
+  animation: mdes-sync-spin var(--motion-duration) linear infinite;
+}
+.mdes-sync[data-motion-state="processing"] [data-part="pulse-up"] {
+  animation: mdes-sync-up var(--motion-duration) var(--motion-ease-standard) infinite;
+}
+.mdes-sync[data-motion-state="processing"] [data-part="pulse-down"] {
+  animation: mdes-sync-down var(--motion-duration) var(--motion-ease-standard) calc(var(--motion-duration) * 0.5) infinite;
+}
+
+.mdes-sync[data-motion-state="success"] [data-part="arrows"],
+.mdes-sync[data-motion-state="error"] [data-part="arrows"] {
+  opacity: 0;
+}
+.mdes-sync[data-motion-state="success"] [data-part="check"] {
+  opacity: 1;
+  transform: scale(1);
+}
+.mdes-sync[data-motion-state="error"] [data-part="cross"] {
+  opacity: 1;
+  transform: scale(1);
+}
+.mdes-sync[data-motion-state="error"] [data-part="cloud"] {
+  animation: mdes-sync-shake 360ms var(--motion-ease-standard) 1;
+}
+
+@keyframes mdes-sync-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes mdes-sync-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(calc(-5px * var(--motion-intensity))); }
+}
+
+@keyframes mdes-sync-up {
+  0%   { transform: translateY(0) scale(0.7); opacity: 0; }
+  40%  { opacity: 1; }
+  100% { transform: translateY(-24px) scale(1); opacity: 0; }
+}
+
+@keyframes mdes-sync-down {
+  0%   { transform: translateY(0) scale(0.7); opacity: 0; }
+  40%  { opacity: 1; }
+  100% { transform: translateY(24px) scale(1); opacity: 0; }
+}
+
+@keyframes mdes-sync-shake {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(calc(-4px * var(--motion-intensity))); }
+  75%      { transform: translateX(calc(4px * var(--motion-intensity))); }
+}

@@ -1,0 +1,20 @@
+<div class="mdes mdes-spinner" role="status" aria-label="Cargando">
+  <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g data-part="track">
+      <circle cx="32" cy="32" r="24" stroke="var(--motion-secondary)" stroke-width="var(--motion-stroke-width)" />
+    </g>
+    <g data-part="arc">
+      <circle cx="32" cy="32" r="24" stroke="var(--motion-primary)" stroke-width="var(--motion-stroke-width)"
+              stroke-linecap="round" stroke-dasharray="110 151" stroke-dashoffset="30" />
+    </g>
+    <g data-part="badge-success">
+      <circle cx="32" cy="32" r="24" fill="var(--motion-accent)" />
+      <path d="M22 33 L29 40 L43 25" stroke="var(--motion-surface)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+    <g data-part="badge-error">
+      <circle cx="32" cy="32" r="24" fill="var(--motion-danger)" />
+      <path d="M24 24 L40 40 M40 24 L24 40" stroke="var(--motion-surface)" stroke-width="4" stroke-linecap="round" />
+    </g>
+  </svg>
+  <span class="mdes-sr-only" data-motion-live>Cargando</span>
+</div>

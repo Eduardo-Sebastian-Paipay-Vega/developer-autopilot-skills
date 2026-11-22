@@ -1,0 +1,124 @@
+/* ==========================================================================
+   MDES — Motion Design Engineering System · Base CSS v0.1.0
+   Tokens, temas, base SVG y reducción de movimiento.
+   Todo recurso MDES vive dentro de un contenedor `.mdes`.
+   ========================================================================== */
+
+.mdes {
+  /* --- Color (los recursos SOLO usan estos tokens) --- */
+  --motion-primary: #2563eb;
+  --motion-secondary: #93c5fd;
+  --motion-accent: #10b981;
+  --motion-danger: #ef4444;
+  --motion-background: transparent;
+  --motion-surface: #ffffff;
+  --motion-stroke: #1e3a8a;
+  --motion-shadow: rgba(15, 23, 42, 0.18);
+
+  /* --- Geometría --- */
+  --motion-width: 240px;
+  --motion-aspect: 4 / 3;
+  --motion-scale: 1;
+  --motion-stroke-width: 2;
+
+  /* --- Movimiento --- */
+  --motion-duration: 1800ms;     /* duración base del ciclo principal */
+  --motion-delay: 0ms;
+  --motion-intensity: 0.7;       /* 0 = sin amplitud, 1 = amplitud completa */
+  --motion-progress: 0;          /* 0..1, solo para recursos determinados */
+
+  /* Escala de duraciones (referencia: references/motion-principles.md) */
+  --motion-dur-instant: 100ms;
+  --motion-dur-fast: 200ms;
+  --motion-dur-base: 320ms;
+  --motion-dur-slow: 560ms;
+  --motion-dur-loop: var(--motion-duration);
+
+  /* Curvas reutilizables */
+  --motion-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-enter: cubic-bezier(0, 0, 0.2, 1);
+  --motion-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --motion-ease-emphasized: cubic-bezier(0.3, 0, 0, 1.3);   /* con overshoot */
+  --motion-ease-anticipate: cubic-bezier(0.6, -0.28, 0.74, 0.05);
+  --motion-ease-loop: cubic-bezier(0.45, 0, 0.55, 1);       /* ida y vuelta suave */
+
+  display: inline-block;
+  position: relative;
+  width: var(--motion-width);
+  aspect-ratio: var(--motion-aspect);
+  background: var(--motion-background);
+  color: var(--motion-primary);
+  line-height: 0;
+}
+
+.mdes > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform: scale(var(--motion-scale));
+  transform-origin: center;
+}
+
+/* Las partes móviles calculan su origen sobre su propia caja. */
+.mdes [data-part] {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* --- Temas ------------------------------------------------------------- */
+.mdes[data-motion-theme="dark"] {
+  --motion-primary: #60a5fa;
+  --motion-secondary: #1e40af;
+  --motion-accent: #34d399;
+  --motion-danger: #f87171;
+  --motion-surface: #0f172a;
+  --motion-stroke: #bfdbfe;
+  --motion-shadow: rgba(0, 0, 0, 0.45);
+}
+
+.mdes[data-motion-theme="brand"] {
+  /* Plantilla: el proyecto sobrescribe estos valores con su paleta. */
+  --motion-primary: var(--brand-primary, #4f000b);
+  --motion-secondary: var(--brand-secondary, #e8d9c4);
+  --motion-accent: var(--brand-accent, #af8846);
+  --motion-surface: var(--brand-surface, #faf7f3);
+  --motion-stroke: var(--brand-stroke, #2b0006);
+}
+
+/* --- Texto solo para lectores de pantalla ------------------------------ */
+.mdes .mdes-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Reducción de movimiento ------------------------------------------- */
+/* Sin JS: el sistema operativo manda → frame estático. */
+@media (prefers-reduced-motion: reduce) {
+  .mdes:not([data-motion-reduced="minimal"]):not([data-motion-reduced="off"]) *,
+  .mdes:not([data-motion-reduced="minimal"]):not([data-motion-reduced="off"]) *::before,
+  .mdes:not([data-motion-reduced="minimal"]):not([data-motion-reduced="off"]) *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Forzado por el controlador (behavior.reducedMotion = "static"). */
+.mdes[data-motion-reduced="static"] *,
+.mdes[data-motion-reduced="static"] *::before,
+.mdes[data-motion-reduced="static"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* "minimal": se conserva el movimiento esencial con amplitud muy baja. */
+.mdes[data-motion-reduced="minimal"] {
+  --motion-intensity: 0.15;
+}

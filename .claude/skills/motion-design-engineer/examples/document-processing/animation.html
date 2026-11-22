@@ -1,0 +1,43 @@
+<div class="mdes mdes-doc" role="status" aria-label="Procesando documento">
+  <svg viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- Capa 1: Sombra y hoja -->
+    <g data-part="shadow">
+      <ellipse cx="120" cy="162" rx="54" ry="7" fill="var(--motion-shadow)" />
+    </g>
+    <g data-part="sheet">
+      <path d="M68 22 H144 L172 50 V142 C172 146 169 149 165 149 H75 C71 149 68 146 68 142 V22 Z"
+            fill="var(--motion-surface)" stroke="var(--motion-stroke)" stroke-width="var(--motion-stroke-width)" stroke-linejoin="round" />
+      <path d="M144 22 V50 H172" fill="var(--motion-secondary)" stroke="var(--motion-stroke)" stroke-width="var(--motion-stroke-width)" stroke-linejoin="round" />
+    </g>
+
+    <!-- Capa 2: Líneas de texto escalonadas -->
+    <g data-part="line-1"><rect x="84" y="64" width="66" height="6" rx="3" fill="var(--motion-primary)" /></g>
+    <g data-part="line-2"><rect x="84" y="80" width="72" height="6" rx="3" fill="var(--motion-secondary)" /></g>
+    <g data-part="line-3"><rect x="84" y="96" width="54" height="6" rx="3" fill="var(--motion-secondary)" /></g>
+    <g data-part="line-4"><rect x="84" y="112" width="64" height="6" rx="3" fill="var(--motion-secondary)" /></g>
+
+    <!-- Capa 3: Barra de escaneo -->
+    <g data-part="scanner">
+      <rect x="64" y="54" width="112" height="4" rx="2" fill="var(--motion-accent)" />
+    </g>
+
+    <!-- Capa 4: Barra de progreso honesta (indeterminada o determinada) -->
+    <g data-part="progress-track">
+      <rect x="84" y="130" width="72" height="6" rx="3" fill="var(--motion-secondary)" opacity="0.45" />
+    </g>
+    <g data-part="progress-fill">
+      <rect x="84" y="130" width="72" height="6" rx="3" fill="var(--motion-primary)" />
+    </g>
+
+    <!-- Capa 5: Insignias de estado -->
+    <g data-part="badge-success">
+      <circle cx="168" cy="134" r="18" fill="var(--motion-accent)" stroke="var(--motion-surface)" stroke-width="3" />
+      <path d="M160 134 L166 140 L177 128" stroke="var(--motion-surface)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+    <g data-part="badge-error">
+      <circle cx="168" cy="134" r="18" fill="var(--motion-danger)" stroke="var(--motion-surface)" stroke-width="3" />
+      <path d="M162 128 L174 140 M174 128 L162 140" stroke="var(--motion-surface)" stroke-width="3.5" stroke-linecap="round" />
+    </g>
+  </svg>
+  <span class="mdes-sr-only" data-motion-live>Procesando documento</span>
+</div>

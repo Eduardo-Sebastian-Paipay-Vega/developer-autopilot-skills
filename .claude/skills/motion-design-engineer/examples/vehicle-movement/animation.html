@@ -1,0 +1,61 @@
+<div class="mdes mdes-van" role="img" aria-label="Envío en camino">
+  <svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <clipPath id="mdes-van-road-clip">
+        <rect x="24" y="128" width="192" height="14" />
+      </clipPath>
+    </defs>
+
+    <!-- Capa 1: Carretera -->
+    <g clip-path="url(#mdes-van-road-clip)">
+      <line x1="24" y1="134" x2="216" y2="134" stroke="var(--motion-secondary)" stroke-width="2" stroke-linecap="round" />
+      <g data-part="road-dashes">
+        <line x1="24" y1="138" x2="48" y2="138" stroke="var(--motion-primary)" stroke-width="3" stroke-linecap="round" />
+        <line x1="72" y1="138" x2="96" y2="138" stroke="var(--motion-primary)" stroke-width="3" stroke-linecap="round" />
+        <line x1="120" y1="138" x2="144" y2="138" stroke="var(--motion-primary)" stroke-width="3" stroke-linecap="round" />
+        <line x1="168" y1="138" x2="192" y2="138" stroke="var(--motion-primary)" stroke-width="3" stroke-linecap="round" />
+        <line x1="216" y1="138" x2="240" y2="138" stroke="var(--motion-primary)" stroke-width="3" stroke-linecap="round" />
+        <line x1="264" y1="138" x2="288" y2="138" stroke="var(--motion-primary)" stroke-width="3" stroke-linecap="round" />
+      </g>
+    </g>
+
+    <!-- Capa 2: Sombra -->
+    <g data-part="shadow">
+      <ellipse cx="122" cy="132" rx="68" ry="6" fill="var(--motion-shadow)" />
+    </g>
+
+    <!-- Capa 6: Líneas de velocidad -->
+    <g data-part="wind-1"><line x1="22" y1="68" x2="44" y2="68" stroke="var(--motion-secondary)" stroke-width="3" stroke-linecap="round" /></g>
+    <g data-part="wind-2"><line x1="14" y1="84" x2="40" y2="84" stroke="var(--motion-secondary)" stroke-width="3" stroke-linecap="round" /></g>
+
+    <!-- Capa 3: Carrocería -->
+    <g data-part="chassis">
+      <!-- Caja de carga -->
+      <rect x="54" y="54" width="88" height="62" rx="8" fill="var(--motion-primary)" stroke="var(--motion-stroke)" stroke-width="var(--motion-stroke-width)" />
+      <!-- Detalle caja -->
+      <rect x="70" y="68" width="28" height="22" rx="4" fill="var(--motion-surface)" opacity="0.22" />
+      <!-- Cabina -->
+      <path d="M142 66 H172 L188 86 V116 H142 V66 Z" fill="var(--motion-surface)" stroke="var(--motion-stroke)" stroke-width="var(--motion-stroke-width)" stroke-linejoin="round" />
+      <!-- Ventana -->
+      <path d="M149 73 H169 L180 86 H149 V73 Z" fill="var(--motion-secondary)" />
+      <!-- Capa 5: Faro -->
+      <g data-part="headlight">
+        <rect x="184" y="96" width="6" height="9" rx="2" fill="var(--motion-accent)" />
+        <path d="M192 94 L214 86 V114 L192 106 Z" fill="var(--motion-accent)" opacity="0.22" />
+      </g>
+    </g>
+
+    <!-- Capa 4: Ruedas -->
+    <g data-part="wheel-back">
+      <circle cx="84" cy="118" r="14" fill="var(--motion-stroke)" />
+      <circle cx="84" cy="118" r="6" fill="var(--motion-surface)" />
+      <line x1="84" y1="108" x2="84" y2="128" stroke="var(--motion-secondary)" stroke-width="2" />
+    </g>
+    <g data-part="wheel-front">
+      <circle cx="164" cy="118" r="14" fill="var(--motion-stroke)" />
+      <circle cx="164" cy="118" r="6" fill="var(--motion-surface)" />
+      <line x1="164" y1="108" x2="164" y2="128" stroke="var(--motion-secondary)" stroke-width="2" />
+    </g>
+  </svg>
+  <span class="mdes-sr-only" data-motion-live>Envío en camino</span>
+</div>

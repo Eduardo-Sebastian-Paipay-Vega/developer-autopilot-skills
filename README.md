@@ -1,6 +1,6 @@
 # 🚀 Developer Autopilot Skills — Enterprise & Fullstack AI Toolkit
 
-> **Kit integral de 24 skills de ingeniería de software, diseño visual y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
+> **Kit integral de 25 skills de ingeniería de software, diseño visual, motion engineering y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
 > Diseñado para que cualquier desarrollador pueda llegar a cualquier proyecto, empresa o cliente y disponer de un copiloto con estándares de clase mundial sin fricción ni configuraciones manuales.
 
 ---
@@ -95,7 +95,7 @@ Confirma que has asimilado estas reglas antes de comenzar a editar código.
 
 ---
 
-## 🧭 Catálogo Maestro de Skills (24 Skills)
+## 🧭 Catálogo Maestro de Skills (25 Skills)
 
 ### 1. Orquestación y Setup
 | Comando | Descripción |
@@ -111,6 +111,7 @@ Confirma que has asimilado estas reglas antes de comenzar a editar código.
 | **`/mejorar-vista-fija`** | Layout con Flexbox para tablas con sticky header, filtros anclados y scroll vertical interno sin desbordar la página. |
 | **`/tabla-orden-dinamico`** | Reordenamiento de columnas por usuario, anchos redimensionables y persistencia segura de preferencias. |
 | **`/resaltar-fila-abierta`** | Feedback visual de fila activa al abrir/cerrar diálogos modales para mantener el contexto del usuario. |
+| **`/motion-design-engineer`** | **MDES:** Ingeniería de animaciones, ilustraciones vectoriales y escenas (SVG + CSS + WAAPI) sin GIF ni Lottie de pago, con niveles M1–M4, tokens de color y accesibilidad. |
 
 ### 3. Landing Design Guardian (Diseño Visual y Sitios Públicos)
 | Comando | Descripción |

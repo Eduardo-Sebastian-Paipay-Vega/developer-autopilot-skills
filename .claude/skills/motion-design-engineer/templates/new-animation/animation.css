@@ -1,0 +1,19 @@
+/* Plantilla MDES: solo transform y opacity en @keyframes; cero colores hex. */
+
+.mdes-ejemplo[data-motion-state="processing"] [data-part="body"] {
+  animation: mdes-ejemplo-float var(--motion-duration) var(--motion-ease-loop) infinite;
+}
+
+.mdes-ejemplo[data-motion-state="processing"] [data-part="shadow"] {
+  animation: mdes-ejemplo-shadow var(--motion-duration) var(--motion-ease-loop) infinite;
+}
+
+@keyframes mdes-ejemplo-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(calc(-8px * var(--motion-intensity))); }
+}
+
+@keyframes mdes-ejemplo-shadow {
+  0%, 100% { transform: scaleX(1); opacity: 0.9; }
+  50% { transform: scaleX(calc(1 - 0.14 * var(--motion-intensity))); opacity: 0.55; }
+}

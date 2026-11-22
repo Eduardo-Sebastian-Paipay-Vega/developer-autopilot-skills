@@ -1,0 +1,53 @@
+{
+  "$schema": "../../schema/mdes.config.schema.json",
+  "id": "mi-animacion-001",
+  "name": "Nombre de la Animación",
+  "description": "Describe qué comunica esta animación y en qué contexto vive.",
+  "version": "0.1.0",
+  "category": "object",
+  "pattern": "custom",
+  "complexity": "M2",
+  "renderer": "svg-css",
+  "canvas": {
+    "width": 240,
+    "height": 180,
+    "viewBox": "0 0 240 180"
+  },
+  "visual": {
+    "primaryColor": "#2563EB",
+    "secondaryColor": "#93C5FD",
+    "accentColor": "#10B981",
+    "surfaceColor": "#FFFFFF",
+    "strokeColor": "#1E3A8A",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "scale": 1,
+    "opacity": 1
+  },
+  "motion": {
+    "duration": 1800,
+    "speed": 1,
+    "easing": "standard",
+    "loop": true,
+    "direction": "normal",
+    "delay": 0,
+    "intensity": 0.7
+  },
+  "behavior": {
+    "trigger": "automatic",
+    "initialState": "processing",
+    "states": ["idle", "processing", "success", "error"],
+    "reducedMotion": "static",
+    "pauseWhenHidden": true
+  },
+  "accessibility": {
+    "decorative": false,
+    "ariaLabel": "Descripción accesible de lo que ocurre",
+    "stateLabels": {
+      "idle": "En espera",
+      "processing": "Procesando",
+      "success": "Completado",
+      "error": "Ocurrió un error"
+    }
+  }
+}

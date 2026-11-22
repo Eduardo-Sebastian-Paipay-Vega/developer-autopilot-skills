@@ -37,6 +37,11 @@ Esta skill estandariza el patrón para permitir a los usuarios reorganizar el or
 
 ## Procedimiento de Implementación
 
+### Paso 0: Detectar la Librería de UI Real
+Inspecciona `toolkit.config.json` o `package.json` para identificar el framework y librería de tabla real del proyecto (`PrimeNG`, `PrimeReact`, `TanStack Table` / `shadcn/ui`, `AG Grid`, `MUI`, `Ant Design`, `Vuetify` o HTML nativo).
+* Usa los mecanismos de reordenamiento y redimensionado nativos de la librería detectada (consulta su documentación oficial si hace falta) en lugar de asumir PrimeNG.
+* Si el proyecto aún no define qué librería de tablas usar, pregunta al usuario antes de implementar y regístralo en `toolkit.config.json`.
+
 ### Paso 1: Diagnóstico de la Tabla Objetivo
 Examinar la plantilla y el componente de la tabla:
 * Identificar la clave única de la tabla (`tablaId`).

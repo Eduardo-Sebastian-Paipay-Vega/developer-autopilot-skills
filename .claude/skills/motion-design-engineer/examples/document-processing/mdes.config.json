@@ -1,0 +1,31 @@
+{
+  "$schema": "../../schema/mdes.config.schema.json",
+  "id": "document-processing-001",
+  "name": "Document Processing",
+  "description": "Documento con líneas escalonadas, barra de escaneo, progreso real/indeterminado e insignia de estado.",
+  "version": "0.1.0",
+  "category": "loading",
+  "pattern": "document-processing",
+  "complexity": "M2",
+  "renderer": "svg-css",
+  "canvas": { "width": 240, "height": 180, "viewBox": "0 0 240 180" },
+  "visual": {
+    "primaryColor": "#2563EB",
+    "secondaryColor": "#93C5FD",
+    "accentColor": "#10B981",
+    "dangerColor": "#EF4444",
+    "surfaceColor": "#FFFFFF",
+    "strokeColor": "#1E3A8A",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2.5,
+    "scale": 1,
+    "opacity": 1
+  },
+  "motion": { "duration": 1800, "speed": 1, "easing": "standard", "loop": true, "direction": "normal", "delay": 0, "intensity": 0.75 },
+  "behavior": { "trigger": "automatic", "initialState": "processing", "states": ["idle", "processing", "success", "error"], "progressMode": "indeterminate", "reducedMotion": "static", "pauseWhenHidden": true },
+  "accessibility": {
+    "decorative": false,
+    "ariaLabel": "Procesando documento",
+    "stateLabels": { "idle": "Documento listo", "processing": "Procesando documento", "success": "Documento procesado", "error": "Error al procesar documento" }
+  }
+}

@@ -5,6 +5,12 @@
     "description": "Descripción del sistema o producto",
     "organization": "Nombre de la Empresa o Cliente"
   },
+  "stack": {
+    "frontend": "Angular | React | Next.js | Vue | Svelte",
+    "ui_libraries": ["PrimeNG | PrimeReact | shadcn/ui | MUI | Angular Material | Ant Design | Vuetify"],
+    "css_framework": "Tailwind CSS | SCSS | CSS",
+    "backend": "Django | Express | NestJS | FastAPI"
+  },
   "cloud": {
     "provider": "gcp",
     "project_id": "mi-proyecto-cloud",

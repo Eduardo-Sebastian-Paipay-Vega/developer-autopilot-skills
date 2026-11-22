@@ -1,0 +1,79 @@
+/* M2 — Document Processing (estados + progreso honesto) */
+.mdes-doc [data-part^="line-"],
+.mdes-doc [data-part="progress-fill"] {
+  transform-origin: left center;
+}
+
+.mdes-doc [data-part="scanner"] { opacity: 0; }
+
+.mdes-doc [data-part="badge-success"],
+.mdes-doc [data-part="badge-error"] {
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity var(--motion-dur-fast) var(--motion-ease-enter),
+              transform var(--motion-dur-base) var(--motion-ease-emphasized);
+}
+
+/* Processing */
+.mdes-doc[data-motion-state="processing"] [data-part="scanner"] {
+  animation: mdes-doc-scan var(--motion-duration) var(--motion-ease-loop) infinite;
+}
+.mdes-doc[data-motion-state="processing"] [data-part="line-1"] {
+  animation: mdes-doc-line var(--motion-duration) var(--motion-ease-standard) 0ms infinite;
+}
+.mdes-doc[data-motion-state="processing"] [data-part="line-2"] {
+  animation: mdes-doc-line var(--motion-duration) var(--motion-ease-standard) 120ms infinite;
+}
+.mdes-doc[data-motion-state="processing"] [data-part="line-3"] {
+  animation: mdes-doc-line var(--motion-duration) var(--motion-ease-standard) 240ms infinite;
+}
+.mdes-doc[data-motion-state="processing"] [data-part="line-4"] {
+  animation: mdes-doc-line var(--motion-duration) var(--motion-ease-standard) 360ms infinite;
+}
+
+/* Progreso indeterminado vs determinado */
+.mdes-doc[data-motion-state="processing"][data-progress-mode="indeterminate"] [data-part="progress-fill"] {
+  animation: mdes-doc-indeterminate var(--motion-duration) var(--motion-ease-loop) infinite;
+}
+.mdes-doc[data-progress-mode="determinate"] [data-part="progress-fill"] {
+  animation: none;
+  transform: scaleX(var(--motion-progress));
+  transition: transform var(--motion-dur-fast) var(--motion-ease-standard);
+}
+
+/* Success & Error */
+.mdes-doc[data-motion-state="success"] [data-part="badge-success"] {
+  opacity: 1;
+  transform: scale(1);
+}
+.mdes-doc[data-motion-state="success"] [data-part="progress-fill"] {
+  transform: scaleX(1);
+}
+.mdes-doc[data-motion-state="error"] [data-part="badge-error"] {
+  opacity: 1;
+  transform: scale(1);
+}
+.mdes-doc[data-motion-state="error"] [data-part="sheet"] {
+  animation: mdes-doc-shake 360ms var(--motion-ease-standard) 1;
+}
+
+@keyframes mdes-doc-scan {
+  0%, 100% { transform: translateY(0); opacity: 0.25; }
+  50%      { transform: translateY(64px); opacity: 0.95; }
+}
+
+@keyframes mdes-doc-line {
+  0%, 100% { transform: scaleX(1); opacity: 0.95; }
+  35%      { transform: scaleX(calc(1 - 0.35 * var(--motion-intensity))); opacity: 0.45; }
+}
+
+@keyframes mdes-doc-indeterminate {
+  0%, 100% { transform: translateX(0) scaleX(0.35); }
+  50%      { transform: translateX(46px) scaleX(0.35); }
+}
+
+@keyframes mdes-doc-shake {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(calc(-4px * var(--motion-intensity))); }
+  75%      { transform: translateX(calc(4px * var(--motion-intensity))); }
+}

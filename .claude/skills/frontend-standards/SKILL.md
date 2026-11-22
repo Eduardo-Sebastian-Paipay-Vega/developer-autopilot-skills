@@ -3,9 +3,18 @@ name: frontend-standards
 description: Guía de estandarización y buenas prácticas de frontend para aplicaciones web empresariales en Angular (LTS, standalone components) con PrimeNG, Signals y TypeScript. Rige la estructura de carpetas, diseño de componentes reactivos, validación de formularios, tablas con vista fija, selectores y consumo de APIs REST. Se invoca manualmente (/frontend-standards) o como referencia transversal de calidad.
 ---
 
-# Estandarización Frontend — Aplicaciones Web Empresariales (Angular + PrimeNG)
+# Estandarización Frontend — Aplicaciones Web Empresariales (Adaptable por Stack)
 
-Stack de referencia: **Angular (LTS, standalone components) + PrimeNG + ECharts + Signals**, consumiendo un backend REST (Django REST Framework, FastAPI, NestJS, etc.).
+> [!IMPORTANT]
+> **Paso 0 obligatorio — Detectar o preguntar el stack y la librería de UI (nunca asumir PrimeNG):**
+> 1. Lee `toolkit.config.json` (`stack.frontend`, `stack.ui_libraries`, `stack.css_framework`) o inspecciona `package.json`, `components.json` (shadcn/ui) y `angular.json`.
+> 2. **Si el proyecto usa Angular + PrimeNG:** aplica las secciones específicas de PrimeNG y Angular de esta guía al pie de la letra.
+> 3. **Si el proyecto usa otro framework o librería UI** (ej. React/Next.js + `shadcn/ui`, `PrimeReact`, `MUI`, `Ant Design`, Vue + `PrimeVue`/`Vuetify`, `Angular Material`, o CSS/Tailwind puro):
+>    - Conserva todos los principios universales de esta guía (organización por features, separación smart/dumb, estado reactivo, tablas con vista fija, accesibilidad, validación, manejo centralizado de errores).
+>    - **Adapta los componentes a la librería real instalada** (no introduzcas PrimeNG en un proyecto que usa otra librería). Si necesitas verificar la API actual de esa librería, consulta su documentación oficial antes de generar código.
+> 4. **Si no existe `package.json` ni `toolkit.config.json`:** pregunta al usuario qué framework y librería de UI desea usar y guarda la respuesta en `toolkit.config.json` antes de continuar.
+
+Stack de referencia detallado abajo: **Angular (LTS, standalone components) + PrimeNG + ECharts + Signals**, consumiendo un backend REST (Django REST Framework, FastAPI, NestJS, Express, etc.).
 
 Esta skill establece las directrices de ingeniería para que cualquier componente, servicio o módulo mantenga consistencia arquitectónica, mantenibilidad y calidad de código a nivel enterprise.
 

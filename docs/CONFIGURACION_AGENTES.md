@@ -1,6 +1,6 @@
 # ⚙️ Guía de Configuración para Agentes de IA
 
-Esta guía detalla cómo integrar y activar las **29 skills** de este toolkit en los principales entornos y agentes de inteligencia artificial del mercado: **Claude Code**, **Cursor IDE**, **Google Antigravity / Gemini CLI**, **Windsurf / Cascade**, y **VS Code con Cline / Roo Code / Copilot**.
+Esta guía detalla cómo integrar y activar las **30 skills** de este toolkit en los principales entornos y agentes de inteligencia artificial del mercado: **Claude Code**, **Cursor IDE**, **Google Antigravity / Gemini CLI**, **Windsurf / Cascade**, y **VS Code con Cline / Roo Code / Copilot**.
 
 ---
 
@@ -64,7 +64,7 @@ Cursor utiliza reglas de contexto (`.cursorrules` o la carpeta moderna `.cursor/
 
 ```markdown
 # Developer AI Toolkit Rules
-Este proyecto cuenta con un kit de 29 skills ubicadas en `.claude/skills/`.
+Este proyecto cuenta con un kit de 30 skills ubicadas en `.claude/skills/`.
 Siempre que el usuario solicite una tarea coincidente con las siguientes directivas, lee el archivo `SKILL.md` correspondiente antes de actuar:
 
 - Inicializar proyecto o setup: `.claude/skills/iniciar-toolkit/SKILL.md`
@@ -76,6 +76,7 @@ Siempre que el usuario solicite una tarea coincidente con las siguientes directi
 - Reordenar columnas: `.claude/skills/tabla-orden-dinamico/SKILL.md`
 - Resaltar fila activa: `.claude/skills/resaltar-fila-abierta/SKILL.md`
 - Ingeniería de animaciones e ilustraciones (MDES): `.claude/skills/motion-design-engineer/SKILL.md`
+- Fuente única de tokens de identidad visual (landing + sistema): `.claude/skills/design-tokens-source/SKILL.md`
 - Pantallas de estado del sistema, errores 4xx/5xx y rutas: `.claude/skills/system-state-screens/SKILL.md`
 - Auditoría frontend: `.claude/skills/frontend-review/SKILL.md`
 - Sidebar empresarial con RBAC y tokens del proyecto: `.claude/skills/enterprise-sidebar/SKILL.md`

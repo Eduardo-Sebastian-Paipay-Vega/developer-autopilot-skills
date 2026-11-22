@@ -151,6 +151,7 @@ function printHelp() {
   console.log('  autopilot iniciar           (init)        Detecta stack/UI/BD y crea toolkit.config.json en cwd');
   console.log('  autopilot escanear          (scan)        Ejecuta escaneo anti-mock en cwd [--strict] [--json]');
   console.log('  autopilot cambio            (chg)         Gestiona fichas CHG-XXXX y métricas SIGCS (iniciar|agregar|metricas|validar)');
+  console.log('  autopilot tokens            (diseno)      Tokens de identidad: iniciar|extraer|generar|auditar (HSL, WCAG, MDES)');
   console.log('  autopilot externas          (external)    Comprueba/actualiza skills externas read-only (Cloudflare) [--check]');
   console.log('  autopilot nueva-skill       (new-skill)   Crea nueva skill validada en la fuente única');
   console.log('  autopilot verificar         (verify)      Ejecuta la suite completa de verificación');
@@ -180,6 +181,10 @@ function main() {
     const hasDir = rest.includes('--dir');
     const chgArgs = hasDir ? rest : [...rest, '--dir', CALLER_CWD];
     runNode('.claude/skills/change-governance/scripts/change-registry.mjs', chgArgs, CALLER_CWD);
+  } else if (cmd === 'tokens' || cmd === 'diseno') {
+    const hasDir = rest.includes('--dir');
+    const tokArgs = hasDir ? rest : [...rest, '--dir', CALLER_CWD];
+    runNode('.claude/skills/design-tokens-source/scripts/tokens-cli.mjs', tokArgs, CALLER_CWD);
   } else if (cmd === 'external' || cmd === 'externas') {
     runNode('scripts/sync-external.mjs', rest);
   } else if (cmd === 'new-skill' || cmd === 'nueva-skill') {

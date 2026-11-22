@@ -1,6 +1,6 @@
 # 📖 Manual de Uso del Usuario — Developer Autopilot Skills
 
-Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **29 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
+Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **30 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
 
 ---
 
@@ -92,7 +92,12 @@ En el chat de tu agente de IA, escribe:
 </details>
 
 <details>
-<summary><b>🎬 Módulo 2: Motion Design Engineering (MDES) & Pantallas del Sistema (2 skills interoperables)</b></summary>
+<summary><b>🎬 Módulo 2: Identidad Visual, Motion Design (MDES) & Pantallas del Sistema (3 skills interoperables)</b></summary>
+
+### `/design-tokens-source`
+* **Para qué sirve:** Fuente única de verdad de todos los tokens visuales (identidad de marca, neutros, estados, conversión automática Hex→HSL para `shadcn/ui`, overrides aislados de landing, tipografía, sidebar y puente `[data-motion-theme="brand"]` para MDES). Su CLI (`autopilot tokens iniciar|extraer|generar|auditar`) verifica contraste **WCAG 2.2 AA** real y detecta tokens duplicados y hex sueltos en componentes.
+* **Ejemplo de prompt:**
+  > *"/design-tokens-source extrae todos los tokens actuales de este frontend, genera design-tokens.json + docs/diseno/DESIGN_TOKENS.md y audita contraste WCAG y hex sueltos."*
 
 ### `/motion-design-engineer`
 * **Para qué sirve:** Sistema de ingeniería de animaciones e ilustraciones visuales **originales mediante código** (`SVG + CSS + JavaScript / WAAPI`, sin GIF ni Lottie de pago). Maneja niveles **M1–M4**, contrato JSON validable, tokens `--motion-*` (recoloreables en vivo), `prefers-reduced-motion` y scripts de auditoría (`validate-config.mjs`, `audit-motion.mjs`).
@@ -233,6 +238,7 @@ Este repositorio integra [`cloudflare/skills`](https://github.com/cloudflare/ski
 | Arreglar una tabla que scrollea toda la pantalla | `/mejorar-vista-fija` |
 | Destacar la fila que abrió un modal | `/resaltar-fila-abierta` |
 | Crear animaciones, ilustraciones o escenas en código (MDES) | `/motion-design-engineer` |
+| Centralizar, extraer, editar o auditar tokens de identidad/colores | `/design-tokens-source` |
 | Generar y cablear pantallas de estado, errores 4xx/5xx, offline y rutas | `/system-state-screens` |
 | Dejar columnas reordenables por el usuario | `/tabla-orden-dinamico` |
 | Auditar código de un componente frontend | `/frontend-review` |

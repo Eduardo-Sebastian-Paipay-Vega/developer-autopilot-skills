@@ -1,6 +1,6 @@
 # 🚀 Developer Autopilot Skills — Enterprise & Fullstack AI Toolkit
 
-> **Kit integral de 29 skills de ingeniería de software, diseño visual, motion engineering, gobierno de cambios y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
+> **Kit integral de 30 skills de ingeniería de software, diseño visual, motion engineering, gobierno de cambios y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
 > Diseñado para que cualquier desarrollador pueda llegar a cualquier proyecto, empresa o cliente y disponer de un copiloto con estándares de clase mundial sin fricción ni configuraciones manuales.
 
 ---
@@ -110,7 +110,7 @@ Confirma que has asimilado estas reglas antes de comenzar a editar código.
 
 ---
 
-## 🧭 Catálogo Maestro de Skills (29 Skills por Funcionalidad)
+## 🧭 Catálogo Maestro de Skills (30 Skills por Funcionalidad)
 
 Despliega cada pestaña para ver los comandos, propósito y enlace directo a cada funcionalidad:
 
@@ -139,10 +139,11 @@ Despliega cada pestaña para ver los comandos, propósito y enlace directo a cad
 </details>
 
 <details>
-<summary><b>3. 🎬 Motion Design Engineering & Pantallas del Sistema (2 skills interoperables)</b></summary>
+<summary><b>3. 🎬 Identidad Visual, Motion Design & Pantallas del Sistema (3 skills interoperables)</b></summary>
 
 | Comando | Descripción |
 | :--- | :--- |
+| **`/design-tokens-source`** | **Fuente Única de Identidad Visual:** crea, extrae, edita y audita tokens de marca, neutros, HSL (`shadcn/ui`), landing público, tipografía, sidebar y MDES con contraste **WCAG 2.2 AA** real (`tokens-cli.mjs`). |
 | **`/motion-design-engineer`** | **MDES:** Ingeniería de animaciones, ilustraciones vectoriales y escenas (`SVG + CSS + WAAPI`) sin GIF ni Lottie de pago, con niveles M1–M4, tokens `--motion-*`, validadores CLI y accesibilidad. |
 | **`/system-state-screens`** | Genera y cablea las **15 pantallas de estado y error** (Full-page Loader, Skeleton, Empty States ×3, Success, 2.º plano, HTTP `400/401/403/404/429/500/502/503/504`, Offline y Force Update) con rutas, interceptores HTTP, Error Boundaries y puente opcional con MDES. |
 
@@ -229,7 +230,7 @@ Incluye las 22 skills oficiales de Cloudflare: `cloudflare`, `workers-best-pract
 developer-autopilot-skills/
 ├── .claude/
 │   ├── landing-design/            # Configuración de scope y evidencias visuales
-│   └── skills/                    # Directorio unificado de las 29 skills
+│   └── skills/                    # Directorio unificado de las 30 skills
 │       ├── iniciar-toolkit/
 │       ├── motion-design-engineer/
 │       ├── system-state-screens/

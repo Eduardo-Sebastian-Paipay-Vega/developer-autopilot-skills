@@ -380,6 +380,23 @@ try {
 
   execFileSync(process.execPath, [cmScript, 'validate', '--dir', cmDir, '--strict'], { stdio: 'pipe' });
   check('Integración change-registry.mjs: validate --strict aprueba registro válido', true);
+
+  // 7.7 Prueba real de design-tokens-source/scripts/tokens-cli.mjs (init -> generate -> audit)
+  const tokDir = path.join(tmpRoot, 'tokens-test-app');
+  fs.mkdirSync(tokDir, { recursive: true });
+  const tokScript = path.join(SKILLS_DIR, 'design-tokens-source', 'scripts', 'tokens-cli.mjs');
+
+  execFileSync(process.execPath, [tokScript, 'init', '--dir', tokDir, '--name', 'Demo Brand'], { stdio: 'pipe' });
+  execFileSync(process.execPath, [tokScript, 'generate', '--dir', tokDir], { stdio: 'pipe' });
+  const auditJson = execFileSync(process.execPath, [tokScript, 'audit', '--dir', tokDir, '--strict', '--json'], { encoding: 'utf8' });
+  const auditRes = JSON.parse(auditJson);
+  const genCss = fs.readFileSync(path.join(tokDir, 'docs', 'diseno', 'design-tokens.generated.css'), 'utf8');
+
+  check('Integración tokens-cli.mjs: genera CSS con HSL shadcn + puente MDES brand + DESIGN_TOKENS.md',
+    genCss.includes('--primary:') && genCss.includes('[data-motion-theme="brand"]')
+    && fs.existsSync(path.join(tokDir, 'docs', 'diseno', 'DESIGN_TOKENS.md')));
+  check('Integración tokens-cli.mjs: auditoría WCAG 2.2 AA calcula ratios reales y pasa --strict',
+    auditRes.errors.length === 0 && auditRes.contrastChecks.length === 3 && auditRes.contrastChecks.every((c) => c.ok));
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });
 }

@@ -47,7 +47,7 @@ Genera e integra de punta a punta el conjunto completo de **pantallas reactivas 
 
 ### Paso 0: Detectar Stack, Librería UI y Reglas del Proyecto (nunca asumir)
 1. Lee `toolkit.config.json` (`stack.frontend`, `stack.ui_libraries`, `stack.css_framework`) o inspecciona `package.json`, `components.json`, `angular.json` o `next.config.*`.
-2. Comprueba si existen `docs/planeacion/plan.md`, `AGENTS.md` o `landing-design-guardian`: **hereda siempre los tokens de color, tipografía y librería UI del proyecto** (PrimeNG, shadcn/ui, PrimeReact, MUI, Tailwind, Vuetify, etc.).
+2. **Fuente única de diseño:** lee primero `docs/diseno/design-tokens.json` (o `toolkit.config.json → design.tokens_file`) y `docs/diseno/design-tokens.generated.css` (que ya define `[data-motion-theme="brand"]` y `--utility-*`). Comprueba además `docs/planeacion/plan.md`, `AGENTS.md` o `.claude/landing-design/`: **hereda siempre los tokens de color, tipografía y librería UI del proyecto sin inventar hex sueltos**.
 3. Si el proyecto aún no define framework o librería UI, **pregunta al usuario** antes de generar archivos.
 
 ### Paso 1: Confirmar alcance de generación

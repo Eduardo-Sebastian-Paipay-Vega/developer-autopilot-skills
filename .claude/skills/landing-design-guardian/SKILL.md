@@ -82,6 +82,11 @@ En `.claude/landing-design/` mantener:
 - `AUDIT.md`: brechas y plan de cambios con archivos permitidos.
 - `VERIFICATION.md`: pruebas, capturas, regresiones y pendientes.
 - `evidence/`: capturas de browser y JSON de computed style, desktop/tablet/mobile.
+- `tokens-bridge.json` *(opcional, generado por `/design-tokens-source`)*: puente de solo lectura con la fuente única `docs/diseno/design-tokens.json`.
+
+## Conexión con `design-tokens-source` (Fuente Única)
+
+Si el proyecto usa `/design-tokens-source` (`docs/diseno/design-tokens.json` o `toolkit.config.json → design`), tras ejecutar `/landing-recopilar` (y `capture-landing.mjs`) sincroniza la evidencia Nivel A con `autopilot tokens sincronizar-landing`. Esto actualiza **solo** el bloque aislado `landingOverrides` sin tocar la paleta del sistema interno.
 
 ## Condiciones de salida
 

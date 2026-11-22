@@ -278,6 +278,36 @@ def detectar_stack(raiz: Path) -> dict:
     elif (raiz / "vercel.json").exists():
         info["cloud"]["provider"] = "vercel"
 
+    # 7. Detectar Identidad Visual / Design Tokens + Landing Design Guardian
+    tokens_file = "docs/diseno/design-tokens.json"
+    if (raiz / "design-tokens.json").exists() and not (raiz / tokens_file).exists():
+        tokens_file = "design-tokens.json"
+    detected_css = []
+    for css_cand in [
+        "app/globals.css",
+        "src/app/globals.css",
+        "frontend/app/globals.css",
+        "frontend/src/app/globals.css",
+        "src/styles.scss",
+        "src/styles.css",
+        "frontend/src/styles.scss",
+        "src/index.css",
+    ]:
+        if (raiz / css_cand).exists():
+            detected_css.append(css_cand)
+    info["design"] = {
+        "tokens_file": tokens_file,
+        "generated_css": "docs/diseno/design-tokens.generated.css",
+        "docs_md": "docs/diseno/DESIGN_TOKENS.md",
+        "landing_dir": ".claude/landing-design",
+        "landing_scope": ".claude/landing-design/scope.json",
+        "landing_tokens": ".claude/landing-design/TOKENS.json",
+        "landing_evidence": ".claude/landing-design/evidence",
+        "has_tokens_file": (raiz / tokens_file).exists(),
+        "has_landing_guardian": (raiz / ".claude/landing-design").exists(),
+        "detected_css_files": detected_css,
+    }
+
     return info
 
 
@@ -354,6 +384,17 @@ def main():
     cloud = config_data.setdefault("cloud", {})
     if info["cloud"]["provider"]:
         cloud["provider"] = info["cloud"]["provider"]
+
+    design = config_data.setdefault("design", {})
+    design.setdefault("tokens_file", info["design"]["tokens_file"])
+    design.setdefault("generated_css", info["design"]["generated_css"])
+    design.setdefault("docs_md", info["design"]["docs_md"])
+    design.setdefault("landing_dir", info["design"]["landing_dir"])
+    design.setdefault("landing_scope", info["design"]["landing_scope"])
+    design.setdefault("landing_tokens", info["design"]["landing_tokens"])
+    design.setdefault("landing_evidence", info["design"]["landing_evidence"])
+    if info["design"]["detected_css_files"]:
+        design["detected_css_files"] = info["design"]["detected_css_files"]
 
     config_file.write_text(json.dumps(config_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"✅ Archivo de configuración generado: {config_file.name}")

@@ -13,6 +13,7 @@ description: Guía de estandarización y buenas prácticas de frontend para apli
 >    - Conserva todos los principios universales de esta guía (organización por features, separación smart/dumb, estado reactivo, tablas con vista fija, accesibilidad, validación, manejo centralizado de errores).
 >    - **Adapta los componentes a la librería real instalada** (no introduzcas PrimeNG en un proyecto que usa otra librería). Si necesitas verificar la API actual de esa librería, consulta su documentación oficial antes de generar código.
 > 4. **Si no existe `package.json` ni `toolkit.config.json`:** pregunta al usuario qué framework y librería de UI desea usar y guarda la respuesta en `toolkit.config.json` antes de continuar.
+> 5. **Fuente única de identidad visual:** antes de usar colores, fuentes, radios o sombras, consulta `docs/diseno/design-tokens.json` (o `toolkit.config.json → design.tokens_file`). No introduzcas hex hardcodeados en componentes si existe un token semántico; si falta uno, añádelo primero vía `/design-tokens-source` (`autopilot tokens generar`).
 
 Stack de referencia detallado abajo: **Angular (LTS, standalone components) + PrimeNG + ECharts + Signals**, consumiendo un backend REST (Django REST Framework, FastAPI, NestJS, Express, etc.).
 

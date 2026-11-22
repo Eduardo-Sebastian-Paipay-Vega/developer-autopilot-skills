@@ -316,6 +316,9 @@ try {
     && (genCfg.stack?.package_managers || []).includes('pnpm'),
     JSON.stringify(genCfg.stack));
   check('Integración setup.py: protección PII (no expone email en toolkit.config.json por defecto)', !genCfg.team);
+  check('Integración setup.py: declara bloque design con tokens_file y landing_dir',
+    genCfg.design?.tokens_file === 'docs/diseno/design-tokens.json'
+    && genCfg.design?.landing_dir === '.claude/landing-design');
 
   // 7.5 Prueba real de mock-free-audit/scripts/scan-mocks.mjs
   const mockScanDir = path.join(tmpRoot, 'mock-scan-app');
@@ -381,22 +384,43 @@ try {
   execFileSync(process.execPath, [cmScript, 'validate', '--dir', cmDir, '--strict'], { stdio: 'pipe' });
   check('Integración change-registry.mjs: validate --strict aprueba registro válido', true);
 
-  // 7.7 Prueba real de design-tokens-source/scripts/tokens-cli.mjs (init -> generate -> audit)
+  // 7.7 Prueba real de design-tokens-source/scripts/tokens-cli.mjs (init -> sync-landing -> generate -> audit)
   const tokDir = path.join(tmpRoot, 'tokens-test-app');
-  fs.mkdirSync(tokDir, { recursive: true });
+  fs.mkdirSync(path.join(tokDir, '.claude', 'landing-design', 'evidence'), { recursive: true });
+  fs.writeFileSync(path.join(tokDir, '.claude', 'landing-design', 'scope.json'), JSON.stringify({
+    schemaVersion: 1,
+    baseUrl: 'http://localhost:3000',
+    referenceRoute: '/',
+    publicRoutes: ['/', '/nosotros'],
+  }, null, 2), 'utf8');
+  fs.writeFileSync(path.join(tokDir, '.claude', 'landing-design', 'evidence', 'home-desktop.json'), JSON.stringify({
+    requestedRoute: '/',
+    rootVariables: { '--landing-cta': '#7A1E30' },
+    colorsObserved: [{ value: 'rgb(122, 30, 48)', count: 24 }, { value: 'rgb(255, 255, 255)', count: 40 }],
+    loadedFonts: [{ family: 'Merriweather', weight: '700', status: 'loaded' }],
+  }, null, 2), 'utf8');
+
   const tokScript = path.join(SKILLS_DIR, 'design-tokens-source', 'scripts', 'tokens-cli.mjs');
 
   execFileSync(process.execPath, [tokScript, 'init', '--dir', tokDir, '--name', 'Demo Brand'], { stdio: 'pipe' });
+  const syncOut = JSON.parse(execFileSync(process.execPath, [tokScript, 'sync-landing', '--dir', tokDir, '--json'], { encoding: 'utf8' }));
   execFileSync(process.execPath, [tokScript, 'generate', '--dir', tokDir], { stdio: 'pipe' });
   const auditJson = execFileSync(process.execPath, [tokScript, 'audit', '--dir', tokDir, '--strict', '--json'], { encoding: 'utf8' });
   const auditRes = JSON.parse(auditJson);
   const genCss = fs.readFileSync(path.join(tokDir, 'docs', 'diseno', 'design-tokens.generated.css'), 'utf8');
+  const savedTokens = JSON.parse(fs.readFileSync(path.join(tokDir, 'docs', 'diseno', 'design-tokens.json'), 'utf8'));
 
-  check('Integración tokens-cli.mjs: genera CSS con HSL shadcn + puente MDES brand + DESIGN_TOKENS.md',
+  check('Integración tokens-cli.mjs: sync-landing importa colores/fuentes Nivel A sin contaminar brand interno',
+    syncOut.internalBrandUntouched === true
+    && savedTokens.landingOverrides.observedColors.some((c) => c.hex === '#7A1E30')
+    && savedTokens.landingOverrides.loadedFonts.includes('Merriweather')
+    && savedTokens.brand.primary === '#1D4ED8');
+  check('Integración tokens-cli.mjs: genera CSS con HSL shadcn + puente MDES brand + DESIGN_TOKENS.md + tokens-bridge.json',
     genCss.includes('--primary:') && genCss.includes('[data-motion-theme="brand"]')
-    && fs.existsSync(path.join(tokDir, 'docs', 'diseno', 'DESIGN_TOKENS.md')));
+    && fs.existsSync(path.join(tokDir, 'docs', 'diseno', 'DESIGN_TOKENS.md'))
+    && fs.existsSync(path.join(tokDir, '.claude', 'landing-design', 'tokens-bridge.json')));
   check('Integración tokens-cli.mjs: auditoría WCAG 2.2 AA calcula ratios reales y pasa --strict',
-    auditRes.errors.length === 0 && auditRes.contrastChecks.length === 3 && auditRes.contrastChecks.every((c) => c.ok));
+    auditRes.errors.length === 0 && auditRes.contrastChecks.length >= 3 && auditRes.contrastChecks.every((c) => c.ok));
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });
 }

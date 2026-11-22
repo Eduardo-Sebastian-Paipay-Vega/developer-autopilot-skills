@@ -81,7 +81,7 @@ Ejecuta `node scripts/audit-motion.mjs <carpeta>` y corrige todo hallazgo `ERROR
 - No sobrescribir archivos existentes ni hacer commits sin autorización del usuario.
 - No declarar pruebas o métricas que no se ejecutaron.
 - En Angular moderno (v20.2+): CSS nativo + `animate.enter` / `animate.leave`. No introducir `@angular/animations` (deprecado).
-- Si el proyecto tiene un guardián visual (p. ej. `landing-design-guardian`), la paleta del proyecto manda: mapea sus colores a los tokens `--motion-*`, no al revés.
+- **Fuente única de diseño:** si el proyecto tiene `docs/diseno/design-tokens.json` (`design-tokens-source` / `toolkit.config.json → design`) o `landing-design-guardian`, la paleta del proyecto manda: usa `[data-motion-theme="brand"]` o mapea sus tokens reales a `--motion-*`, nunca al revés.
 
 ## Formato de entrega
 

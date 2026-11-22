@@ -18,7 +18,7 @@ Diseña, depura y construye sidebars empresariales listos para producción, **ad
 
 ### Paso 0: Detectar Stack, Librería UI y Tokens de Diseño del Proyecto
 1. Lee `toolkit.config.json` (`stack.frontend`, `stack.ui_libraries`, `stack.css_framework`) o inspecciona `package.json`, `components.json`, `angular.json` / `next.config.*`.
-2. Lee los tokens visuales existentes del proyecto (`globals.css`, `styles.scss`, `tailwind.config.*`, tema PrimeNG/shadcn/MUI o `landing-design-guardian`) para **heredar su tipografía, paleta primaria, bordes y modo claro/oscuro**.
+2. **Fuente única de diseño:** lee primero `docs/diseno/design-tokens.json` (o la ruta en `toolkit.config.json → design.tokens_file`) y `docs/diseno/design-tokens.generated.css`. Si aún no existen, lee los estilos del proyecto (`globals.css`, `styles.scss`, `tailwind.config.*`, tema PrimeNG/shadcn/MUI o `.claude/landing-design/`) y sugiere consolidarlos con `/design-tokens-source`. **Hereda siempre la tipografía, paleta primaria, bordes y tokens `--sidebar-*`; nunca inventes hex hardcoded.**
 3. Si existe `docs/planeacion/plan-maestro.md` o `plan.md`, lee la jerarquía oficial de módulos, rutas y roles RBAC antes de reorganizar el menú.
 4. Si el proyecto aún no define framework o librería UI, **pregunta al usuario** antes de generar código.
 

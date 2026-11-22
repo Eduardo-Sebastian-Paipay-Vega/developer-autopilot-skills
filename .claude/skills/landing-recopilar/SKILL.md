@@ -18,7 +18,7 @@ Descubrir la identidad **existente** del landing del repo, no proponer otra. Tra
 4. Inspecciona estados interactivos reales mediante el navegador (hover/focus, menús móviles, sticky, scroll, reduced motion). Nunca interactúes con el dashboard interno. Registra capturas adicionales cuando aporten información.
 5. Entrega `DESIGN.md`, `TOKENS.json`, `COMPONENTS.md`, `PAGE-INVENTORY.md`. Cada patrón o token importante incluye evidencia de origen: archivo/selector/ruta/viewport/estado, valor declarado vs calculado y certeza.
 6. Agrupa variantes y excepciones. No fuerces un único tamaño o color si el diseño contiene valores distintos según la sección o breakpoint.
-7. Resume: referencia examinada, páginas publicas detectadas, principales tokens, ambigüedades y cobertura de evidencias.
+7. Resume: referencia examinada, páginas publicas detectadas, principales tokens, ambigüedades y cobertura de evidencias. Si el proyecto cuenta con `/design-tokens-source` (`docs/diseno/design-tokens.json` o `toolkit.config.json → design`), sugiere ejecutar `autopilot tokens sincronizar-landing` para reflejar los colores y fuentes medidos (Nivel A) en el bloque aislado `landingOverrides` sin alterar el sistema interno.
 
 ## Criterio de salida
 

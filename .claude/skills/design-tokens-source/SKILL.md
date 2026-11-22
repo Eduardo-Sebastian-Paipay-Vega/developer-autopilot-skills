@@ -16,16 +16,17 @@ Centraliza, audita y propaga **toda la identidad visual** del proyecto — tanto
 
 ---
 
-## Los 4 Modos de Operación
+## Los 5 Modos de Operación
 
 | Modo | Cuándo usarlo | Comando CLI |
 | :--- | :--- | :--- |
-| **1. Extraer e inventariar** | El proyecto ya tiene CSS/Tailwind/temas y quieres documentar la realidad exacta + detectar anomalías. | `node .claude/skills/design-tokens-source/scripts/tokens-cli.mjs extract` |
-| **2. Crear desde cero** | Proyecto nuevo: definir paleta de marca, neutros, tipografías y generar `design-tokens.json`. | `node .claude/skills/design-tokens-source/scripts/tokens-cli.mjs init` |
-| **3. Editar y propagar** | Cambió un color, radio o fuente: editar `design-tokens.json` y regenerar CSS + MD sincronizados. | `node .claude/skills/design-tokens-source/scripts/tokens-cli.mjs generate` |
-| **4. Auditar contraste y fugas** | Verificar WCAG 2.2 AA (contraste real), variables duplicadas y hex hardcodeados en componentes. | `node .claude/skills/design-tokens-source/scripts/tokens-cli.mjs audit --strict` |
+| **1. Extraer e inventariar** | El proyecto ya tiene CSS/Tailwind/temas (y/o evidencia de `landing-design-guardian`) y quieres documentar la realidad exacta + detectar anomalías. | `node .claude/skills/design-tokens-source/scripts/tokens-cli.mjs extract` |
+| **2. Crear desde cero** | Proyecto nuevo: definir paleta de marca, neutros, tipografías y generar `docs/diseno/design-tokens.json` (precarga evidencia del landing si existe). | `node .claude/skills/design-tokens-source/scripts/tokens-cli.mjs init` |
+| **3. Sincronizar Landing (Nivel A)** | Ya ejecutaste `/landing-recopilar` (`capture-landing.mjs`) y quieres importar colores, fuentes y `:root` computados al bloque aislado `landingOverrides` sin tocar el sistema interno. | `node .claude/skills/design-tokens-source/scripts/tokens-cli.mjs sync-landing` |
+| **4. Editar y propagar** | Cambió un color, radio o fuente: editar `design-tokens.json` y regenerar CSS + MD + puente `tokens-bridge.json`. | `node .claude/skills/design-tokens-source/scripts/tokens-cli.mjs generate` |
+| **5. Auditar contraste y fugas** | Verificar WCAG 2.2 AA (sistema + CTA landing), variables duplicadas, divergencias CSS vs navegador y hex hardcodeados. | `node .claude/skills/design-tokens-source/scripts/tokens-cli.mjs audit --strict` |
 
-*(También disponible globalmente desde cualquier proyecto vía `autopilot tokens <init|extract|generate|audit>`).*
+*(También disponible globalmente desde cualquier proyecto vía `autopilot tokens <iniciar|extraer|sincronizar-landing|generar|auditar>` — resuelve rutas automáticamente desde `toolkit.config.json → design`).*
 
 ---
 

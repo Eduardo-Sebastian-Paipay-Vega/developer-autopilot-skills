@@ -42,5 +42,15 @@
     "frontend_dir": "frontend",
     "docs_dir": "docs/arquitectura",
     "manuals_dir": "docs/manuales"
+  },
+  "design": {
+    "tokens_file": "docs/diseno/design-tokens.json",
+    "generated_css": "docs/diseno/design-tokens.generated.css",
+    "docs_md": "docs/diseno/DESIGN_TOKENS.md",
+    "landing_dir": ".claude/landing-design",
+    "landing_scope": ".claude/landing-design/scope.json",
+    "landing_tokens": ".claude/landing-design/TOKENS.json",
+    "landing_evidence": ".claude/landing-design/evidence",
+    "detected_css_files": []
   }
 }

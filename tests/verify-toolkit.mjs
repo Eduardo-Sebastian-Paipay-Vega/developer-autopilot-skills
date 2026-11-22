@@ -37,7 +37,7 @@ function check(label, cond, detail = '') {
 function walkFiles(dir, extList) {
   const out = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (entry.name === '.git' || entry.name === 'node_modules') continue;
+    if (entry.name === '.git' || entry.name === 'node_modules' || entry.name === 'external') continue;
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) out.push(...walkFiles(full, extList));
     else if (extList.some((ext) => entry.name.endsWith(ext))) out.push(full);
@@ -174,6 +174,26 @@ for (const target of ['claude-project', 'claude-global', 'antigravity', 'cursor'
     check(`scripts/install.mjs --target ${target} --dry-run`, true);
   } catch (err) {
     check(`scripts/install.mjs --target ${target} --dry-run`, false, err.stderr?.toString() || err.message);
+  }
+}
+
+console.log('\n=== 6. Integridad de skills externas oficiales (read-only) ===');
+const extManifestPath = path.join(REPO_ROOT, 'external', 'sources.json');
+if (fs.existsSync(extManifestPath)) {
+  try {
+    const manifest = JSON.parse(fs.readFileSync(extManifestPath, 'utf8'));
+    check('external/sources.json es JSON válido', Array.isArray(manifest.sources));
+    for (const src of manifest.sources || []) {
+      const absSub = path.join(REPO_ROOT, src.path);
+      if (fs.existsSync(path.join(absSub, '.git'))) {
+        const dirty = execFileSync('git', ['status', '--porcelain'], { cwd: absSub, encoding: 'utf8' }).trim();
+        check(`Submódulo read-only limpio (sin ediciones locales): ${src.path}`, dirty === '', dirty);
+      } else {
+        check(`Submódulo declarado en sources.json: ${src.id} (no inicializado en este entorno)`, true);
+      }
+    }
+  } catch (err) {
+    check('external/sources.json es JSON válido', false, err.message);
   }
 }
 

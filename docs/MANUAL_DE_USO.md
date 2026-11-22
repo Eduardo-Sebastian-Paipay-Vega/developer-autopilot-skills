@@ -184,6 +184,27 @@ Este kit garantiza que nadie degrade el diseño de tus páginas públicas y que 
 
 </details>
 
+<details>
+<summary><b>☁️ Módulo 7: Skills Externas Oficiales — Read-Only (Cloudflare · 22 skills)</b></summary>
+
+Este repositorio integra [`cloudflare/skills`](https://github.com/cloudflare/skills) en `external/cloudflare-skills` como **submódulo read-only**: nadie debe editar sus archivos manualmente; siempre se actualizan desde el repositorio oficial de Cloudflare.
+
+* **Consultar si hay actualización oficial:**
+  ```bash
+  node scripts/sync-external.mjs --check
+  ```
+* **Sincronizar la última versión oficial e imprimir SHA/fecha:**
+  ```bash
+  node scripts/sync-external.mjs
+  ```
+* **Instalarlas en tu agente junto con tus 26 skills:**
+  ```bash
+  node scripts/install.mjs --target claude-project --include-external
+  # Otros targets: antigravity | claude-global | cursor | windsurf | cline
+  ```
+
+</details>
+
 ---
 
 ## 8. Matriz de Consulta Rápida (Cheat Sheet)

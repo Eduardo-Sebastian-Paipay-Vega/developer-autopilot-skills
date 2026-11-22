@@ -189,6 +189,28 @@ Despliega cada pestaña para ver los comandos, propósito y enlace directo a cad
 
 </details>
 
+<details>
+<summary><b>8. ☁️ Skills Externas Oficiales — Read-Only (Cloudflare · 22 skills)</b></summary>
+
+Integradas como **submódulo oficial inmutable** en `external/cloudflare-skills` (fuente: [`cloudflare/skills`](https://github.com/cloudflare/skills), solo lectura — nadie las modifica manualmente).
+
+* **Comprobar si hay nueva versión oficial (sin modificar nada):**
+  ```bash
+  node scripts/sync-external.mjs --check
+  ```
+* **Actualizar a la última versión oficial (informa commit SHA y fecha):**
+  ```bash
+  node scripts/sync-external.mjs
+  ```
+* **Instalar junto con el toolkit principal:**
+  ```bash
+  node scripts/install.mjs --target claude-project --include-external
+  ```
+
+Incluye las 22 skills oficiales de Cloudflare: `cloudflare`, `workers-best-practices`, `workers-development`, `workers-profiling`, `agents-sdk`, `durable-objects`, `wrangler`, `web-perf`, `cloudflare-one`, `cloudflare-one-migrations`, `turnstile-spin`, `nextjs-on-cloudflare`, `frameworks-on-cloudflare`, `cloudflare-app-bootstrap`, `cloudflare-email-service`, `gateway-workers`, `cf-cli`, `basin`, `k2`, `sandbox-stable`, `sandbox-next` y `sandbox-migrate-to-next`.
+
+</details>
+
 ---
 
 ## 🛠️ Estructura del Repositorio

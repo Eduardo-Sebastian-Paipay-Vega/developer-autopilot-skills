@@ -42,6 +42,7 @@ Localizar los archivos vivos del repositorio actual:
 
 #### ✅ QUÉ ES RELEVANTE DOCUMENTAR:
 * **Evolución de estado:** Un módulo pasó de mock / datos simulados a integración con API real (o viceversa).
+* **Rutas, endpoints y WebSockets:** si se agregaron, movieron o eliminaron rutas frontend o endpoints API, sincroniza `docs/arquitectura/routes-map.json` y `CATALOGO_RUTAS.md` vía `autopilot rutas extraer --merge && autopilot rutas generar`.
 * **Estructura de directorios:** Creación, reubicación o eliminación de módulos de primer y segundo nivel.
 * **Contratos de datos:** Nuevos modelos de entidad, endpoints REST, serializers, schemas de base de datos o contratos gRPC.
 * **Decisiones técnicas:** Modificación de librerías base, integraciones con servicios externos o cambios en políticas de seguridad/autenticación.

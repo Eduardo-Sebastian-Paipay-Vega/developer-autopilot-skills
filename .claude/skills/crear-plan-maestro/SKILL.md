@@ -116,4 +116,5 @@ En su lugar, incluye una sección destacada al inicio:
 Redactar el documento completo en Markdown con tablas formateadas, diagramas de flujo Mermaid para casos críticos, y alertas GitHub Flavored Markdown (`[!IMPORTANT]`, `[!CAUTION]`).
 
 ### Paso 4: Publicación y Registro
-Guardar el documento en `docs/planeacion/plan-maestro.md`. Este archivo pasa a ser la fuente de verdad que consultarán todas las demás skills (`iniciar-toolkit`, `crear-guia-tecnica`, `frontend-review`, etc.).
+Guardar el documento en `docs/planeacion/plan-maestro.md`. Este archivo pasa a ser la fuente de verdad que consultarán todas las demás skills (`iniciar-toolkit`, `routes-architect`, `crear-guia-tecnica`, `frontend-review`, etc.).
+* **Conexión directa con `/routes-architect`:** tras definir RFs, módulos y roles RBAC en `plan-maestro.md`, ejecuta `/routes-architect` (`autopilot rutas iniciar` → planear/extraer → `generar`) para materializar la fuente única `docs/arquitectura/routes-map.json` y el catálogo completo `docs/arquitectura/CATALOGO_RUTAS.md` (FE, API, WS, errores y auditoría OpenAPI).

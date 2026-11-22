@@ -86,7 +86,7 @@ En `.claude/landing-design/` mantener:
 
 ## Conexión con `design-tokens-source` (Fuente Única)
 
-Si el proyecto usa `/design-tokens-source` (`docs/diseno/design-tokens.json` o `toolkit.config.json → design`), tras ejecutar `/landing-recopilar` (y `capture-landing.mjs`) sincroniza la evidencia Nivel A con `autopilot tokens sincronizar-landing`. Esto actualiza **solo** el bloque aislado `landingOverrides` sin tocar la paleta del sistema interno.
+Si el proyecto usa `/design-tokens-source` (`docs/diseno/design-tokens.json` o `toolkit.config.json → design`), tras ejecutar `/landing-recopilar` (y `capture-landing.mjs`) sincroniza la evidencia Nivel A con `autopilot tokens sincronizar-landing`. Esto actualiza **solo** el bloque aislado `landingOverrides` sin tocar la paleta del sistema interno. Si existe `docs/arquitectura/routes-map.json` (`/routes-architect`), verifica que `scope.json → publicRoutes` y `excludedRoutes` no entren en conflicto con el catálogo oficial de rutas.
 
 ## Condiciones de salida
 

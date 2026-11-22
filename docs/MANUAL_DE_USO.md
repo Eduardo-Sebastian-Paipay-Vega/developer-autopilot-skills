@@ -1,6 +1,6 @@
 # 📖 Manual de Uso del Usuario — Developer Autopilot Skills
 
-Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **30 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
+Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **31 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
 
 ---
 
@@ -95,9 +95,14 @@ En el chat de tu agente de IA, escribe:
 <summary><b>🎬 Módulo 2: Identidad Visual, Motion Design (MDES) & Pantallas del Sistema (3 skills interoperables)</b></summary>
 
 ### `/design-tokens-source`
-* **Para qué sirve:** Fuente única de verdad de todos los tokens visuales (identidad de marca, neutros, estados, conversión automática Hex→HSL para `shadcn/ui`, overrides aislados de landing, tipografía, sidebar y puente `[data-motion-theme="brand"]` para MDES). Su CLI (`autopilot tokens iniciar|extraer|generar|auditar`) verifica contraste **WCAG 2.2 AA** real y detecta tokens duplicados y hex sueltos en componentes.
+* **Para qué sirve:** Fuente única de verdad de todos los tokens visuales (identidad de marca, neutros, estados, conversión automática Hex→HSL para `shadcn/ui`, overrides aislados de landing, tipografía, sidebar y puente `[data-motion-theme="brand"]` para MDES). Su CLI (`autopilot tokens iniciar|extraer|sincronizar-landing|generar|auditar`) verifica contraste **WCAG 2.2 AA** real y detecta tokens duplicados y hex sueltos en componentes.
 * **Ejemplo de prompt:**
   > *"/design-tokens-source extrae todos los tokens actuales de este frontend, genera design-tokens.json + docs/diseno/DESIGN_TOKENS.md y audita contraste WCAG y hex sueltos."*
+
+### `/routes-architect`
+* **Para qué sirve:** Fuente única de verdad de **todas las rutas del sistema** (Frontend por grupos/módulos/RF/RBAC, Backend REST, Microservicios, WebSockets, pantallas de error/estado, interceptores HTTP, logs y discrepancias OpenAPI). Funciona tanto **planeado desde documentación** (`plan-maestro.md` / RFs / SDDs) como **extrayendo del código real** (`autopilot rutas iniciar|extraer|generar|auditar`).
+* **Ejemplo de prompt:**
+  > *"/routes-architect toma todos los RF de docs/planeacion/plan-maestro.md y el código actual, establece docs/arquitectura/routes-map.json, genera CATALOGO_RUTAS.md con Mermaid y audita ambigüedades OpenAPI y rutas sin RBAC."*
 
 ### `/motion-design-engineer`
 * **Para qué sirve:** Sistema de ingeniería de animaciones e ilustraciones visuales **originales mediante código** (`SVG + CSS + JavaScript / WAAPI`, sin GIF ni Lottie de pago). Maneja niveles **M1–M4**, contrato JSON validable, tokens `--motion-*` (recoloreables en vivo), `prefers-reduced-motion` y scripts de auditoría (`validate-config.mjs`, `audit-motion.mjs`).
@@ -239,6 +244,7 @@ Este repositorio integra [`cloudflare/skills`](https://github.com/cloudflare/ski
 | Destacar la fila que abrió un modal | `/resaltar-fila-abierta` |
 | Crear animaciones, ilustraciones o escenas en código (MDES) | `/motion-design-engineer` |
 | Centralizar, extraer, editar o auditar tokens de identidad/colores | `/design-tokens-source` |
+| Planear, extraer o auditar todas las rutas FE/API/WS y errores | `/routes-architect` |
 | Generar y cablear pantallas de estado, errores 4xx/5xx, offline y rutas | `/system-state-screens` |
 | Dejar columnas reordenables por el usuario | `/tabla-orden-dinamico` |
 | Auditar código de un componente frontend | `/frontend-review` |

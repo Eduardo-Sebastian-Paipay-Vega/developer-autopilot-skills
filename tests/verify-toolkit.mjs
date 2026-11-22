@@ -421,6 +421,38 @@ try {
     && fs.existsSync(path.join(tokDir, '.claude', 'landing-design', 'tokens-bridge.json')));
   check('Integración tokens-cli.mjs: auditoría WCAG 2.2 AA calcula ratios reales y pasa --strict',
     auditRes.errors.length === 0 && auditRes.contrastChecks.length >= 3 && auditRes.contrastChecks.every((c) => c.ok));
+
+  // 7.8 Prueba real de routes-architect/scripts/routes-cli.mjs (init -> extract --merge -> generate -> audit)
+  const rtDir = path.join(tmpRoot, 'routes-test-app');
+  fs.mkdirSync(path.join(rtDir, 'docs', 'planeacion'), { recursive: true });
+  fs.writeFileSync(path.join(rtDir, 'docs', 'planeacion', 'plan-maestro.md'), '# Plan\n| RF-01 | Login |\n| RF-02 | Usuarios |\n', 'utf8');
+  fs.mkdirSync(path.join(rtDir, 'frontend', 'app', '(landing)'), { recursive: true });
+  fs.writeFileSync(path.join(rtDir, 'frontend', 'app', '(landing)', 'page.tsx'), 'export default function Home(){}\n', 'utf8');
+  fs.mkdirSync(path.join(rtDir, 'frontend', 'app', '(intranet)', 'intranet', 'usuarios'), { recursive: true });
+  fs.writeFileSync(path.join(rtDir, 'frontend', 'app', '(intranet)', 'intranet', 'usuarios', 'page.tsx'), 'export default function Users(){}\n', 'utf8');
+  fs.writeFileSync(path.join(rtDir, 'frontend', 'app', 'error.tsx'), 'export default function Err(){}\n', 'utf8');
+  fs.mkdirSync(path.join(rtDir, 'backend', 'src', 'routes'), { recursive: true });
+  fs.writeFileSync(path.join(rtDir, 'backend', 'src', 'app.ts'), "app.use('/api/v1/users', usersRouter);\n", 'utf8');
+  fs.writeFileSync(path.join(rtDir, 'backend', 'src', 'routes', 'users.routes.ts'),
+    "router.get('/me', fn);\nrouter.get('/:id', fn);\nconst ws = '/api/v1/notifications/ws';\n", 'utf8');
+
+  const rtScript = path.join(SKILLS_DIR, 'routes-architect', 'scripts', 'routes-cli.mjs');
+  execFileSync(process.execPath, [rtScript, 'init', '--dir', rtDir, '--name', 'Demo Routes'], { stdio: 'pipe' });
+  const extOut = JSON.parse(execFileSync(process.execPath, [rtScript, 'extract', '--dir', rtDir, '--merge', '--json'], { encoding: 'utf8' }));
+  execFileSync(process.execPath, [rtScript, 'generate', '--dir', rtDir], { stdio: 'pipe' });
+  const rtAudit = JSON.parse(execFileSync(process.execPath, [rtScript, 'audit', '--dir', rtDir, '--strict', '--json'], { encoding: 'utf8' }));
+  const catalogMd = fs.readFileSync(path.join(rtDir, 'docs', 'arquitectura', 'CATALOGO_RUTAS.md'), 'utf8');
+
+  check('Integración routes-cli.mjs: extrae rutas Next.js, Express, WS y detecta ambigüedad OpenAPI (/me vs /:id)',
+    extOut.frontendRoutesCount >= 2
+    && extOut.backendEndpointsCount >= 2
+    && extOut.websocketsCount >= 1
+    && extOut.ambiguousOpenApiPaths.length >= 1);
+  check('Integración routes-cli.mjs: genera CATALOGO_RUTAS.md con Mermaid y pasa audit --strict',
+    catalogMd.includes('```mermaid')
+    && catalogMd.includes('/intranet/usuarios')
+    && catalogMd.includes('/api/v1/users/me')
+    && rtAudit.errors.length === 0);
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });
 }

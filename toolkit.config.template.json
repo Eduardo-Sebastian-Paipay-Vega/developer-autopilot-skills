@@ -52,5 +52,10 @@
     "landing_tokens": ".claude/landing-design/TOKENS.json",
     "landing_evidence": ".claude/landing-design/evidence",
     "detected_css_files": []
+  },
+  "routes": {
+    "map_file": "docs/arquitectura/routes-map.json",
+    "catalog_md": "docs/arquitectura/CATALOGO_RUTAS.md",
+    "plan_maestro": "docs/planeacion/plan-maestro.md"
   }
 }

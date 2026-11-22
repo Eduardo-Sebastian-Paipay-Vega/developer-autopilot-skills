@@ -396,6 +396,11 @@ def main():
     if info["design"]["detected_css_files"]:
         design["detected_css_files"] = info["design"]["detected_css_files"]
 
+    routes_cfg = config_data.setdefault("routes", {})
+    routes_cfg.setdefault("map_file", "docs/arquitectura/routes-map.json")
+    routes_cfg.setdefault("catalog_md", "docs/arquitectura/CATALOGO_RUTAS.md")
+    routes_cfg.setdefault("plan_maestro", "docs/planeacion/plan-maestro.md")
+
     config_file.write_text(json.dumps(config_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"✅ Archivo de configuración generado: {config_file.name}")
 
@@ -420,6 +425,7 @@ def main():
     if info["cloud"]["provider"] == "cloudflare":
         print("  ✓ /cloudflare               ─ Skills oficiales de Cloudflare (external/cloudflare-skills)")
     print("  ✓ /crear-plan-maestro       ─ Plan Maestro de Arquitectura y Dominio (Información Primaria)")
+    print("  ✓ /routes-architect         ─ Fuente única de rutas FE/API/WS, errores, logs y auditoría OpenAPI")
     print("  ✓ /change-governance        ─ Gobierno de cambios grandes (CHG-XXXX, métricas, PR y CHANGELOG_INTERNO)")
     print("  ✓ /crear-guia-tecnica       ─ Especificaciones técnicas")
     print("  ✓ /crear-manual-usuario     ─ Manual de usuario y exportación .docx")

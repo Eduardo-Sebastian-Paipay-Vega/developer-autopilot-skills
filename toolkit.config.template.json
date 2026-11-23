@@ -57,5 +57,10 @@
     "map_file": "docs/arquitectura/routes-map.json",
     "catalog_md": "docs/arquitectura/CATALOGO_RUTAS.md",
     "plan_maestro": "docs/planeacion/plan-maestro.md"
+  },
+  "seo": {
+    "dir": "docs/seo",
+    "config_file": "docs/seo/seo-config.json",
+    "report_md": "docs/seo/SEO_REPORT.md"
   }
 }

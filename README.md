@@ -1,6 +1,6 @@
 # 🚀 Developer Autopilot Skills — Enterprise & Fullstack AI Toolkit
 
-> **Kit integral de 31 skills de ingeniería de software, diseño visual, motion engineering, gobierno de cambios y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
+> **Kit integral de 32 skills de ingeniería de software, diseño visual, motion engineering, gobierno de cambios y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
 > Diseñado para que cualquier desarrollador pueda llegar a cualquier proyecto, empresa o cliente y disponer de un copiloto con estándares de clase mundial sin fricción ni configuraciones manuales.
 
 ---
@@ -110,7 +110,7 @@ Confirma que has asimilado estas reglas antes de comenzar a editar código.
 
 ---
 
-## 🧭 Catálogo Maestro de Skills (31 Skills por Funcionalidad)
+## 🧭 Catálogo Maestro de Skills (32 Skills por Funcionalidad)
 
 Despliega cada pestaña para ver los comandos, propósito y enlace directo a cada funcionalidad:
 
@@ -139,12 +139,13 @@ Despliega cada pestaña para ver los comandos, propósito y enlace directo a cad
 </details>
 
 <details>
-<summary><b>3. 🎬 Identidad Visual, Rutas, Motion Design & Pantallas del Sistema (4 skills interoperables)</b></summary>
+<summary><b>3. 🎬 Identidad Visual, Rutas, SEO, Motion Design & Pantallas del Sistema (5 skills interoperables)</b></summary>
 
 | Comando | Descripción |
 | :--- | :--- |
 | **`/design-tokens-source`** | **Fuente Única de Identidad Visual:** crea, extrae, sincroniza con landing, edita y audita tokens de marca, neutros, HSL (`shadcn/ui`), tipografía, sidebar y MDES con contraste **WCAG 2.2 AA** real (`tokens-cli.mjs`). |
 | **`/routes-architect`** | **Fuente Única de Rutas, Endpoints y Errores:** planea desde RFs/Plan Maestro, extrae del código (Next.js/Angular/Vue + Express/NestJS/FastAPI/Django + WS), genera `CATALOGO_RUTAS.md` con Mermaid y audita ambigüedades OpenAPI, RBAC y rutas de error (`routes-cli.mjs`). |
+| **`/busqueda`** | **Estándar Técnico Integral de SEO & AI Search (GEO):** absorbe `routes-map.json`, `design-tokens.json` y `scope.json` para configurar/auditar metadatos, `canonical`, `robots.txt`, `sitemap.xml`, `JSON-LD`, `manifest.webmanifest`, aislamiento público/privado y puntuación 0–100 (`seo-cli.mjs`). |
 | **`/motion-design-engineer`** | **MDES:** Ingeniería de animaciones, ilustraciones vectoriales y escenas (`SVG + CSS + WAAPI`) sin GIF ni Lottie de pago, con niveles M1–M4, tokens `--motion-*`, validadores CLI y accesibilidad. |
 | **`/system-state-screens`** | Genera y cablea las **15 pantallas de estado y error** (Full-page Loader, Skeleton, Empty States ×3, Success, 2.º plano, HTTP `400/401/403/404/429/500/502/503/504`, Offline y Force Update) con rutas, interceptores HTTP, Error Boundaries y puente opcional con MDES. |
 
@@ -231,7 +232,7 @@ Incluye las 22 skills oficiales de Cloudflare: `cloudflare`, `workers-best-pract
 developer-autopilot-skills/
 ├── .claude/
 │   ├── landing-design/            # Configuración de scope y evidencias visuales
-│   └── skills/                    # Directorio unificado de las 31 skills
+│   └── skills/                    # Directorio unificado de las 32 skills
 │       ├── iniciar-toolkit/
 │       ├── motion-design-engineer/
 │       ├── system-state-screens/

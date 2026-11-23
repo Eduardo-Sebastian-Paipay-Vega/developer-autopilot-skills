@@ -401,6 +401,11 @@ def main():
     routes_cfg.setdefault("catalog_md", "docs/arquitectura/CATALOGO_RUTAS.md")
     routes_cfg.setdefault("plan_maestro", "docs/planeacion/plan-maestro.md")
 
+    seo_cfg = config_data.setdefault("seo", {})
+    seo_cfg.setdefault("dir", "docs/seo")
+    seo_cfg.setdefault("config_file", "docs/seo/seo-config.json")
+    seo_cfg.setdefault("report_md", "docs/seo/SEO_REPORT.md")
+
     config_file.write_text(json.dumps(config_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"✅ Archivo de configuración generado: {config_file.name}")
 
@@ -426,6 +431,7 @@ def main():
         print("  ✓ /cloudflare               ─ Skills oficiales de Cloudflare (external/cloudflare-skills)")
     print("  ✓ /crear-plan-maestro       ─ Plan Maestro de Arquitectura y Dominio (Información Primaria)")
     print("  ✓ /routes-architect         ─ Fuente única de rutas FE/API/WS, errores, logs y auditoría OpenAPI")
+    print("  ✓ /busqueda                 ─ Estándar técnico SEO & AI Search/GEO (metadatos, sitemap, JSON-LD, 0–100)")
     print("  ✓ /change-governance        ─ Gobierno de cambios grandes (CHG-XXXX, métricas, PR y CHANGELOG_INTERNO)")
     print("  ✓ /crear-guia-tecnica       ─ Especificaciones técnicas")
     print("  ✓ /crear-manual-usuario     ─ Manual de usuario y exportación .docx")

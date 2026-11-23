@@ -453,6 +453,41 @@ try {
     && catalogMd.includes('/intranet/usuarios')
     && catalogMd.includes('/api/v1/users/me')
     && rtAudit.errors.length === 0);
+
+  // 7.9 Prueba real de busqueda/scripts/seo-cli.mjs conectado con routes-map.json + design-tokens.json
+  const seoDir = path.join(tmpRoot, 'seo-test-app');
+  fs.mkdirSync(path.join(seoDir, 'docs', 'arquitectura'), { recursive: true });
+  fs.mkdirSync(path.join(seoDir, 'docs', 'diseno'), { recursive: true });
+  fs.mkdirSync(path.join(seoDir, 'frontend', 'app'), { recursive: true });
+  fs.writeFileSync(path.join(seoDir, 'frontend', 'app', 'layout.tsx'), '<html lang="es-PE"><title>Demo</title></html>\n', 'utf8');
+  fs.writeFileSync(path.join(seoDir, 'docs', 'diseno', 'design-tokens.json'), JSON.stringify({
+    project: 'Demo SEO',
+    brand: { primary: '#4F000B', surface: '#FFFFFF' },
+  }, null, 2), 'utf8');
+  fs.writeFileSync(path.join(seoDir, 'docs', 'arquitectura', 'routes-map.json'), JSON.stringify({
+    project: 'Demo SEO',
+    frontendRoutes: [
+      { path: '/', group: 'public' },
+      { path: '/servicios', group: 'public' },
+      { path: '/intranet/usuarios', group: 'internal' },
+    ],
+  }, null, 2), 'utf8');
+
+  const seoScript = path.join(SKILLS_DIR, 'busqueda', 'scripts', 'seo-cli.mjs');
+  execFileSync(process.execPath, [seoScript, 'init', '--dir', seoDir, '--domain', 'https://demo-seo.pe'], { stdio: 'pipe' });
+  execFileSync(process.execPath, [seoScript, 'generate', '--dir', seoDir], { stdio: 'pipe' });
+  const seoAudit = JSON.parse(execFileSync(process.execPath, [seoScript, 'audit', '--dir', seoDir, '--strict', '--json'], { encoding: 'utf8' }));
+  const genSitemap = fs.readFileSync(path.join(seoDir, 'docs', 'seo', 'sitemap.generated.xml'), 'utf8');
+  const genManifest = JSON.parse(fs.readFileSync(path.join(seoDir, 'docs', 'seo', 'manifest.generated.webmanifest'), 'utf8'));
+  const genSchema = JSON.parse(fs.readFileSync(path.join(seoDir, 'docs', 'seo', 'organization.schema.jsonld'), 'utf8'));
+
+  check('Integración seo-cli.mjs: absorbe routes-map + design-tokens, excluye rutas privadas del sitemap y genera JSON-LD',
+    genSitemap.includes('https://demo-seo.pe/servicios')
+    && !genSitemap.includes('/intranet/usuarios')
+    && genManifest.theme_color === '#4F000B'
+    && genSchema['@type'] === 'Organization');
+  check('Integración seo-cli.mjs: auditoría SEO 0-100 pasa --strict sin errores bloqueantes',
+    seoAudit.errors.length === 0 && seoAudit.score >= 70 && seoAudit.pillars.length === 10);
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });
 }

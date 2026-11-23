@@ -153,6 +153,7 @@ function printHelp() {
   console.log('  autopilot cambio            (chg)         Gestiona fichas CHG-XXXX y métricas SIGCS (iniciar|agregar|metricas|validar)');
   console.log('  autopilot tokens            (diseno)      Tokens de identidad: iniciar|extraer|sincronizar-landing|generar|auditar');
   console.log('  autopilot rutas             (routes)      Arquitectura de rutas: iniciar|extraer|generar|auditar (FE, API, WS, errores)');
+  console.log('  autopilot busqueda          (seo)         Estándar SEO & GEO: iniciar|extraer|generar|auditar (sitemap, JSON-LD, 0-100)');
   console.log('  autopilot externas          (external)    Comprueba/actualiza skills externas read-only (Cloudflare) [--check]');
   console.log('  autopilot nueva-skill       (new-skill)   Crea nueva skill validada en la fuente única');
   console.log('  autopilot verificar         (verify)      Ejecuta la suite completa de verificación');
@@ -190,6 +191,10 @@ function main() {
     const hasDir = rest.includes('--dir');
     const rtArgs = hasDir ? rest : [...rest, '--dir', CALLER_CWD];
     runNode('.claude/skills/routes-architect/scripts/routes-cli.mjs', rtArgs, CALLER_CWD);
+  } else if (cmd === 'busqueda' || cmd === 'seo') {
+    const hasDir = rest.includes('--dir');
+    const seoArgs = hasDir ? rest : [...rest, '--dir', CALLER_CWD];
+    runNode('.claude/skills/busqueda/scripts/seo-cli.mjs', seoArgs, CALLER_CWD);
   } else if (cmd === 'external' || cmd === 'externas') {
     runNode('scripts/sync-external.mjs', rest);
   } else if (cmd === 'new-skill' || cmd === 'nueva-skill') {

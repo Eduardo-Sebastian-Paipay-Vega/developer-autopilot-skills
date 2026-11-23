@@ -1,6 +1,6 @@
 # 📖 Manual de Uso del Usuario — Developer Autopilot Skills
 
-Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **31 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
+Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **32 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
 
 ---
 
@@ -103,6 +103,11 @@ En el chat de tu agente de IA, escribe:
 * **Para qué sirve:** Fuente única de verdad de **todas las rutas del sistema** (Frontend por grupos/módulos/RF/RBAC, Backend REST, Microservicios, WebSockets, pantallas de error/estado, interceptores HTTP, logs y discrepancias OpenAPI). Funciona tanto **planeado desde documentación** (`plan-maestro.md` / RFs / SDDs) como **extrayendo del código real** (`autopilot rutas iniciar|extraer|generar|auditar`).
 * **Ejemplo de prompt:**
   > *"/routes-architect toma todos los RF de docs/planeacion/plan-maestro.md y el código actual, establece docs/arquitectura/routes-map.json, genera CATALOGO_RUTAS.md con Mermaid y audita ambigüedades OpenAPI y rutas sin RBAC."*
+
+### `/busqueda`
+* **Para qué sirve:** Estándar técnico integral de **SEO y visibilidad en buscadores con IA (GEO/AEO)** de punta a punta (infraestructura, backend, frontend SSR/SSG, `robots.txt`, `sitemap.xml`, `canonical`, `JSON-LD`, `manifest.webmanifest`, aislamiento público/privado, Core Web Vitals y matriz de auditoría 0–100). Conecta automáticamente con `routes-map.json`, `design-tokens.json` y `scope.json` vía `autopilot busqueda iniciar|extraer|generar|auditar`.
+* **Ejemplo de prompt:**
+  > *"/busqueda audita e implementa el estándar técnico SEO y GEO de este proyecto usando nuestras rutas públicas y tokens de marca, genera sitemap/robots/JSON-LD y corre la auditoría 0-100 en modo estricto."*
 
 ### `/motion-design-engineer`
 * **Para qué sirve:** Sistema de ingeniería de animaciones e ilustraciones visuales **originales mediante código** (`SVG + CSS + JavaScript / WAAPI`, sin GIF ni Lottie de pago). Maneja niveles **M1–M4**, contrato JSON validable, tokens `--motion-*` (recoloreables en vivo), `prefers-reduced-motion` y scripts de auditoría (`validate-config.mjs`, `audit-motion.mjs`).
@@ -245,6 +250,7 @@ Este repositorio integra [`cloudflare/skills`](https://github.com/cloudflare/ski
 | Crear animaciones, ilustraciones o escenas en código (MDES) | `/motion-design-engineer` |
 | Centralizar, extraer, editar o auditar tokens de identidad/colores | `/design-tokens-source` |
 | Planear, extraer o auditar todas las rutas FE/API/WS y errores | `/routes-architect` |
+| Implementar o auditar SEO técnico integral y GEO (AI Search) | `/busqueda` |
 | Generar y cablear pantallas de estado, errores 4xx/5xx, offline y rutas | `/system-state-screens` |
 | Dejar columnas reordenables por el usuario | `/tabla-orden-dinamico` |
 | Auditar código de un componente frontend | `/frontend-review` |

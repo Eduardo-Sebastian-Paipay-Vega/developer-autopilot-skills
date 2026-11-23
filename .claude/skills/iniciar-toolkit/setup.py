@@ -410,6 +410,12 @@ def main():
     opt_cfg.setdefault("dir", "docs/optimizacion")
     opt_cfg.setdefault("preset", "balanced")
 
+    db_cfg = config_data.setdefault("database", {})
+    db_cfg.setdefault("dir", "docs/bd")
+    db_cfg.setdefault("schema_file", "docs/bd/db-schema.json")
+    db_cfg.setdefault("dictionary_md", "docs/bd/DICCIONARIO_BD.md")
+    db_cfg.setdefault("history_md", "docs/bd/HISTORIAL_CAMBIOS_BD.md")
+
     config_file.write_text(json.dumps(config_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"✅ Archivo de configuración generado: {config_file.name}")
 
@@ -430,6 +436,7 @@ def main():
     if info["backend"] or info["databases"]:
         print("  ✓ /mock-free-audit          ─ Auditoría anti-mock e integridad real con backend/BD")
         print("  ✓ /support-db               ─ Inspección viva del esquema y modelos")
+        print("  ✓ /db-guardian              ─ Guardián activo BD: registra cada cambio, diccionario vivo y diagrama ER")
         print("  ✓ /diccionario-datos        ─ Documentación de tablas y columnas")
     if info["cloud"]["provider"] == "cloudflare":
         print("  ✓ /cloudflare               ─ Skills oficiales de Cloudflare (external/cloudflare-skills)")

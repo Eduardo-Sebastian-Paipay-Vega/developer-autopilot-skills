@@ -5,7 +5,7 @@ description: Estandariza la documentación del esquema de base de datos directam
 
 # Diccionario de Datos Automatizado desde Modelos y Base de Datos
 
-Esta skill establece la regla de **fuente única de verdad** para el modelo de datos: la documentación de tablas, columnas y relaciones reside directamente en los metadatos y comentarios del modelo (ORM) y se traslada a la base de datos (PostgreSQL / SQL), desde donde se genera el Diccionario de Datos de forma automática.
+Esta skill establece la regla de **fuente única de verdad** para el modelo de datos: la documentación de tablas, columnas y relaciones reside directamente en los metadatos y comentarios del modelo (ORM) y se traslada a la base de datos (PostgreSQL / SQL), desde donde se genera el Diccionario de Datos de forma automática. Tras actualizar comentarios o migraciones, sincroniza el snapshot vivo, el diagrama ER Mermaid y el historial `DB-XXXX` ejecutando `/db-guardian` (`autopilot bd registrar --motivo "..."`).
 
 ---
 

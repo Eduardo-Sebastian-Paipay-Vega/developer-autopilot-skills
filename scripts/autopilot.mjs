@@ -155,6 +155,7 @@ function printHelp() {
   console.log('  autopilot rutas             (routes)      Arquitectura de rutas: iniciar|extraer|generar|auditar (FE, API, WS, errores)');
   console.log('  autopilot busqueda          (seo)         Estándar SEO & GEO: iniciar|extraer|generar|auditar (sitemap, JSON-LD, 0-100)');
   console.log('  autopilot optimizar         (lpo)         Optimización Landing: iniciar|auditar-activos|linea-base|comparar|generar-lhci');
+  console.log('  autopilot bd                (db)          Guardián activo BD: extraer|registrar|generar|auditar (ER, diccionario, diff)');
   console.log('  autopilot externas          (external)    Comprueba/actualiza skills externas read-only (Cloudflare) [--check]');
   console.log('  autopilot nueva-skill       (new-skill)   Crea nueva skill validada en la fuente única');
   console.log('  autopilot verificar         (verify)      Ejecuta la suite completa de verificación');
@@ -200,6 +201,10 @@ function main() {
     const hasDir = rest.includes('--dir');
     const lpoArgs = hasDir ? rest : [...rest, '--dir', CALLER_CWD];
     runNode('.claude/skills/landing-page-optimization-engineering/scripts/landing-opt-cli.mjs', lpoArgs, CALLER_CWD);
+  } else if (cmd === 'bd' || cmd === 'db' || cmd === 'database') {
+    const hasDir = rest.includes('--dir');
+    const dbArgs = hasDir ? rest : [...rest, '--dir', CALLER_CWD];
+    runNode('.claude/skills/db-guardian/scripts/db-guardian-cli.mjs', dbArgs, CALLER_CWD);
   } else if (cmd === 'external' || cmd === 'externas') {
     runNode('scripts/sync-external.mjs', rest);
   } else if (cmd === 'new-skill' || cmd === 'nueva-skill') {

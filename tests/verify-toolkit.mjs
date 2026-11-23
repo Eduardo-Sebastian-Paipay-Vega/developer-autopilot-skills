@@ -526,6 +526,57 @@ try {
     && lpoCompare.after.totalFindings === 0
     && lpoCompare.regressed === false
     && lhciJson.ci?.assert?.assertions?.['largest-contentful-paint']?.[1]?.maxNumericValue === 1800);
+
+  // 7.11 Prueba real de db-guardian/scripts/db-guardian-cli.mjs (record DB-0001 -> drift -> record DB-0002 -> audit)
+  const dbDir = path.join(tmpRoot, 'db-guardian-test');
+  fs.mkdirSync(path.join(dbDir, 'database', 'migrations'), { recursive: true });
+  fs.writeFileSync(path.join(dbDir, 'database', 'migrations', '001_init.sql'), [
+    'CREATE TABLE usuarios (',
+    '  id BIGSERIAL PRIMARY KEY,',
+    '  tenant_id UUID NOT NULL,',
+    '  email VARCHAR(255) UNIQUE NOT NULL',
+    ');',
+    'ALTER TABLE usuarios ENABLE ROW LEVEL SECURITY;',
+    'CREATE POLICY p_tenant_usuarios ON usuarios USING (true);',
+    "COMMENT ON TABLE usuarios IS 'Cuentas de usuarios del sistema';",
+  ].join('\n'), 'utf8');
+
+  const dbScript = path.join(SKILLS_DIR, 'db-guardian', 'scripts', 'db-guardian-cli.mjs');
+  const rec1 = JSON.parse(execFileSync(process.execPath, [dbScript, 'record', '--dir', dbDir, '--motivo', 'Esquema inicial', '--json'], { encoding: 'utf8' }));
+  // Simular nueva migración con tabla relacionada + columna nueva
+  fs.writeFileSync(path.join(dbDir, 'database', 'migrations', '002_pedidos.sql'), [
+    'ALTER TABLE usuarios ADD COLUMN activo BOOLEAN NOT NULL;',
+    'CREATE TABLE pedidos (',
+    '  id BIGSERIAL PRIMARY KEY,',
+    '  usuario_id BIGINT NOT NULL REFERENCES usuarios(id)',
+    ');',
+    'CREATE INDEX idx_pedidos_usuario ON pedidos (usuario_id);',
+  ].join('\n'), 'utf8');
+
+  let driftDetected = false;
+  try {
+    execFileSync(process.execPath, [dbScript, 'audit', '--dir', dbDir, '--strict'], { stdio: 'pipe' });
+  } catch {
+    driftDetected = true;
+  }
+
+  const rec2 = JSON.parse(execFileSync(process.execPath, [dbScript, 'record', '--dir', dbDir, '--motivo', 'Agrega pedidos y columna activo', '--json'], { encoding: 'utf8' }));
+  const dbAudit = JSON.parse(execFileSync(process.execPath, [dbScript, 'audit', '--dir', dbDir, '--strict', '--json'], { encoding: 'utf8' }));
+  const dictMd = fs.readFileSync(path.join(dbDir, 'docs', 'bd', 'DICCIONARIO_BD.md'), 'utf8');
+  const histMd = fs.readFileSync(path.join(dbDir, 'docs', 'bd', 'HISTORIAL_CAMBIOS_BD.md'), 'utf8');
+
+  check('Integración db-guardian-cli.mjs: detecta drift, registra DB-0001 y DB-0002 con diff exacto de tablas/columnas/FK',
+    rec1.entry?.id === 'DB-0001'
+    && driftDetected === true
+    && rec2.entry?.id === 'DB-0002'
+    && rec2.entry.diff.tablesAdded.includes('pedidos')
+    && rec2.entry.diff.columnsAdded.some((c) => c.startsWith('usuarios.activo'))
+    && rec2.entry.diff.relationsAdded.some((r) => r.includes('pedidos.usuario_id -> usuarios.id')));
+  check('Integración db-guardian-cli.mjs: genera DICCIONARIO_BD.md con erDiagram Mermaid, HISTORIAL y pasa audit --strict',
+    dictMd.includes('erDiagram')
+    && dictMd.includes('usuarios ||--o{ pedidos')
+    && histMd.includes('DB-0002')
+    && dbAudit.errors.length === 0);
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });
 }

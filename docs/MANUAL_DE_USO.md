@@ -1,6 +1,6 @@
 # 📖 Manual de Uso del Usuario — Developer Autopilot Skills
 
-Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **33 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
+Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **34 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
 
 ---
 
@@ -161,6 +161,11 @@ Este kit garantiza que nadie degrade el diseño de tus páginas públicas y que 
 * **Para qué sirve:** Escribe comentarios de negocio directamente en el ORM y PostgreSQL (`db_table_comment` y `db_comment`) y genera `docs/arquitectura/diccionario-datos.md`.
 * **Ejemplo de prompt:**
   > *"Acabo de agregar la tabla de suscripciones. Ejecuta /diccionario-datos para documentar los campos y actualizar el markdown."*
+
+### `/db-guardian`
+* **Para qué sirve:** Guardián activo de base de datos para SQL, Prisma y Django ORM. Cada vez que se crea o modifica una tabla, columna o relación FK, calcula el diff exacto, lo registra en `docs/bd/HISTORIAL_CAMBIOS_BD.md` (`DB-0001`...), regenera `docs/bd/DICCIONARIO_BD.md` con su **diagrama ER Mermaid** y audita drift, `DROP`/`TRUNCATE`, FKs sin índice y RLS/PII (`autopilot bd registrar|extraer|generar|auditar`).
+* **Ejemplo de prompt:**
+  > *"/db-guardian registra estos cambios de migración, actualiza el diccionario de datos con el diagrama ER y ejecuta la auditoría estricta de integridad y drift."*
 
 </details>
 

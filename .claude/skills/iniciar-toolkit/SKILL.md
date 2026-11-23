@@ -104,6 +104,7 @@ Una vez inicializado el proyecto con esta skill, las demás herramientas convive
 | **Optimizar y verificar rendimiento, activos, CRO y CWV de una landing** | `/landing-page-optimization-engineering` |
 | **Normas de código y buenas prácticas UI** | `/frontend-standards` |
 | **Consultar modelos, campos y relaciones de BD** | `/support-db` |
+| **Registrar cada cambio de BD, diccionario vivo, ER y auditar drift** | `/db-guardian` |
 | **Auditar/eliminar mocks y verificar integración real con backend** | `/mock-free-audit` |
 | **Documentar tablas en PostgreSQL y el ORM** | `/diccionario-datos` |
 | **Al cerrar una sesión con cambios importantes** | `/actualizar-contexto` |

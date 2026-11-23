@@ -1,6 +1,6 @@
 # 🚀 Developer Autopilot Skills — Enterprise & Fullstack AI Toolkit
 
-> **Kit integral de 33 skills de ingeniería de software, diseño visual, motion engineering, gobierno de cambios y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
+> **Kit integral de 34 skills de ingeniería de software, diseño visual, motion engineering, gobierno de cambios y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
 > Diseñado para que cualquier desarrollador pueda llegar a cualquier proyecto, empresa o cliente y disponer de un copiloto con estándares de clase mundial sin fricción ni configuraciones manuales.
 
 ---
@@ -110,7 +110,7 @@ Confirma que has asimilado estas reglas antes de comenzar a editar código.
 
 ---
 
-## 🧭 Catálogo Maestro de Skills (33 Skills por Funcionalidad)
+## 🧭 Catálogo Maestro de Skills (34 Skills por Funcionalidad)
 
 Despliega cada pestaña para ver los comandos, propósito y enlace directo a cada funcionalidad:
 
@@ -168,10 +168,11 @@ Despliega cada pestaña para ver los comandos, propósito y enlace directo a cad
 </details>
 
 <details>
-<summary><b>5. 🗄️ Backend, Bases de Datos e Integridad Anti-Mock (3 skills)</b></summary>
+<summary><b>5. 🗄️ Backend, Bases de Datos e Integridad Anti-Mock (4 skills)</b></summary>
 
 | Comando | Descripción |
 | :--- | :--- |
+| **`/db-guardian`** | **Guardián Activo de BD:** registra automáticamente cada cambio de esquema (`DB-XXXX`), mantiene `docs/bd/DICCIONARIO_BD.md` con **diagrama ER Mermaid** y matriz de relaciones FK, y audita drift, operaciones destructivas (`DROP`/`TRUNCATE`), FKs sin índice y RLS/PII (`db-guardian-cli.mjs`). |
 | **`/mock-free-audit`** | Auditoría anti-mock e implementador/verificador de backend real (`MK-001`–`MK-015`, scanner CLI `scan-mocks.mjs --strict`, CRUD round-trip y Chaos Test con backend apagado). |
 | **`/support-db`** | Inspección viva de modelos ORM (`models.py`, entidades), tipos de datos, relaciones FK/M2M y enums. |
 | **`/diccionario-datos`** | Extrae y documenta tablas y campos directamente desde comentarios del ORM y PostgreSQL a Markdown y Word. |
@@ -233,7 +234,7 @@ Incluye las 22 skills oficiales de Cloudflare: `cloudflare`, `workers-best-pract
 developer-autopilot-skills/
 ├── .claude/
 │   ├── landing-design/            # Configuración de scope y evidencias visuales
-│   └── skills/                    # Directorio unificado de las 33 skills
+│   └── skills/                    # Directorio unificado de las 34 skills
 │       ├── iniciar-toolkit/
 │       ├── motion-design-engineer/
 │       ├── system-state-screens/

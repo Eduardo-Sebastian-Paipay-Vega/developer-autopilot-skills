@@ -12,7 +12,7 @@ Esta skill responde consultas técnicas sobre el modelo de datos analizando dire
 ## Principio de Inspección Viva del Código Fuente
 
 Los documentos de arquitectura a menudo quedan desfasados respecto a los cambios de esquema introducidos en ramas recientes. Esta skill:
-1. **Nunca responde de memoria:** Localiza el archivo de modelo correspondiente en el repositorio y lee la definición exacta del campo o relación.
+1. **Nunca responde de memoria:** Localiza el archivo de modelo correspondiente en el repositorio y lee la definición exacta del campo o relación. Si existe `docs/bd/db-schema.json` (`/db-guardian`), úsalo como mapa rápido y verifica con `autopilot bd auditar` si hay drift respecto al código.
 2. **Es de solo lectura:** No altera modelos, no ejecuta migraciones ni realiza operaciones DDL sobre la base de datos.
 
 ---

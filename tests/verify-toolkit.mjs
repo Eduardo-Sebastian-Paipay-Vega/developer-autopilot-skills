@@ -577,6 +577,35 @@ try {
     && dictMd.includes('usuarios ||--o{ pedidos')
     && histMd.includes('DB-0002')
     && dbAudit.errors.length === 0);
+
+  // 7.12 Prueba real de cl-flare/scripts/cl-flare-cli.mjs (guardrail #2 docs + guardrail #4 secretos en wrangler)
+  const cfDir = path.join(tmpRoot, 'cf-test-app');
+  fs.mkdirSync(cfDir, { recursive: true });
+  const cfScript = path.join(SKILLS_DIR, 'cl-flare', 'scripts', 'cl-flare-cli.mjs');
+
+  let blockedBeforePlan = false;
+  try {
+    execFileSync(process.execPath, [cfScript, 'verify', '--dir', cfDir, '--strict'], { stdio: 'pipe' });
+  } catch {
+    blockedBeforePlan = true;
+  }
+
+  execFileSync(process.execPath, [cfScript, 'init', '--dir', cfDir], { stdio: 'pipe' });
+  fs.writeFileSync(path.join(cfDir, 'wrangler.jsonc'), '{"name":"demo","compatibility_date":"2026-01-01","vars":{"JWT_SECRET":"super-secret-leak"}}\n', 'utf8');
+  let blockedSecretLeak = false;
+  try {
+    execFileSync(process.execPath, [cfScript, 'verify', '--dir', cfDir, '--strict'], { stdio: 'pipe' });
+  } catch {
+    blockedSecretLeak = true;
+  }
+
+  fs.writeFileSync(path.join(cfDir, 'wrangler.jsonc'), '{"name":"demo","compatibility_date":"2026-01-01","vars":{"APP_ENV":"production"}}\n', 'utf8');
+  const cfVerifyOk = JSON.parse(execFileSync(process.execPath, [cfScript, 'verify', '--dir', cfDir, '--strict', '--json'], { encoding: 'utf8' }));
+
+  check('Integración cl-flare-cli.mjs: bloquea #subida sin Plan Maestro (Guardrail #2) y bloquea secretos en wrangler vars (Guardrail #4)',
+    blockedBeforePlan === true && blockedSecretLeak === true);
+  check('Integración cl-flare-cli.mjs: init crea los 7 docs/cloudflare/*.md y verify --strict aprueba configuración limpia',
+    cfVerifyOk.status.planReadyForDeploy === true && cfVerifyOk.errors.length === 0);
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });
 }

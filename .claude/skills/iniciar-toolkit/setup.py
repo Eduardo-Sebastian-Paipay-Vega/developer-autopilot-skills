@@ -439,6 +439,7 @@ def main():
         print("  ✓ /db-guardian              ─ Guardián activo BD: registra cada cambio, diccionario vivo y diagrama ER")
         print("  ✓ /diccionario-datos        ─ Documentación de tablas y columnas")
     if info["cloud"]["provider"] == "cloudflare":
+        print("  ✓ /cl-flare                 ─ Orquestador multi-agente Cloudflare (#crear, #subida, #actualización)")
         print("  ✓ /cloudflare               ─ Skills oficiales de Cloudflare (external/cloudflare-skills)")
     print("  ✓ /crear-plan-maestro       ─ Plan Maestro de Arquitectura y Dominio (Información Primaria)")
     print("  ✓ /routes-architect         ─ Fuente única de rutas FE/API/WS, errores, logs y auditoría OpenAPI")

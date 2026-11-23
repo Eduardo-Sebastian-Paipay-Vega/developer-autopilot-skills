@@ -113,6 +113,7 @@ Una vez inicializado el proyecto con esta skill, las demás herramientas convive
 | **Armar el informe semanal de trabajo para gerencia**| `/reporte-semanal-resumen` |
 | **Revisar por qué staging o la nube falló** | `/diagnostico-staging` |
 | **Subir a dev, promover a main y validar despliegue**| `/update-main-staging` |
+| **Orquestar migración, subida o actualización en Cloudflare** | `/cl-flare` |
 
 ---
 

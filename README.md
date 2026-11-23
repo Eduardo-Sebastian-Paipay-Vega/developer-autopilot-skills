@@ -1,6 +1,6 @@
 # 🚀 Developer Autopilot Skills — Enterprise & Fullstack AI Toolkit
 
-> **Kit integral de 34 skills de ingeniería de software, diseño visual, motion engineering, gobierno de cambios y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
+> **Kit integral de 35 skills de ingeniería de software, diseño visual, motion engineering, gobierno de cambios y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
 > Diseñado para que cualquier desarrollador pueda llegar a cualquier proyecto, empresa o cliente y disponer de un copiloto con estándares de clase mundial sin fricción ni configuraciones manuales.
 
 ---
@@ -110,7 +110,7 @@ Confirma que has asimilado estas reglas antes de comenzar a editar código.
 
 ---
 
-## 🧭 Catálogo Maestro de Skills (34 Skills por Funcionalidad)
+## 🧭 Catálogo Maestro de Skills (35 Skills por Funcionalidad)
 
 Despliega cada pestaña para ver los comandos, propósito y enlace directo a cada funcionalidad:
 
@@ -193,10 +193,11 @@ Despliega cada pestaña para ver los comandos, propósito y enlace directo a cad
 </details>
 
 <details>
-<summary><b>7. ⚙️ Git, DevOps y Reportes de Avance (4 skills)</b></summary>
+<summary><b>7. ⚙️ Git, DevOps, Cloudflare y Reportes de Avance (5 skills)</b></summary>
 
 | Comando | Descripción |
 | :--- | :--- |
+| **`/cl-flare`** | **Orquestador Multi-Agente Cloudflare (`#crear`, `#subida`, `#actualización`):** coordina las 22 skills oficiales de Cloudflare con 5 subagentes de evaluación (`SELECCIONADA/DESCARTADA`), Integrador, Plan Maestro, Ejecutores, Verificador y CLI `cl-flare-cli.mjs`. |
 | **`/resolver-conflicto-merge`** | Resolución determinista de conflictos Git en CLI con verificación de hunks, grep de imports y tests. |
 | **`/reporte-semanal-resumen`** | Extrae tus commits de Git de la semana y redacta el informe de avance en lenguaje de gerencia. |
 | **`/diagnostico-staging`** | Diagnóstico en Google Cloud Platform: Cloud Run, Cloud SQL, sincronización de Jobs de migración y logs. |
@@ -234,7 +235,7 @@ Incluye las 22 skills oficiales de Cloudflare: `cloudflare`, `workers-best-pract
 developer-autopilot-skills/
 ├── .claude/
 │   ├── landing-design/            # Configuración de scope y evidencias visuales
-│   └── skills/                    # Directorio unificado de las 34 skills
+│   └── skills/                    # Directorio unificado de las 35 skills
 │       ├── iniciar-toolkit/
 │       ├── motion-design-engineer/
 │       ├── system-state-screens/

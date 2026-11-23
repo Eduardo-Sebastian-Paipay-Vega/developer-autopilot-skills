@@ -1,6 +1,6 @@
 # 📖 Manual de Uso del Usuario — Developer Autopilot Skills
 
-Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **34 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
+Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **35 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
 
 ---
 
@@ -221,6 +221,11 @@ Este kit garantiza que nadie degrade el diseño de tus páginas públicas y que 
 * **Para qué sirve:** Orquesta el flujo CI/CD: validaciones locales, Conventional Commits, promoción de ramas, seguimiento de Cloud Build, migraciones y smoke tests HTTP 200.
 * **Ejemplo de prompt:**
   > *"/update-main-staging para publicar los cambios validados a staging."*
+
+### `/cl-flare` (`#crear`, `#subida`, `#actualización`)
+* **Para qué sirve:** Orquestador multi-agente para migrar, desplegar y mantener proyectos en Cloudflare aprovechando las **22 skills oficiales de Cloudflare** del repositorio. Genera evaluaciones paralelas por área (`SELECCIONADA/DESCARTADA`), Plan Maestro en rama `cloudflare`, ejecución con subagentes y verificación de guardrails vía `autopilot cf estado|iniciar|verificar`.
+* **Ejemplo de prompt:**
+  > *"/cl-flare #crear plan para migrar este repositorio a Cloudflare evaluando Pages, Workers, D1/Hyperdrive, R2 y Turnstile sin desplegar todavía."*
 
 </details>
 

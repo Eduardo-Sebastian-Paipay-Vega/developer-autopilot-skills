@@ -1,6 +1,6 @@
 # ⚙️ Guía de Configuración para Agentes de IA
 
-Esta guía detalla cómo integrar y activar las **34 skills** de este toolkit en los principales entornos y agentes de inteligencia artificial del mercado: **Claude Code**, **Cursor IDE**, **Google Antigravity / Gemini CLI**, **Windsurf / Cascade**, y **VS Code con Cline / Roo Code / Copilot**.
+Esta guía detalla cómo integrar y activar las **35 skills** de este toolkit en los principales entornos y agentes de inteligencia artificial del mercado: **Claude Code**, **Cursor IDE**, **Google Antigravity / Gemini CLI**, **Windsurf / Cascade**, y **VS Code con Cline / Roo Code / Copilot**.
 
 ---
 
@@ -64,7 +64,7 @@ Cursor utiliza reglas de contexto (`.cursorrules` o la carpeta moderna `.cursor/
 
 ```markdown
 # Developer AI Toolkit Rules
-Este proyecto cuenta con un kit de 34 skills ubicadas en `.claude/skills/`.
+Este proyecto cuenta con un kit de 35 skills ubicadas en `.claude/skills/`.
 Siempre que el usuario solicite una tarea coincidente con las siguientes directivas, lee el archivo `SKILL.md` correspondiente antes de actuar:
 
 - Inicializar proyecto o setup: `.claude/skills/iniciar-toolkit/SKILL.md`
@@ -86,6 +86,7 @@ Siempre que el usuario solicite una tarea coincidente con las siguientes directi
 - Estándares UI: `.claude/skills/frontend-standards/SKILL.md`
 - Modelos y BD: `.claude/skills/support-db/SKILL.md`
 - Guardián activo BD, diccionario vivo, ER e historial de cambios: `.claude/skills/db-guardian/SKILL.md`
+- Orquestador multi-agente Cloudflare (`#crear`, `#subida`, `#actualización`): `.claude/skills/cl-flare/SKILL.md`
 - Auditoría anti-mock e integridad de backend: `.claude/skills/mock-free-audit/SKILL.md`
 - Diccionario de datos: `.claude/skills/diccionario-datos/SKILL.md`
 - Documentación viva: `.claude/skills/actualizar-contexto/SKILL.md`

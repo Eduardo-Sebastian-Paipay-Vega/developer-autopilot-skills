@@ -1,0 +1,30 @@
+{
+  "preset": "flexible",
+  "description": "Presupuestos adaptados para landings con multimedia pesada, mapas o herramientas interactivas",
+  "budgets": {
+    "LCP_TARGET_MS": 2500,
+    "INP_TARGET_MS": 200,
+    "CLS_TARGET": 0.1,
+    "TTFB_TARGET_MS": 1000,
+    "FCP_TARGET_MS": 2000,
+    "TBT_TARGET_MS": 300,
+    "INITIAL_TRANSFER_BUDGET_KB": 1800,
+    "INITIAL_JS_BUDGET_KB": 280,
+    "CSS_BUNDLE_BUDGET_KB": 120,
+    "HERO_IMAGE_BUDGET_KB": 250,
+    "INITIAL_REQUESTS_BUDGET": 55,
+    "DOM_NODE_BUDGET": 2200
+  },
+  "autonomy": {
+    "EXECUTION_MODE": "audit",
+    "AUTONOMY_LEVEL": "controlled",
+    "REQUIRE_BASELINE": true,
+    "REQUIRE_IMPLEMENTATION_APPROVAL": true,
+    "ALLOW_DEPENDENCY_CHANGES": false,
+    "ALLOW_ARCHITECTURE_CHANGES": false,
+    "ALLOW_DESIGN_CHANGES": false,
+    "ALLOW_BACKEND_CHANGES": false,
+    "ALLOW_DEPLOYMENT": false,
+    "REQUIRE_REGRESSION_TESTS": true
+  }
+}

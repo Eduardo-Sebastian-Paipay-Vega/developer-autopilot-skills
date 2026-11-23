@@ -62,5 +62,9 @@
     "dir": "docs/seo",
     "config_file": "docs/seo/seo-config.json",
     "report_md": "docs/seo/SEO_REPORT.md"
+  },
+  "optimization": {
+    "dir": "docs/optimizacion",
+    "preset": "balanced"
   }
 }

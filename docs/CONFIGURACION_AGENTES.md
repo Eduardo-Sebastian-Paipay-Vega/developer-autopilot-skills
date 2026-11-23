@@ -1,6 +1,6 @@
 # ⚙️ Guía de Configuración para Agentes de IA
 
-Esta guía detalla cómo integrar y activar las **32 skills** de este toolkit en los principales entornos y agentes de inteligencia artificial del mercado: **Claude Code**, **Cursor IDE**, **Google Antigravity / Gemini CLI**, **Windsurf / Cascade**, y **VS Code con Cline / Roo Code / Copilot**.
+Esta guía detalla cómo integrar y activar las **33 skills** de este toolkit en los principales entornos y agentes de inteligencia artificial del mercado: **Claude Code**, **Cursor IDE**, **Google Antigravity / Gemini CLI**, **Windsurf / Cascade**, y **VS Code con Cline / Roo Code / Copilot**.
 
 ---
 
@@ -64,13 +64,14 @@ Cursor utiliza reglas de contexto (`.cursorrules` o la carpeta moderna `.cursor/
 
 ```markdown
 # Developer AI Toolkit Rules
-Este proyecto cuenta con un kit de 32 skills ubicadas en `.claude/skills/`.
+Este proyecto cuenta con un kit de 33 skills ubicadas en `.claude/skills/`.
 Siempre que el usuario solicite una tarea coincidente con las siguientes directivas, lee el archivo `SKILL.md` correspondiente antes de actuar:
 
 - Inicializar proyecto o setup: `.claude/skills/iniciar-toolkit/SKILL.md`
 - Plan Maestro de Arquitectura y Dominio: `.claude/skills/crear-plan-maestro/SKILL.md`
 - Arquitecto y catálogo de rutas FE/API/WS y errores: `.claude/skills/routes-architect/SKILL.md`
 - Estándar técnico integral de SEO y AI Search (GEO): `.claude/skills/busqueda/SKILL.md`
+- Optimización y verificación integral de landing pages (`F0–F10`): `.claude/skills/landing-page-optimization-engineering/SKILL.md`
 - Gobierno y registro de cambios grandes (SIGCS): `.claude/skills/change-governance/SKILL.md`
 - Resolución de conflictos Git: `.claude/skills/resolver-conflicto-merge/SKILL.md`
 - Responsividad móvil: `.claude/skills/responsividad/SKILL.md`

@@ -1,0 +1,30 @@
+{
+  "preset": "balanced",
+  "description": "Equilibrio recomendado entre rendimiento, funcionalidades y diseño para landings corporativas o SaaS",
+  "budgets": {
+    "LCP_TARGET_MS": 2500,
+    "INP_TARGET_MS": 200,
+    "CLS_TARGET": 0.1,
+    "TTFB_TARGET_MS": 800,
+    "FCP_TARGET_MS": 1800,
+    "TBT_TARGET_MS": 200,
+    "INITIAL_TRANSFER_BUDGET_KB": 1000,
+    "INITIAL_JS_BUDGET_KB": 150,
+    "CSS_BUNDLE_BUDGET_KB": 75,
+    "HERO_IMAGE_BUDGET_KB": 150,
+    "INITIAL_REQUESTS_BUDGET": 35,
+    "DOM_NODE_BUDGET": 1500
+  },
+  "autonomy": {
+    "EXECUTION_MODE": "audit",
+    "AUTONOMY_LEVEL": "controlled",
+    "REQUIRE_BASELINE": true,
+    "REQUIRE_IMPLEMENTATION_APPROVAL": true,
+    "ALLOW_DEPENDENCY_CHANGES": false,
+    "ALLOW_ARCHITECTURE_CHANGES": false,
+    "ALLOW_DESIGN_CHANGES": false,
+    "ALLOW_BACKEND_CHANGES": false,
+    "ALLOW_DEPLOYMENT": false,
+    "REQUIRE_REGRESSION_TESTS": true
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "preset": "strict",
+  "description": "Presupuestos exigentes para landings estáticas o de campaña de ultra-alta velocidad",
+  "budgets": {
+    "LCP_TARGET_MS": 1800,
+    "INP_TARGET_MS": 150,
+    "CLS_TARGET": 0.05,
+    "TTFB_TARGET_MS": 400,
+    "FCP_TARGET_MS": 1200,
+    "TBT_TARGET_MS": 150,
+    "INITIAL_TRANSFER_BUDGET_KB": 500,
+    "INITIAL_JS_BUDGET_KB": 80,
+    "CSS_BUNDLE_BUDGET_KB": 40,
+    "HERO_IMAGE_BUDGET_KB": 100,
+    "INITIAL_REQUESTS_BUDGET": 20,
+    "DOM_NODE_BUDGET": 800
+  },
+  "autonomy": {
+    "EXECUTION_MODE": "audit",
+    "AUTONOMY_LEVEL": "controlled",
+    "REQUIRE_BASELINE": true,
+    "REQUIRE_IMPLEMENTATION_APPROVAL": true,
+    "ALLOW_DEPENDENCY_CHANGES": false,
+    "ALLOW_ARCHITECTURE_CHANGES": false,
+    "ALLOW_DESIGN_CHANGES": false,
+    "ALLOW_BACKEND_CHANGES": false,
+    "ALLOW_DEPLOYMENT": false,
+    "REQUIRE_REGRESSION_TESTS": true
+  }
+}

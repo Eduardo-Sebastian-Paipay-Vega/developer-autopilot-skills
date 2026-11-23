@@ -1,6 +1,6 @@
 # 📖 Manual de Uso del Usuario — Developer Autopilot Skills
 
-Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **32 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
+Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **33 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
 
 ---
 
@@ -108,6 +108,11 @@ En el chat de tu agente de IA, escribe:
 * **Para qué sirve:** Estándar técnico integral de **SEO y visibilidad en buscadores con IA (GEO/AEO)** de punta a punta (infraestructura, backend, frontend SSR/SSG, `robots.txt`, `sitemap.xml`, `canonical`, `JSON-LD`, `manifest.webmanifest`, aislamiento público/privado, Core Web Vitals y matriz de auditoría 0–100). Conecta automáticamente con `routes-map.json`, `design-tokens.json` y `scope.json` vía `autopilot busqueda iniciar|extraer|generar|auditar`.
 * **Ejemplo de prompt:**
   > *"/busqueda audita e implementa el estándar técnico SEO y GEO de este proyecto usando nuestras rutas públicas y tokens de marca, genera sitemap/robots/JSON-LD y corre la auditoría 0-100 en modo estricto."*
+
+### `/landing-page-optimization-engineering`
+* **Para qué sirve:** Ingeniería integral de optimización y verificación de landing pages (`F0–F10` con `GATE 1` de autorización). Combina presupuestos (`strict`/`balanced`/`flexible`), auditoría real de activos/imágenes/fuentes/scripts, Árbol KPI, CRO, accesibilidad WCAG 2.2 AA, SEO técnico (delegado a `/busqueda`), comparativa antes/después y generador de `lighthouserc.json` vía `autopilot optimizar`.
+* **Ejemplo de prompt:**
+  > *"/landing-page-optimization-engineering realiza FULL AUDIT + OPTIMIZATION BLUEPRINT de nuestra landing sin alterar la identidad visual ni modificar código hasta mi aprobación en GATE 1."*
 
 ### `/motion-design-engineer`
 * **Para qué sirve:** Sistema de ingeniería de animaciones e ilustraciones visuales **originales mediante código** (`SVG + CSS + JavaScript / WAAPI`, sin GIF ni Lottie de pago). Maneja niveles **M1–M4**, contrato JSON validable, tokens `--motion-*` (recoloreables en vivo), `prefers-reduced-motion` y scripts de auditoría (`validate-config.mjs`, `audit-motion.mjs`).
@@ -251,6 +256,7 @@ Este repositorio integra [`cloudflare/skills`](https://github.com/cloudflare/ski
 | Centralizar, extraer, editar o auditar tokens de identidad/colores | `/design-tokens-source` |
 | Planear, extraer o auditar todas las rutas FE/API/WS y errores | `/routes-architect` |
 | Implementar o auditar SEO técnico integral y GEO (AI Search) | `/busqueda` |
+| Optimizar y verificar rendimiento, activos, CRO y CWV de una landing | `/landing-page-optimization-engineering` |
 | Generar y cablear pantallas de estado, errores 4xx/5xx, offline y rutas | `/system-state-screens` |
 | Dejar columnas reordenables por el usuario | `/tabla-orden-dinamico` |
 | Auditar código de un componente frontend | `/frontend-review` |

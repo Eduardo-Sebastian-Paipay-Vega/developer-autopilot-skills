@@ -101,6 +101,7 @@ Una vez inicializado el proyecto con esta skill, las demás herramientas convive
 | **Centralizar, extraer o editar tokens de identidad visual** | `/design-tokens-source` |
 | **Planear, extraer o auditar todas las rutas FE/API/WS y errores** | `/routes-architect` |
 | **Implementar o auditar SEO técnico integral y GEO (AI Search)** | `/busqueda` |
+| **Optimizar y verificar rendimiento, activos, CRO y CWV de una landing** | `/landing-page-optimization-engineering` |
 | **Normas de código y buenas prácticas UI** | `/frontend-standards` |
 | **Consultar modelos, campos y relaciones de BD** | `/support-db` |
 | **Auditar/eliminar mocks y verificar integración real con backend** | `/mock-free-audit` |

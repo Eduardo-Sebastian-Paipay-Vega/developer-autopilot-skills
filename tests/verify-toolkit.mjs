@@ -493,6 +493,39 @@ try {
     && Array.isArray(seoAudit.maturity)
     && seoAudit.maturity.length >= 6
     && Array.isArray(seoAudit.findings));
+
+  // 7.10 Prueba real de landing-page-optimization-engineering/scripts/landing-opt-cli.mjs
+  const lpoDir = path.join(tmpRoot, 'lpo-test-app');
+  fs.mkdirSync(path.join(lpoDir, 'public', 'images'), { recursive: true });
+  fs.mkdirSync(path.join(lpoDir, 'frontend', 'app'), { recursive: true });
+  // Imagen PNG sobredimensionada de 180 KB (> 100 KB en preset strict)
+  fs.writeFileSync(path.join(lpoDir, 'public', 'images', 'hero.png'), Buffer.alloc(180 * 1024, 1));
+  fs.writeFileSync(path.join(lpoDir, 'frontend', 'app', 'page.tsx'),
+    '<main><img src="/images/hero.png" loading="lazy" alt="Hero" /><script src="https://www.googletagmanager.com/gtag/js"></script></main>\n', 'utf8');
+
+  const lpoScript = path.join(SKILLS_DIR, 'landing-page-optimization-engineering', 'scripts', 'landing-opt-cli.mjs');
+  execFileSync(process.execPath, [lpoScript, 'init', '--dir', lpoDir, '--preset', 'strict'], { stdio: 'pipe' });
+  const lpoBase = JSON.parse(execFileSync(process.execPath, [lpoScript, 'baseline', '--dir', lpoDir, '--json'], { encoding: 'utf8' }));
+  const lpoAudit = JSON.parse(execFileSync(process.execPath, [lpoScript, 'audit-assets', '--dir', lpoDir, '--json'], { encoding: 'utf8' }));
+  // Simular optimización: reemplazar PNG pesado por WebP ligero de 30 KB y quitar lazy/script bloqueante
+  fs.unlinkSync(path.join(lpoDir, 'public', 'images', 'hero.png'));
+  fs.writeFileSync(path.join(lpoDir, 'public', 'images', 'hero.webp'), Buffer.alloc(30 * 1024, 1));
+  fs.writeFileSync(path.join(lpoDir, 'frontend', 'app', 'page.tsx'),
+    '<main><img src="/images/hero.webp" width="1200" height="675" fetchPriority="high" alt="Hero" /></main>\n', 'utf8');
+  const lpoCompare = JSON.parse(execFileSync(process.execPath, [lpoScript, 'compare', '--dir', lpoDir, '--json'], { encoding: 'utf8' }));
+  execFileSync(process.execPath, [lpoScript, 'generate-lhci', '--dir', lpoDir], { stdio: 'pipe' });
+  const lhciJson = JSON.parse(fs.readFileSync(path.join(lpoDir, 'docs', 'optimizacion', 'lighthouserc.generated.json'), 'utf8'));
+
+  check('Integración landing-opt-cli.mjs: detecta hero PNG sobredimensionado, lazy en Hero y script GTM bloqueante',
+    lpoAudit.oversizedImages === 1
+    && lpoAudit.counts.critical >= 1
+    && lpoAudit.counts.high >= 2
+    && lpoBase.totalAssetKb >= 179);
+  check('Integración landing-opt-cli.mjs: compare mide mejora real antes/después y genera lighthouserc.generated.json',
+    lpoCompare.delta.totalAssetKb < -100
+    && lpoCompare.after.totalFindings === 0
+    && lpoCompare.regressed === false
+    && lhciJson.ci?.assert?.assertions?.['largest-contentful-paint']?.[1]?.maxNumericValue === 1800);
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });
 }

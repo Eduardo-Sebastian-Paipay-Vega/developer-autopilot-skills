@@ -486,8 +486,13 @@ try {
     && !genSitemap.includes('/intranet/usuarios')
     && genManifest.theme_color === '#4F000B'
     && genSchema['@type'] === 'Organization');
-  check('Integración seo-cli.mjs: auditoría SEO 0-100 pasa --strict sin errores bloqueantes',
-    seoAudit.errors.length === 0 && seoAudit.score >= 70 && seoAudit.pillars.length === 10);
+  check('Integración seo-cli.mjs: auditoría SEO 0-100 + madurez L0-L3 + hallazgos SEO-XX-001 pasa --strict',
+    seoAudit.errors.length === 0
+    && seoAudit.score >= 70
+    && seoAudit.pillars.length === 10
+    && Array.isArray(seoAudit.maturity)
+    && seoAudit.maturity.length >= 6
+    && Array.isArray(seoAudit.findings));
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });
 }

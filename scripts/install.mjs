@@ -92,12 +92,29 @@ function listSkills(includeExternal) {
   return skills.sort((a, b) => a.name.localeCompare(b.name));
 }
 
+function safeRemove(targetPath) {
+  if (!fs.existsSync(targetPath)) return;
+  try {
+    fs.rmSync(targetPath, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
+  } catch (err) {
+    if (err.code === 'EPERM' || err.code === 'EBUSY') {
+      try {
+        fs.rmSync(targetPath, { recursive: true, force: true, maxRetries: 15, retryDelay: 200 });
+        return;
+      } catch {
+        // Si no se puede remover el directorio raíz por un lock transitorio en Windows,
+        // cpSync sobrescribirá su contenido directamente.
+        return;
+      }
+    }
+    throw err;
+  }
+}
+
 function syncDirExact(src, dst, dryRun) {
   if (dryRun) return;
   fs.mkdirSync(path.dirname(dst), { recursive: true });
-  if (fs.existsSync(dst)) {
-    fs.rmSync(dst, { recursive: true, force: true });
-  }
+  safeRemove(dst);
   fs.cpSync(src, dst, { recursive: true, force: true });
 }
 
@@ -152,30 +169,37 @@ function installSingle(target, skills, opts) {
       if (!currentNames.has(prevName) && /^[a-z0-9]+(-[a-z0-9]+)*$/.test(prevName)) {
         const obsoleteDir = path.join(skillsDst, prevName);
         if (fs.existsSync(obsoleteDir)) {
-          if (!opts.dryRun) fs.rmSync(obsoleteDir, { recursive: true, force: true });
+          if (!opts.dryRun) safeRemove(obsoleteDir);
           removed.push(prevName);
         }
       }
     }
   }
 
-  console.log(`${tag}[${target}] ${skills.length} skills → ${skillsDst}${removed.length ? ` (eliminadas ${removed.length} obsoletas: ${removed.join(', ')})` : ''}`);
-  for (const s of skills) {
-    syncDirExact(s.srcDir, path.join(skillsDst, s.name), opts.dryRun);
-  }
+  const alreadySynced = opts.syncedSkillsDsts && opts.syncedSkillsDsts.has(skillsDst);
 
-  // Escribir manifiesto de skills administradas
-  if (!opts.dryRun) {
-    fs.mkdirSync(skillsDst, { recursive: true });
-    const manifestData = {
-      managedBy: 'developer-autopilot-skills',
-      target,
-      includeExternal: opts.includeExternal,
-      updatedAt: new Date().toISOString(),
-      skillCount: skills.length,
-      skills: skills.map((s) => s.name),
-    };
-    fs.writeFileSync(path.join(skillsDst, MANIFEST_FILENAME), `${JSON.stringify(manifestData, null, 2)}\n`, 'utf8');
+  if (!alreadySynced) {
+    console.log(`${tag}[${target}] ${skills.length} skills → ${skillsDst}${removed.length ? ` (eliminadas ${removed.length} obsoletas: ${removed.join(', ')})` : ''}`);
+    for (const s of skills) {
+      syncDirExact(s.srcDir, path.join(skillsDst, s.name), opts.dryRun);
+    }
+
+    // Escribir manifiesto de skills administradas
+    if (!opts.dryRun) {
+      fs.mkdirSync(skillsDst, { recursive: true });
+      const manifestData = {
+        managedBy: 'developer-autopilot-skills',
+        target,
+        includeExternal: opts.includeExternal,
+        updatedAt: new Date().toISOString(),
+        skillCount: skills.length,
+        skills: skills.map((s) => s.name),
+      };
+      fs.writeFileSync(path.join(skillsDst, MANIFEST_FILENAME), `${JSON.stringify(manifestData, null, 2)}\n`, 'utf8');
+      opts.syncedSkillsDsts?.add(skillsDst);
+    }
+  } else {
+    console.log(`${tag}[${target}] Skills compartidas ya sincronizadas en ${skillsDst}`);
   }
 
   if (!isGlobal && target !== 'codex-project' && fs.existsSync(LANDING_SCOPE_SRC)) {
@@ -210,6 +234,7 @@ function main() {
     process.exit(2);
   }
 
+  opts.syncedSkillsDsts = new Set();
   const skills = listSkills(opts.includeExternal);
   const targets = opts.target === 'all-global'
     ? ['claude-global', 'antigravity', 'codex-global']

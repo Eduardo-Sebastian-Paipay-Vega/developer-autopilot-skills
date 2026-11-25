@@ -1,6 +1,6 @@
 # 📖 Manual de Uso del Usuario — Developer Autopilot Skills
 
-Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **37 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
+Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **38 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
 
 ---
 
@@ -108,6 +108,11 @@ En el chat de tu agente de IA, escribe:
 * **Para qué sirve:** Diseña en detalle **cada pantalla** con documentos independientes (`00_relacional.md` + `01_frontend.md` en nivel `#frontend`, más `#backend` y `#integraciones`), aplicando el estándar **UI-STD-001** (Base-8, densidad, 6 estados de input, 5 estados de datos, validación `onBlur`, WCAG 2.2 AA), alineando cada componente `CMP-XXX` a la librería UI real (`PrimeReact`, `shadcn/ui`, `PrimeNG`, `MUI`, `Vuetify`) y comprobando documentalmente que cada componente cumple sus `RF`/`CU` (`autopilot disenar generar|verificar --strict`).
 * **Ejemplo de prompt:**
   > *"/screen-designer-sdd #frontend diseña cada pantalla en docs/frontend/pantallas/ alineada a nuestra librería UI real, genera 00_relacional.md y 01_frontend.md con fichas CMP-XXX y comprueba documentalmente con autopilot disenar verificar --strict."*
+
+### `/screen-builder-sdd` *(Gestor Frontend — Herramienta #3)*
+* **Para qué sirve:** Construye el **código productivo real Frontend-First** pantalla por pantalla (con subagentes en paralelo por módulo) a partir de `00_relacional.md` + `01_frontend.md`, aplicando `design-tokens.json` (cero hex hardcoded), la librería UI real sin mezclas, 5 estados UI, validación `onBlur`, WCAG 2.2 AA y adaptadores DTO listos para conectar al backend (`autopilot construir estado|verificar|marcar`).
+* **Ejemplo de prompt:**
+  > *"/screen-builder-sdd construye las pantallas aprobadas del módulo autenticación siguiendo 01_frontend.md, design-tokens.json y nuestra librería UI, ejecuta autopilot construir verificar --strict + build y márcalas como UI_READY."*
 
 ### `/routes-architect`
 * **Para qué sirve:** Fuente única de verdad de **todas las rutas del sistema** (Frontend por grupos/módulos/RF/RBAC, Backend REST, Microservicios, WebSockets, pantallas de error/estado, interceptores HTTP, logs y discrepancias OpenAPI). Funciona tanto **planeado desde documentación** (`plan-maestro.md` / RFs / SDDs) como **extrayendo del código real** (`autopilot rutas iniciar|extraer|generar|auditar`).

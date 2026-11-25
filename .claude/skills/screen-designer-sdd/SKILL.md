@@ -87,4 +87,4 @@ Cada subagente diseñador tiene autoridad explícita para decidir y justificar e
    - Todas las pantallas tienen `00_relacional.md` y `01_frontend.md`.
    - El 100% de los `RF-XX` de `00_relacional.md` están trazados a componentes `CMP-XXX` en `01_frontend.md`.
    - Cada pantalla incluye su tabla de **Decisiones Autónomas de Diseño**, librería UI exacta, estados `Loading`/`Empty`/`Error`, responsive y WCAG 2.2 AA.
-5. **Compuerta antes de Código:** entregar el resumen ejecutivo de pantallas diseñadas, decisiones autónomas tomadas y resultado de `verificar --strict`, esperando aprobación para pasar a la implementación Frontend-First.
+5. **Compuerta antes de Código:** entregar el resumen ejecutivo de pantallas diseñadas, decisiones autónomas tomadas y resultado de `verificar --strict`, esperando aprobación para pasar a la **Herramienta #3 (`/screen-builder-sdd` · `autopilot construir`)** de implementación Frontend-First.

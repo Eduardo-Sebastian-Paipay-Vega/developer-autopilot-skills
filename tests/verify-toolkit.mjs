@@ -663,6 +663,30 @@ try {
     && loginFeMd.includes('CMP-001'));
   check('Integración screen-designer-cli.mjs: verify --strict comprueba cumplimiento documental de todas las pantallas',
     desVerify.verifiedScreens === 3 && desVerify.errors.length === 0);
+
+  // 7.15 Prueba real de screen-builder-sdd/scripts/screen-builder-cli.mjs (bloquea hex/librería ajena -> aprueba limpio -> marca UI_READY)
+  fs.mkdirSync(path.join(scrDir, 'frontend', 'app', 'login'), { recursive: true });
+  fs.writeFileSync(path.join(scrDir, 'frontend', 'app', 'login', 'page.tsx'),
+    "import { Button } from 'primeng/button';\nexport default function Login(){ return <div className='bg-[#ff0000]'>Login</div>; }\n", 'utf8');
+  const bldScript = path.join(SKILLS_DIR, 'screen-builder-sdd', 'scripts', 'screen-builder-cli.mjs');
+
+  let blockedDirtyCode = false;
+  try {
+    execFileSync(process.execPath, [bldScript, 'verify', '--dir', scrDir, '--screen', 'login', '--strict'], { stdio: 'pipe' });
+  } catch {
+    blockedDirtyCode = true;
+  }
+
+  fs.writeFileSync(path.join(scrDir, 'frontend', 'app', 'login', 'page.tsx'),
+    "import { Button } from 'primereact/button';\nexport default function Login(){ const isLoading=false; const error=null; return <div className='bg-surface'>{isLoading ? 'Loading' : error || <Button label='Ingresar' />}</div>; }\n", 'utf8');
+  const bldOk = JSON.parse(execFileSync(process.execPath, [bldScript, 'verify', '--dir', scrDir, '--screen', 'login', '--strict', '--json'], { encoding: 'utf8' }));
+  execFileSync(process.execPath, [bldScript, 'mark', '--dir', scrDir, '--screen', 'SCR-001', '--status', 'UI_READY', '--file', 'frontend/app/login/page.tsx'], { stdio: 'pipe' });
+  const markedSpec = JSON.parse(fs.readFileSync(path.join(scrDir, 'docs', 'frontend', 'screens-spec.json'), 'utf8'));
+
+  check('Integración screen-builder-cli.mjs: bloquea hex hardcoded y librería UI ajena (primeng en PrimeReact)',
+    blockedDirtyCode === true);
+  check('Integración screen-builder-cli.mjs: verify --strict aprueba código limpio y mark actualiza a UI_READY',
+    bldOk.errors.length === 0 && markedSpec.screens[0].status === 'UI_READY');
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });
 }

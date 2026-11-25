@@ -1,6 +1,6 @@
 # 🚀 Developer Autopilot Skills — Enterprise & Fullstack AI Toolkit
 
-> **Kit integral de 37 skills de ingeniería de software, diseño visual, motion engineering, gobierno de cambios y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
+> **Kit integral de 38 skills de ingeniería de software, diseño visual, motion engineering, gobierno de cambios y DevOps para agentes de IA (Claude Code, Cursor, Antigravity, Gemini CLI, Windsurf).**  
 > Diseñado para que cualquier desarrollador pueda llegar a cualquier proyecto, empresa o cliente y disponer de un copiloto con estándares de clase mundial sin fricción ni configuraciones manuales.
 
 ---
@@ -110,7 +110,7 @@ Confirma que has asimilado estas reglas antes de comenzar a editar código.
 
 ---
 
-## 🧭 Catálogo Maestro de Skills (37 Skills por Funcionalidad)
+## 🧭 Catálogo Maestro de Skills (38 Skills por Funcionalidad)
 
 Despliega cada pestaña para ver los comandos, propósito y enlace directo a cada funcionalidad:
 
@@ -146,6 +146,7 @@ Despliega cada pestaña para ver los comandos, propósito y enlace directo a cad
 | **`/design-tokens-source`** | **Fuente Única de Identidad Visual:** crea, extrae, sincroniza con landing, edita y audita tokens de marca, neutros, HSL (`shadcn/ui`), tipografía, sidebar y MDES con contraste **WCAG 2.2 AA** real (`tokens-cli.mjs`). |
 | **`/screen-spec-architect`** | **Gestor Frontend SDD (#1):** genera propuestas y especificaciones completas de pantalla (`SCR-XXX`) agrupadas por módulo a partir de `routes-map.json`, `RF`, `CU` y RBAC (`docs/frontend/modulos/<modulo>.md`) listas para desarrollo Frontend-First (`screens-cli.mjs`). |
 | **`/screen-designer-sdd`** | **Gestor Frontend SDD (#2 — UI-STD-001):** diseña cada pantalla en 3 niveles (`00_relacional.md`, `#frontend` → `01_frontend.md`, `#backend`, `#integraciones`) con componentes `CMP-XXX` alineados a la librería UI real (`PrimeReact`/`shadcn`/`PrimeNG`/`MUI`/`Vuetify`), métricas Base-8/WCAG/Nielsen y verificación documental (`screen-designer-cli.mjs`). |
+| **`/screen-builder-sdd`** | **Gestor Frontend SDD (#3 — Constructor Multi-Agente):** programa las pantallas reales Frontend-First a partir de `00_relacional.md` + `01_frontend.md`, respetando `design-tokens.json` (cero hex), la librería UI real, 5 estados UI, WCAG 2.2 AA y adaptadores DTO listos para backend (`screen-builder-cli.mjs`). |
 | **`/routes-architect`** | **Fuente Única de Rutas, Endpoints y Errores:** planea desde RFs/Plan Maestro, extrae del código (Next.js/Angular/Vue + Express/NestJS/FastAPI/Django + WS), genera `CATALOGO_RUTAS.md` con Mermaid y audita ambigüedades OpenAPI, RBAC y rutas de error (`routes-cli.mjs`). |
 | **`/busqueda`** | **Estándar Técnico Integral de SEO & AI Search (GEO):** absorbe `routes-map.json`, `design-tokens.json` y `scope.json` para configurar/auditar metadatos, `canonical`, `robots.txt`, `sitemap.xml`, `JSON-LD`, `manifest.webmanifest`, aislamiento público/privado, madurez `L0–L3`, sonda Soft-404 y puntuación 0–100 (`seo-cli.mjs`). |
 | **`/landing-page-optimization-engineering`** | **Ingeniería de Optimización de Landing Pages (`F0–F10` + `GATE 1`):** presupuestos `strict`/`balanced`/`flexible`, auditoría de activos/imágenes/fuentes/scripts, Árbol KPI, CRO, puente directo con `/busqueda` (SEO), comparativa antes/después y `lighthouserc.json` (`landing-opt-cli.mjs`). |
@@ -237,7 +238,7 @@ Incluye las 22 skills oficiales de Cloudflare: `cloudflare`, `workers-best-pract
 developer-autopilot-skills/
 ├── .claude/
 │   ├── landing-design/            # Configuración de scope y evidencias visuales
-│   └── skills/                    # Directorio unificado de las 37 skills
+│   └── skills/                    # Directorio unificado de las 38 skills
 │       ├── iniciar-toolkit/
 │       ├── motion-design-engineer/
 │       ├── system-state-screens/

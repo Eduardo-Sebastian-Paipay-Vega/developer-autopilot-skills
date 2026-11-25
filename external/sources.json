@@ -8,9 +8,9 @@
       "path": "external/cloudflare-skills",
       "skillsSubdir": "skills",
       "readOnly": true,
-      "lastCommit": "5108325ecceabc899c761e07aa617b09c02445ee",
-      "lastCommitDate": "2026-11-17 07:55:49 -0800",
-      "skillCount": 22
+      "lastCommit": "ff191de7d903788eceaf516a514ae7d3b56b924a",
+      "lastCommitDate": "2026-11-24 09:10:12 -0800",
+      "skillCount": 24
     }
   ]
 }

@@ -416,6 +416,11 @@ def main():
     db_cfg.setdefault("dictionary_md", "docs/bd/DICCIONARIO_BD.md")
     db_cfg.setdefault("history_md", "docs/bd/HISTORIAL_CAMBIOS_BD.md")
 
+    fe_cfg = config_data.setdefault("frontend_specs", {})
+    fe_cfg.setdefault("dir", "docs/frontend")
+    fe_cfg.setdefault("spec_file", "docs/frontend/screens-spec.json")
+    fe_cfg.setdefault("index_md", "docs/frontend/00_INDICE_PANTALLAS.md")
+
     config_file.write_text(json.dumps(config_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"✅ Archivo de configuración generado: {config_file.name}")
 
@@ -430,6 +435,7 @@ def main():
         print("  ✓ /frontend-review          ─ Auditoría de componentes (" + info["frontend"] + ")")
         print("  ✓ /enterprise-sidebar       ─ Sidebar empresarial (260/68px, Flyout, RBAC, WCAG 2.2 AA)")
         print("  ✓ /design-tokens-source     ─ Fuente única de identidad visual (colores, HSL, WCAG 2.2 AA, MDES)")
+        print("  ✓ /screen-spec-architect    ─ Gestor Frontend SDD: propuestas y specs de pantalla por ruta/módulo/RF/CU")
         print("  ✓ /responsividad            ─ Optimización móvil")
         print("  ✓ /motion-design-engineer   ─ Animaciones e ilustraciones SVG+CSS+JS (MDES)")
         print("  ✓ /system-state-screens     ─ Pantallas de estado, errores 4xx/5xx, offline y rutas")

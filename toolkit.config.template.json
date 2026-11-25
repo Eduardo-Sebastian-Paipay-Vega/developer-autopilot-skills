@@ -72,5 +72,10 @@
     "schema_file": "docs/bd/db-schema.json",
     "dictionary_md": "docs/bd/DICCIONARIO_BD.md",
     "history_md": "docs/bd/HISTORIAL_CAMBIOS_BD.md"
+  },
+  "frontend_specs": {
+    "dir": "docs/frontend",
+    "spec_file": "docs/frontend/screens-spec.json",
+    "index_md": "docs/frontend/00_INDICE_PANTALLAS.md"
   }
 }

@@ -1,6 +1,6 @@
 # 📖 Manual de Uso del Usuario — Developer Autopilot Skills
 
-Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **35 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
+Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **36 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
 
 ---
 
@@ -98,6 +98,11 @@ En el chat de tu agente de IA, escribe:
 * **Para qué sirve:** Fuente única de verdad de todos los tokens visuales (identidad de marca, neutros, estados, conversión automática Hex→HSL para `shadcn/ui`, overrides aislados de landing, tipografía, sidebar y puente `[data-motion-theme="brand"]` para MDES). Su CLI (`autopilot tokens iniciar|extraer|sincronizar-landing|generar|auditar`) verifica contraste **WCAG 2.2 AA** real y detecta tokens duplicados y hex sueltos en componentes.
 * **Ejemplo de prompt:**
   > *"/design-tokens-source extrae todos los tokens actuales de este frontend, genera design-tokens.json + docs/diseno/DESIGN_TOKENS.md y audita contraste WCAG y hex sueltos."*
+
+### `/screen-spec-architect` *(Gestor Frontend — Herramienta #1)*
+* **Para qué sirve:** Genera y mantiene la propuesta y especificación técnica SDD de cada pantalla (`SCR-XXX`) agrupada por módulo a partir de `routes-map.json`, `RF-XX`, `CU-XX`, roles RBAC y `design-tokens.json`, lista para programación Frontend-First (`autopilot pantallas iniciar|sincronizar|generar|auditar`).
+* **Ejemplo de prompt:**
+  > *"/screen-spec-architect toma todas nuestras rutas definidas y el Plan Maestro, genera las especificaciones SDD por módulo en docs/frontend/modulos/ con layout, componentes, validaciones, estados UI y criterios de aceptación."*
 
 ### `/routes-architect`
 * **Para qué sirve:** Fuente única de verdad de **todas las rutas del sistema** (Frontend por grupos/módulos/RF/RBAC, Backend REST, Microservicios, WebSockets, pantallas de error/estado, interceptores HTTP, logs y discrepancias OpenAPI). Funciona tanto **planeado desde documentación** (`plan-maestro.md` / RFs / SDDs) como **extrayendo del código real** (`autopilot rutas iniciar|extraer|generar|auditar`).

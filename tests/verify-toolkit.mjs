@@ -244,9 +244,11 @@ try {
   check('Integración: reglas Cursor generadas (.cursor/rules/developer-autopilot.mdc)', fs.existsSync(cursorRulesFile));
 
   const manifestObj = JSON.parse(fs.readFileSync(manifestFile, 'utf8'));
-  const expectedWithExt = fs.existsSync(path.join(REPO_ROOT, 'external', 'cloudflare-skills', 'skills'))
-    ? count + 22
-    : count;
+  const extSkillsDir = path.join(REPO_ROOT, 'external', 'cloudflare-skills', 'skills');
+  const extCount = fs.existsSync(extSkillsDir)
+    ? fs.readdirSync(extSkillsDir, { withFileTypes: true }).filter((e) => e.isDirectory()).length
+    : 0;
+  const expectedWithExt = count + extCount;
   check(`Integración: ${expectedWithExt} skills instaladas en Claude y Codex`,
     manifestObj.skillCount === expectedWithExt
     && fs.existsSync(path.join(claudeSkillsDir, 'motion-design-engineer', 'SKILL.md'))
@@ -606,6 +608,41 @@ try {
     blockedBeforePlan === true && blockedSecretLeak === true);
   check('Integración cl-flare-cli.mjs: init crea los 7 docs/cloudflare/*.md y verify --strict aprueba configuración limpia',
     cfVerifyOk.status.planReadyForDeploy === true && cfVerifyOk.errors.length === 0);
+
+  // 7.13 Prueba real de screen-spec-architect/scripts/screens-cli.mjs (init -> generate -> sync -> audit)
+  const scrDir = path.join(tmpRoot, 'screens-test-app');
+  fs.mkdirSync(path.join(scrDir, 'docs', 'arquitectura'), { recursive: true });
+  fs.mkdirSync(path.join(scrDir, 'docs', 'planeacion'), { recursive: true });
+  fs.writeFileSync(path.join(scrDir, 'docs', 'planeacion', 'plan-maestro.md'), '# Plan\n| RF-01 | Login |\n| CU-SEG-01 | Iniciar sesión |\n', 'utf8');
+  fs.writeFileSync(path.join(scrDir, 'docs', 'arquitectura', 'routes-map.json'), JSON.stringify({
+    project: 'Demo SDD',
+    frontendRoutes: [
+      { path: '/login', group: 'auth', module: 'autenticacion', rf: ['RF-01'], roles: ['publico'], purpose: 'Inicio de sesión' },
+      { path: '/intranet/usuarios', group: 'internal', module: 'usuarios', rf: ['RF-02'], roles: ['admin'], purpose: 'Gestión de usuarios' },
+    ],
+  }, null, 2), 'utf8');
+
+  const scrScript = path.join(SKILLS_DIR, 'screen-spec-architect', 'scripts', 'screens-cli.mjs');
+  execFileSync(process.execPath, [scrScript, 'init', '--dir', scrDir], { stdio: 'pipe' });
+  execFileSync(process.execPath, [scrScript, 'generate', '--dir', scrDir], { stdio: 'pipe' });
+
+  // Agregar nueva ruta en routes-map.json y comprobar que sync la absorbe
+  const updatedRoutes = JSON.parse(fs.readFileSync(path.join(scrDir, 'docs', 'arquitectura', 'routes-map.json'), 'utf8'));
+  updatedRoutes.frontendRoutes.push({ path: '/intranet/reportes', group: 'internal', module: 'reportes', rf: ['RF-03'], roles: ['admin'], purpose: 'Reportes' });
+  fs.writeFileSync(path.join(scrDir, 'docs', 'arquitectura', 'routes-map.json'), JSON.stringify(updatedRoutes, null, 2), 'utf8');
+
+  const syncRes = JSON.parse(execFileSync(process.execPath, [scrScript, 'sync', '--dir', scrDir, '--json'], { encoding: 'utf8' }));
+  execFileSync(process.execPath, [scrScript, 'generate', '--dir', scrDir], { stdio: 'pipe' });
+  const scrAudit = JSON.parse(execFileSync(process.execPath, [scrScript, 'audit', '--dir', scrDir, '--strict', '--json'], { encoding: 'utf8' }));
+
+  check('Integración screens-cli.mjs: siembra pantallas desde routes-map.json, sincroniza nuevas rutas y genera docs por módulo',
+    syncRes.addedCount === 1
+    && syncRes.totalScreens === 3
+    && fs.existsSync(path.join(scrDir, 'docs', 'frontend', '00_INDICE_PANTALLAS.md'))
+    && fs.existsSync(path.join(scrDir, 'docs', 'frontend', 'modulos', 'autenticacion.md'))
+    && fs.existsSync(path.join(scrDir, 'docs', 'frontend', 'modulos', 'reportes.md')));
+  check('Integración screens-cli.mjs: auditoría logra 100% cobertura de rutas y pasa --strict',
+    scrAudit.routeCoveragePct === 100 && scrAudit.errors.length === 0);
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });
 }

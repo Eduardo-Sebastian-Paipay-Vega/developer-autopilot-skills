@@ -244,6 +244,13 @@ function buildFrontendMd(screen, project, cat) {
     '- **Densidad:** Estándar (inputs `40px`, filas tabla `44–48px`, fuente inputs móvil `≥16px` para evitar zoom iOS)',
     `- **Librería UI autorizada:** **${cat.label}** (prohibido mezclar librerías equivalentes en la misma vista)`,
     '',
+    '### Decisiones Autónomas de Diseño (Justificación UI-STD-001)',
+    '| Dimensión | Decisión Autónoma | Alternativa Descartada | Justificación Técnica (Tarea / Volumen / RF) |',
+    '| :--- | :--- | :--- | :--- |',
+    `| **Tipología** | ${typology} | Pantalla genérica sin arquetipo | Alineada al flujo operativo y grupo \`${screen.group}\` (${rfList}) |`,
+    '| **Densidad** | Estándar (`40–48px`) | Compacta / Confortable | Equilibrio entre legibilidad, accesibilidad táctil y densidad operativa |',
+    `| **Librería UI** | ${cat.label} | Controles ad-hoc | Consistencia total con \`toolkit.config.json → stack.ui_libraries\` |`,
+    '',
     '## 2. Inventario de Componentes de la Pantalla (Trazados a RF)',
     '| ID | Componente Canónico | Componente Real (`' + cat.label + '`) | Variante | RF / Función | Obligatorio |',
     '| :---: | :--- | :--- | :--- | :--- | :---: |',
@@ -415,6 +422,9 @@ function cmdVerify(root, strict, asJson) {
       }
       if (!feTxt.includes(cat.label)) {
         warnings.push(`${s.id} (${slug}): 01_frontend.md no menciona explícitamente la librería UI del proyecto (${cat.label}).`);
+      }
+      if (!/Decisiones Aut[oó]nomas/i.test(feTxt)) {
+        warnings.push(`${s.id} (${slug}): 01_frontend.md no incluye tabla de Decisiones Autónomas de Diseño.`);
       }
       for (const reqWord of ['Loading', 'Empty', 'Error', 'WCAG']) {
         if (!new RegExp(reqWord, 'i').test(feTxt)) {

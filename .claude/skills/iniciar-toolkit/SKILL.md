@@ -100,6 +100,7 @@ Una vez inicializado el proyecto con esta skill, las demás herramientas convive
 | **Diseñar o reorganizar el sidebar empresarial con RBAC** | `/enterprise-sidebar` |
 | **Centralizar, extraer o editar tokens de identidad visual** | `/design-tokens-source` |
 | **Proponer y documentar pantallas SDD por ruta, módulo, RF y CU** | `/screen-spec-architect` |
+| **Diseñar cada pantalla y sus componentes UI (`00_relacional` + `01_frontend`)** | `/screen-designer-sdd` |
 | **Planear, extraer o auditar todas las rutas FE/API/WS y errores** | `/routes-architect` |
 | **Implementar o auditar SEO técnico integral y GEO (AI Search)** | `/busqueda` |
 | **Optimizar y verificar rendimiento, activos, CRO y CWV de una landing** | `/landing-page-optimization-engineering` |

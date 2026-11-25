@@ -1,6 +1,6 @@
 # 📖 Manual de Uso del Usuario — Developer Autopilot Skills
 
-Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **36 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
+Este manual está diseñado para que cualquier desarrollador aproveche al máximo las **37 skills** del kit en su día a día, organizado por **pestañas desplegables por funcionalidad**.
 
 ---
 
@@ -103,6 +103,11 @@ En el chat de tu agente de IA, escribe:
 * **Para qué sirve:** Genera y mantiene la propuesta y especificación técnica SDD de cada pantalla (`SCR-XXX`) agrupada por módulo a partir de `routes-map.json`, `RF-XX`, `CU-XX`, roles RBAC y `design-tokens.json`, lista para programación Frontend-First (`autopilot pantallas iniciar|sincronizar|generar|auditar`).
 * **Ejemplo de prompt:**
   > *"/screen-spec-architect toma todas nuestras rutas definidas y el Plan Maestro, genera las especificaciones SDD por módulo en docs/frontend/modulos/ con layout, componentes, validaciones, estados UI y criterios de aceptación."*
+
+### `/screen-designer-sdd` *(Gestor Frontend — Herramienta #2)*
+* **Para qué sirve:** Diseña en detalle **cada pantalla** con documentos independientes (`00_relacional.md` + `01_frontend.md` en nivel `#frontend`, más `#backend` y `#integraciones`), aplicando el estándar **UI-STD-001** (Base-8, densidad, 6 estados de input, 5 estados de datos, validación `onBlur`, WCAG 2.2 AA), alineando cada componente `CMP-XXX` a la librería UI real (`PrimeReact`, `shadcn/ui`, `PrimeNG`, `MUI`, `Vuetify`) y comprobando documentalmente que cada componente cumple sus `RF`/`CU` (`autopilot disenar generar|verificar --strict`).
+* **Ejemplo de prompt:**
+  > *"/screen-designer-sdd #frontend diseña cada pantalla en docs/frontend/pantallas/ alineada a nuestra librería UI real, genera 00_relacional.md y 01_frontend.md con fichas CMP-XXX y comprueba documentalmente con autopilot disenar verificar --strict."*
 
 ### `/routes-architect`
 * **Para qué sirve:** Fuente única de verdad de **todas las rutas del sistema** (Frontend por grupos/módulos/RF/RBAC, Backend REST, Microservicios, WebSockets, pantallas de error/estado, interceptores HTTP, logs y discrepancias OpenAPI). Funciona tanto **planeado desde documentación** (`plan-maestro.md` / RFs / SDDs) como **extrayendo del código real** (`autopilot rutas iniciar|extraer|generar|auditar`).

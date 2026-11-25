@@ -436,6 +436,7 @@ def main():
         print("  ✓ /enterprise-sidebar       ─ Sidebar empresarial (260/68px, Flyout, RBAC, WCAG 2.2 AA)")
         print("  ✓ /design-tokens-source     ─ Fuente única de identidad visual (colores, HSL, WCAG 2.2 AA, MDES)")
         print("  ✓ /screen-spec-architect    ─ Gestor Frontend SDD: propuestas y specs de pantalla por ruta/módulo/RF/CU")
+        print("  ✓ /screen-designer-sdd      ─ Diseñador UI por pantalla (#frontend/#backend/#integraciones, UI-STD-001)")
         print("  ✓ /responsividad            ─ Optimización móvil")
         print("  ✓ /motion-design-engineer   ─ Animaciones e ilustraciones SVG+CSS+JS (MDES)")
         print("  ✓ /system-state-screens     ─ Pantallas de estado, errores 4xx/5xx, offline y rutas")

@@ -65,4 +65,5 @@ Ejecuta `autopilot pantallas auditar --strict` para comprobar:
 - 0 rutas de `routes-map.json` sin documentación de pantalla.
 - 0 pantallas internas sin `RF`/`CU` ni roles RBAC.
 - 0 pantallas sin componentes, estados UI ni criterios de aceptación.
+- **Siguiente paso de la suite (Herramienta #2):** una vez aprobada la estructura por módulos, ejecuta `/screen-designer-sdd` (`autopilot disenar generar --level frontend && autopilot disenar verificar --strict`) para generar el paquete documental detallado por cada pantalla (`00_relacional.md` + `01_frontend.md`) alineado a la librería UI real y al estándar `UI-STD-001`.
 - **Compuerta:** no comenzar a codificar pantallas masivamente hasta que el usuario apruebe la propuesta documental del módulo objetivo.

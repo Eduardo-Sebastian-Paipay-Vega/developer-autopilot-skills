@@ -158,6 +158,7 @@ function printHelp() {
   console.log('  autopilot bd                (db)          Guardián activo BD: extraer|registrar|generar|auditar (ER, diccionario, diff)');
   console.log('  autopilot cf                (cl-flare)    Orquestador Cloudflare: estado|iniciar|verificar (guardrails #crear/#subida)');
   console.log('  autopilot pantallas         (screens)     Gestor Frontend SDD: iniciar|sincronizar|generar|auditar (SCR-XXX por módulo)');
+  console.log('  autopilot disenar           (sdd-ui)      Diseñador UI por pantalla: generar|verificar (00_relacional + 01_frontend UI-STD-001)');
   console.log('  autopilot externas          (external)    Comprueba/actualiza skills externas read-only (Cloudflare) [--check]');
   console.log('  autopilot nueva-skill       (new-skill)   Crea nueva skill validada en la fuente única');
   console.log('  autopilot verificar         (verify)      Ejecuta la suite completa de verificación');
@@ -215,6 +216,10 @@ function main() {
     const hasDir = rest.includes('--dir');
     const scrArgs = hasDir ? rest : [...rest, '--dir', CALLER_CWD];
     runNode('.claude/skills/screen-spec-architect/scripts/screens-cli.mjs', scrArgs, CALLER_CWD);
+  } else if (cmd === 'disenar' || cmd === 'design-screen' || cmd === 'sdd-ui') {
+    const hasDir = rest.includes('--dir');
+    const desArgs = hasDir ? rest : [...rest, '--dir', CALLER_CWD];
+    runNode('.claude/skills/screen-designer-sdd/scripts/screen-designer-cli.mjs', desArgs, CALLER_CWD);
   } else if (cmd === 'external' || cmd === 'externas') {
     runNode('scripts/sync-external.mjs', rest);
   } else if (cmd === 'new-skill' || cmd === 'nueva-skill') {

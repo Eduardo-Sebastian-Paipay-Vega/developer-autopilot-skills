@@ -643,6 +643,26 @@ try {
     && fs.existsSync(path.join(scrDir, 'docs', 'frontend', 'modulos', 'reportes.md')));
   check('Integración screens-cli.mjs: auditoría logra 100% cobertura de rutas y pasa --strict',
     scrAudit.routeCoveragePct === 100 && scrAudit.errors.length === 0);
+
+  // 7.14 Prueba real de screen-designer-sdd/scripts/screen-designer-cli.mjs (alineado a PrimeReact + verify --strict)
+  fs.writeFileSync(path.join(scrDir, 'toolkit.config.json'), JSON.stringify({
+    project: { name: 'Demo SDD' },
+    stack: { frontend: 'React', ui_libraries: ['PrimeReact'], css_framework: 'Tailwind CSS' },
+  }, null, 2), 'utf8');
+  const desScript = path.join(SKILLS_DIR, 'screen-designer-sdd', 'scripts', 'screen-designer-cli.mjs');
+  execFileSync(process.execPath, [desScript, 'generate', '--dir', scrDir, '--level', 'frontend'], { stdio: 'pipe' });
+  const desVerify = JSON.parse(execFileSync(process.execPath, [desScript, 'verify', '--dir', scrDir, '--strict', '--json'], { encoding: 'utf8' }));
+  const loginFeMd = fs.readFileSync(path.join(scrDir, 'docs', 'frontend', 'pantallas', 'login', '01_frontend.md'), 'utf8');
+  const loginRelMd = fs.readFileSync(path.join(scrDir, 'docs', 'frontend', 'pantallas', 'login', '00_relacional.md'), 'utf8');
+
+  check('Integración screen-designer-cli.mjs: genera 00_relacional.md y 01_frontend.md alineado a PrimeReact (InputText/Password)',
+    loginRelMd.includes('RF-01')
+    && loginFeMd.includes('PrimeReact')
+    && loginFeMd.includes('InputText')
+    && loginFeMd.includes('Password')
+    && loginFeMd.includes('CMP-001'));
+  check('Integración screen-designer-cli.mjs: verify --strict comprueba cumplimiento documental de todas las pantallas',
+    desVerify.verifiedScreens === 3 && desVerify.errors.length === 0);
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });
 }
